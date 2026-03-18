@@ -4,7 +4,7 @@
  * We prioritize duration over distance to create a "whisper" entrance.
  */
 
-export const MINT_EASE = [0.19, 1, 0.22, 1]; // Editorial Ease
+export const MINT_EASE = [0.19, 1, 0.22, 1] as const; // Editorial Ease
 
 export const revealSubtle = {
   hidden: { 
