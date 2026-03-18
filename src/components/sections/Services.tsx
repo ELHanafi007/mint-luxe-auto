@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Section, Container, Grid } from '@/components/primitives/Layout';
 import styles from './Services.module.css';
 
 const services = [
@@ -20,13 +21,13 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className={styles.services}>
-      <div className="container">
-        <div className={styles.grid}>
+    <Section id="services" className={styles.services}>
+      <Container>
+        <Grid>
           {services.map((service, index) => (
             <motion.div 
               key={service.title}
-              className={styles.serviceCard}
+              className={`${styles.serviceCard} col4`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -37,8 +38,8 @@ export default function Services() {
               <p className={styles.serviceDescription}>{service.description}</p>
             </motion.div>
           ))}
-        </div>
-      </div>
-    </section>
+        </Grid>
+      </Container>
+    </Section>
   );
 }

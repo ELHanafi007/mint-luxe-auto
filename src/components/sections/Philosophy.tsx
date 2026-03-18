@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { Section, Container } from '@/components/primitives/Layout';
+import { revealSubtle, MINT_EASE } from '@/lib/motion-primitives';
 import styles from './Philosophy.module.css';
 
 export default function Philosophy() {
@@ -12,44 +14,56 @@ export default function Philosophy() {
     offset: ['start end', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  const y = useTransform(scrollYProgress, [0, 1], [-50, 50]); // Subliminal parallax
 
   return (
-    <section id="philosophy" className={styles.philosophy} ref={containerRef}>
-      <div className="container">
-        <div className={styles.content}>
-          <motion.p 
+    <Section ref={containerRef} id="philosophy" className={styles.philosophy}>
+      <Container>
+        {/* Isolated Emotional Quote */}
+        <div className={styles.quoteWrapper}>
+          <motion.h2 
             className={styles.text}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={revealSubtle}
           >
-            "True luxury is found in the silence of perfection. At Mint, we don't just sell cars; we curate the extraordinary, ensuring every detail reflects the standard of 'Mint' condition."
-          </motion.p>
-          <motion.p 
+            &ldquo;True luxury is found in the silence of perfection. At Mint, we don&apos;t just sell cars; we curate the extraordinary, ensuring every detail reflects the standard of &apos;Mint&apos; condition.&rdquo;
+          </motion.h2>
+          <motion.span 
             className={styles.author}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.5 }}
+            transition={{ duration: 1.5, delay: 0.8, ease: MINT_EASE }}
           >
             The Founding Principle
-          </motion.p>
+          </motion.span>
         </div>
 
+        {/* Editorial Asymmetrical Image */}
         <div className={styles.imageSection}>
-          <motion.div style={{ y }} className={styles.parallaxContainer}>
-            <Image 
-              src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070" 
-              alt="Luxury interior" 
-              width={2070}
-              height={1000}
-              className={styles.image}
-            />
+          <motion.div 
+            className={styles.imageFrame}
+            initial={{ clipPath: 'inset(100% 0 0 0)' }}
+            whileInView={{ clipPath: 'inset(0 0 0 0)' }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.8, ease: MINT_EASE }}
+          >
+            <motion.div style={{ y }} className={styles.parallaxContainer}>
+              <Image 
+                src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070" 
+                alt="Luxury interior" 
+                width={2070}
+                height={1000}
+                priority
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className={styles.image}
+              />
+            </motion.div>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

@@ -4,11 +4,8 @@
   width: 100%;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: #000;
+  align-items: center; /* Move from center-center to center-left aligned content */
+  background-color: var(--mint-obsidian);
 }
 
 .background {
@@ -20,78 +17,114 @@
   z-index: 0;
 }
 
-.background img {
+.image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.6;
+  opacity: 0.5; /* Darker for more cinematic feel */
+  filter: grayscale(20%); /* Editorial desaturation */
 }
 
 .background::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+  inset: 0;
+  background: linear-gradient(
+    70deg, 
+    rgba(5, 5, 5, 0.9) 0%, 
+    rgba(5, 5, 5, 0.4) 40%, 
+    rgba(5, 5, 5, 0) 100%
+  );
 }
 
 .content {
   position: relative;
   z-index: 1;
-  padding: 0 var(--spacing-lg);
-}
-
-.title {
-  font-size: clamp(3rem, 10vw, 8rem);
-  text-transform: uppercase;
-  line-height: 0.9;
-  margin-bottom: var(--spacing-lg);
+  max-width: 900px;
+  padding: 0 var(--grid-margin);
 }
 
 .subtitle {
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  letter-spacing: 0.4em;
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--tracking-extra);
   text-transform: uppercase;
-  color: var(--gray-mid);
-  margin-bottom: var(--spacing-xl);
+  color: var(--mint-ash);
+  margin-bottom: var(--space-sm);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-display);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-md);
+  color: var(--mint-white);
+}
+
+.ctaWrapper {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
 }
 
 .cta {
   display: inline-block;
-  padding: var(--spacing-md) var(--spacing-xl);
-  border: 1px solid var(--foreground);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid rgba(248, 248, 248, 0.2);
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  transition: all var(--transition-fast);
+  transition: all var(--mint-transition-med);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--mint-white);
+  transition: left var(--mint-transition-med);
+  z-index: -1;
 }
 
 .cta:hover {
-  background-color: var(--foreground);
-  color: var(--background);
+  color: var(--mint-obsidian);
+}
+
+.cta:hover::before {
+  left: 0;
 }
 
 .scrollIndicator {
   position: absolute;
-  bottom: var(--spacing-xl);
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: var(--space-md);
+  right: var(--grid-margin); /* Move to corner for editorial feel */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--space-xs);
+}
+
+.scrollText {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: var(--tracking-extra);
+  text-transform: uppercase;
+  color: var(--mint-ash);
+  writing-mode: vertical-rl;
 }
 
 .scrollLine {
   width: 1px;
-  height: 60px;
-  background-color: rgba(255,255,255,0.2);
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.1);
   position: relative;
-  overflow: hidden;
 }
 
 .scrollLineActive {
@@ -99,19 +132,19 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-  animation: scrollAnim 2s infinite var(--transition-smooth);
+  height: 40px;
+  background: var(--mint-white);
+  animation: scrollAnim 2.5s infinite var(--mint-ease);
 }
 
 @keyframes scrollAnim {
   0% { transform: translateY(-100%); }
-  50% { transform: translateY(0); }
-  100% { transform: translateY(100%); }
+  50% { transform: translateY(100%); }
+  100% { transform: translateY(200%); }
 }
 
 @media (max-width: 768px) {
-  .title {
-    font-size: 4rem;
+  .content {
+    padding: 0 var(--space-sm);
   }
 }

@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-lg) var(--spacing-xl);
+  padding: var(--space-lg) var(--space-xl);
   z-index: 1000;
   mix-blend-mode: difference;
   color: #ffffff; /* Contrast against background */
@@ -22,7 +22,7 @@
 
 .navLinks {
   display: flex;
-  gap: var(--spacing-xl);
+  gap: var(--space-xl);
 }
 
 .navLink {
@@ -56,7 +56,7 @@
 
 @media (max-width: 768px) {
   .navbar {
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--space-md) var(--space-lg);
   }
   
   .navLinks {

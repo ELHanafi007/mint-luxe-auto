@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { MINT_EASE } from '@/lib/motion-primitives';
 import styles from './Navbar.module.css';
 
 const navLinks = [
@@ -17,7 +18,7 @@ export default function Navbar() {
       className={styles.navbar}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, ease: [0.65, 0, 0.35, 1], delay: 0.5 }}
+      transition={{ duration: 1.2, ease: MINT_EASE, delay: 3 }}
     >
       <div className={styles.logo}>
         <Link href="/">MINT.LUXE</Link>

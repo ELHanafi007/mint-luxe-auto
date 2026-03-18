@@ -1,5 +1,5 @@
 .footer {
-  padding: var(--spacing-2xl) 0;
+  padding: var(--space-xl) 0;
   background-color: #000;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -8,7 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--space-xl);
 }
 
 .title {
@@ -40,19 +40,19 @@
 
 .links {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: var(--space-lg);
 }
 
 @media (max-width: 768px) {
   .top {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-xl);
+    gap: var(--space-xl);
   }
   
   .bottom {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-lg);
+    gap: var(--space-lg);
   }
 }

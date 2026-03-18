@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MINT. LUXE. AUTO.
+
+A bespoke automotive concierge and boutique showroom experience. Curating the world's most exceptional vehicles with an editorial, high-motion aesthetic.
+
+## Architecture
+
+Built with a "Subliminal Motion" philosophy, prioritizing restraint and refined pacing to evoke a sense of luxury.
+
+### Tech Stack
+- **Framework**: [Next.js 16](https://nextjs.org) (App Router)
+- **Styling**: Vanilla CSS Modules with a custom Architectural Grid system
+- **Motion**: [Framer Motion](https://www.framer.com/motion/) with custom `MINT_EASE`
+- **Typography**: Inter (Sans) & Playfair Display (Serif)
+- **Smooth Scroll**: [Lenis](https://github.com/darkroomengineering/lenis)
+
+## Core Components
+
+- **Preloader**: 2.5s introduction sequence to set the editorial tone.
+- **Architectural Grid**: Standardized `Section`, `Container`, and `Grid` primitives for consistent spatial rhythm.
+- **Motion Primitives**: Reusable entrance and hover animations defined in `src/lib/motion-primitives.ts`.
+
+## Layout Structure
+
+- **Hero**: Staggered line-reveal title with cinematic background.
+- **Collection**: High-contrast grid featuring current vehicle inventory.
+- **Services**: Multi-column breakdown of concierge offerings.
+- **Philosophy**: Asymmetrical editorial section with parallax imagery.
+- **Inquiry**: Minimalist consultation form for high-intent leads.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Visit [http://localhost:3000](http://localhost:3000) to view the experience.

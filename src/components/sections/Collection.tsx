@@ -2,17 +2,17 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Section, Container } from '@/components/primitives/Layout';
 import { vehicles } from '@/data/vehicles';
 import styles from './Collection.module.css';
 
 export default function Collection() {
   return (
-    <section id="collection" className={styles.collection}>
-      <div className="container">
+    <Section id="collection" className={styles.collection}>
+      <Container>
         <header className={styles.header}>
           <motion.span 
-            className="text-muted" 
-            style={{ textTransform: 'uppercase', letterSpacing: '0.4em', fontSize: '0.7rem' }}
+            className="label-metadata" 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -21,7 +21,7 @@ export default function Collection() {
             Current Inventory
           </motion.span>
           <motion.h2 
-            style={{ fontSize: '3rem' }}
+            className={styles.sectionTitle}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -45,6 +45,7 @@ export default function Collection() {
                 src={vehicle.image} 
                 alt={vehicle.name}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className={styles.cardImage}
               />
               <div className={styles.cardOverlay}>
@@ -67,7 +68,7 @@ export default function Collection() {
             </motion.div>
           ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

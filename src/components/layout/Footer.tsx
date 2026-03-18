@@ -2,14 +2,15 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { Container } from '@/components/primitives/Layout';
 import styles from './Footer.module.css';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="inquiry" className={styles.footer}>
-      <div className="container">
+    <footer className={styles.footer}>
+      <Container>
         <div className={styles.top}>
           <motion.h2 
             className={styles.title}
@@ -38,7 +39,7 @@ export default function Footer() {
             <Link href="/linkedin">LinkedIn</Link>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }
