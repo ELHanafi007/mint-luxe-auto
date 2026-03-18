@@ -1,0 +1,91 @@
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --accent: #d4af37; /* Subtle Gold for accents, but mostly monochromatic */
+  --silver: #e5e5e5;
+  --gray-light: #f8f8f8;
+  --gray-mid: #888888;
+  --gray-dark: #1a1a1a;
+  
+  --spacing-unit: 8px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+  --spacing-xl: 64px;
+  --spacing-2xl: 128px;
+  
+  --transition-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --transition-fast: 0.3s var(--transition-smooth);
+  --transition-slow: 0.8s var(--transition-smooth);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+/* Custom selection color */
+::selection {
+  background-color: var(--silver);
+  color: var(--background);
+}
+
+/* Utility classes */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.text-muted {
+  color: var(--gray-mid);
+}
+
+.section-padding {
+  padding: var(--spacing-2xl) 0;
+}
