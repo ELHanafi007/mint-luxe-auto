@@ -84,8 +84,8 @@ export default function Collection() {
                     alt={vehicle.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className={vehicle.image.includes('carlogos.org') ? styles.cardLogo : styles.cardImage}
-                    unoptimized={!vehicle.image.includes('unsplash.com') && !vehicle.image.includes('ferrari.com')}
+                    className={styles.cardImage}
+                    unoptimized
                   />
                   <div className={styles.cardOverlay}>
                     <div className={styles.cardHeader}>
