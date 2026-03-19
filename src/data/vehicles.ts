@@ -22,7 +22,7 @@ export const vehicles: Vehicle[] = [
     brand: "Ferrari",
     name: "SF90 Stradale",
     year: 2023,
-    image: "https://media.ferrari.com/cdn-cgi/image/format=webp,width=1200/media/cms/vehicle/sf90-stradale/hero.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e4/2019_Ferrari_SF90_Stradale.jpg",
     price: "$625,000",
     specs: {
       engine: "4.0L V8 Hybrid",
@@ -36,7 +36,7 @@ export const vehicles: Vehicle[] = [
     brand: "Ferrari",
     name: "F8 Tributo",
     year: 2023,
-    image: "https://media.ferrari.com/cdn-cgi/image/format=webp,width=1200/media/cms/vehicle/f8-tributo/hero.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/13/2020_Ferrari_F8_Tributo_in_yellow%2C_front_right_%28Amagansett%29.jpg",
     price: "$280,000",
     specs: {
       engine: "3.9L V8",
@@ -50,7 +50,7 @@ export const vehicles: Vehicle[] = [
     brand: "Ferrari",
     name: "812 Superfast",
     year: 2023,
-    image: "https://media.ferrari.com/cdn-cgi/image/format=webp,width=1200/media/cms/vehicle/812-superfast/hero.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Ferrari_812_Superfast_IMG_0798.jpg",
     price: "$345,000",
     specs: {
       engine: "6.5L V12",
@@ -64,7 +64,7 @@ export const vehicles: Vehicle[] = [
     brand: "Ferrari",
     name: "LaFerrari",
     year: 2015,
-    image: "https://robbreport.com/wp-content/uploads/2013/03/ferrari-laferrari-1.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/LaFerrari_front.jpg",
     price: "$2,200,000",
     specs: {
       engine: "6.3L V12 Hybrid",
@@ -79,7 +79,7 @@ export const vehicles: Vehicle[] = [
     brand: "Lamborghini",
     name: "Aventador SVJ",
     year: 2023,
-    image: "https://robbreport.com/wp-content/uploads/2018/08/lamborghini-aventador-svj-1.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Lamborghini_Aventador_SVJ.jpg",
     price: "$520,000",
     specs: {
       engine: "6.5L V12",
@@ -93,7 +93,7 @@ export const vehicles: Vehicle[] = [
     brand: "Lamborghini",
     name: "Sian FKP 37",
     year: 2022,
-    image: "https://robbreport.com/wp-content/uploads/2019/09/lamborghini-sian-1.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/9/91/Lamborghini_Sian_at_IAA_2019_IMG_0332.jpg",
     price: "$3,600,000",
     specs: {
       engine: "6.5L V12 Hybrid",
@@ -107,7 +107,7 @@ export const vehicles: Vehicle[] = [
     brand: "Lamborghini",
     name: "Veneno",
     year: 2013,
-    image: "https://robbreport.com/wp-content/uploads/2013/03/lamborghini-veneno-1.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Lamborghini_Veneno_left_side.jpg",
     price: "$4,500,000",
     specs: {
       engine: "6.5L V12",
@@ -122,7 +122,7 @@ export const vehicles: Vehicle[] = [
     brand: "Porsche",
     name: "911 Turbo S",
     year: 2023,
-    image: "https://files.porsche.com/filestore/image/multimedia/none/992-1tus-modelimage-sideshot/model/391d9da2-3f0d-11eb-80d0-005056bbdc38/porsche-992-1tus-modelimage-sideshot.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/07/Porsche_992_Turbo_S_IMG_3352.jpg",
     price: "$230,000",
     specs: {
       engine: "3.7L Flat-6",
@@ -136,7 +136,7 @@ export const vehicles: Vehicle[] = [
     brand: "Porsche",
     name: "918 Spyder",
     year: 2015,
-    image: "https://robbreport.com/wp-content/uploads/2015/03/porsche-918-spyder-1.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/22/Porsche_918_Spyder_black.jpg",
     price: "$845,000",
     specs: {
       engine: "4.6L V8 Hybrid",
@@ -150,7 +150,7 @@ export const vehicles: Vehicle[] = [
     brand: "Porsche",
     name: "Carrera GT",
     year: 2006,
-    image: "https://robbreport.com/wp-content/uploads/2004/01/porsche-carrera-gt-1.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/53/Porsche_Carrera_GT_%28front%29.jpg",
     price: "$1,500,000",
     specs: {
       engine: "5.7L V10",
@@ -165,7 +165,7 @@ export const vehicles: Vehicle[] = [
     brand: "Mercedes",
     name: "AMG ONE",
     year: 2023,
-    image: "https://robbreport.com/wp-content/uploads/2022/06/mercedes-amg-one-1.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/05/2023_Mercedes_AMG_One.jpg",
     price: "$2,750,000",
     specs: {
       engine: "1.6L V6 Hybrid",
@@ -179,7 +179,7 @@ export const vehicles: Vehicle[] = [
     brand: "Mercedes",
     name: "AMG GT Black Series",
     year: 2021,
-    image: "https://robbreport.com/wp-content/uploads/2020/07/mercedes-amg-gt-black-series-1.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/7b/2021_Mercedes-AMG_GT_Black_Series.jpg",
     price: "$335,000",
     specs: {
       engine: "4.0L V8",
@@ -194,7 +194,7 @@ export const vehicles: Vehicle[] = [
     brand: "Aston Martin",
     name: "Valkyrie",
     year: 2021,
-    image: "https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&q=80&w=1000",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0e/AstonMartin_Valkyrie.jpg",
     price: "$3,200,000",
     specs: {
       engine: "6.5L V12 Hybrid",
@@ -208,7 +208,7 @@ export const vehicles: Vehicle[] = [
     brand: "Aston Martin",
     name: "Victor",
     year: 2020,
-    image: "https://robbreport.com/wp-content/uploads/2020/09/aston-martin-victor-1.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/c/c5/2020_Aston_Martin_Victor.jpg",
     price: "$1,500,000",
     specs: {
       engine: "7.3L V12",
@@ -223,7 +223,7 @@ export const vehicles: Vehicle[] = [
     brand: "Rolls Royce",
     name: "Spectre Black Badge",
     year: 2025,
-    image: "https://images.unsplash.com/photo-1631214524020-5e1839765171?auto=format&fit=crop&q=80&w=1000",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0d/2024_Rolls-Royce_Spectre.jpg",
     price: "$420,000",
     specs: {
       engine: "Electric",
@@ -238,7 +238,7 @@ export const vehicles: Vehicle[] = [
     brand: "Brabus",
     name: "900 Rocket Edition",
     year: 2021,
-    image: "https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&q=80&w=1000",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/21/Brabus_900_Rocket_Edition_IAA_2021_1X7A0145.jpg",
     price: "$575,000",
     specs: {
       engine: "4.5L V8",
