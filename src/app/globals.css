@@ -1,66 +1,51 @@
 :root {
-  /* --- 1. Refined Editorial Palette (The Obsidian Spectrum) --- */
-  --mint-obsidian: #050505;      /* Deepest base / Silent Background */
-  --mint-slate: #0D0D0D;         /* Surface 1 / Cards */
-  --mint-graphite: #1A1A1A;      /* Surface 2 / Borders & Dividers */
-  --mint-ash: #888888;           /* Muted secondary copy */
-  --mint-silver: #E5E5E5;        /* Tertiary copy / Metadata */
-  --mint-white: #F8F8F8;         /* Primary copy (Off-white for luxury) */
-  --mint-gold: #D4AF37;          /* High-intent Accent */
+  /* --- 1. The Obsidian Spectrum (High-Contrast Luxury) --- */
+  --mint-obsidian: #040404;      /* Pure, deep void */
+  --mint-slate: #0C0C0C;         /* Card Backgrounds */
+  --mint-graphite: #151515;      /* Dividers and Borders */
+  --mint-ash: #707070;           /* Muted text */
+  --mint-silver: #A0A0A0;        /* Secondary headers */
+  --mint-white: #FFFFFF;         /* Primary copy */
+  --mint-gold: #C5A059;          /* Refined Metallic Accent */
 
-  /* --- 2. Architectural Typography System --- */
-  
-  /* Fluid Font Sizes (Clamp) */
-  --font-size-display: clamp(4rem, 2rem + 10vw, 12rem);
-  --font-size-h1: clamp(2.5rem, 1.5rem + 6vw, 7rem);
-  --font-size-h2: clamp(1.75rem, 1.25rem + 4vw, 4rem);
-  --font-size-lg: clamp(1.125rem, 1rem + 1vw, 1.75rem);
-  --font-size-base: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
-  --font-size-sm: clamp(0.7rem, 0.65rem + 0.1vw, 0.8rem);
+  /* --- 2. Fluid Editorial Typography (Aggressive & Tight) --- */
+  --font-size-display: clamp(5rem, 4rem + 12vw, 15rem);
+  --font-size-h1: clamp(3rem, 2rem + 8vw, 9rem);
+  --font-size-h2: clamp(2rem, 1.5rem + 5vw, 5rem);
+  --font-size-lg: clamp(1.2rem, 1rem + 1.5vw, 2rem);
+  --font-size-base: clamp(1rem, 0.95rem + 0.4vw, 1.25rem);
+  --font-size-sm: 0.75rem;
 
-  /* Line Heights (The Vertical Rhythm) */
-  --leading-tight: 0.95;    /* Headlines */
-  --leading-snug: 1.15;     /* Subheads */
-  --leading-base: 1.65;     /* Body copy */
-  --leading-loose: 1.85;    /* Long-form editorial */
+  /* Line Heights & Tracking (The Editorial Feel) */
+  --leading-tight: 0.85;    /* For Display/H1 */
+  --leading-snug: 1.1;      /* For H2 */
+  --leading-base: 1.6;      /* For Body */
+  --tracking-tight: -0.05em; /* Tighter for large fonts */
+  --tracking-base: -0.01em;
+  --tracking-wide: 0.15em;
+  --tracking-extra: 0.5em;   /* For Metadata labels */
 
-  /* Letter Spacing (The Tracking) */
-  --tracking-tight: -0.04em; /* Large Serif Headlines */
-  --tracking-base: -0.01em;  /* Standard Serif */
-  --tracking-wide: 0.1em;    /* Sans-Serif Subheads */
-  --tracking-extra: 0.4em;   /* Metadata & Labels */
+  /* --- 3. Fluid Spacing System --- */
+  --space-unit: clamp(1.5rem, 1rem + 3vw, 5rem);
+  --space-xs: calc(var(--space-unit) * 0.5);
+  --space-sm: var(--space-unit);
+  --space-md: calc(var(--space-unit) * 2);
+  --space-lg: calc(var(--space-unit) * 4);
+  --space-xl: calc(var(--space-unit) * 6);
 
-  /* --- 3. Editorial Spacing System (Non-Linear) --- */
-  /* Purposefully exaggerated for visual impact and "breathing room" */
-  --space-micro: 4px;
-  --space-xxs: 12px;
-  --space-xs: 24px;   /* Cluster spacing */
-  --space-sm: 48px;   /* Element spacing */
-  --space-md: 96px;   /* Component spacing */
-  --space-lg: 192px;  /* Section vertical padding */
-  --space-xl: 288px;  /* Hero / Signature spacing */
+  /* --- 4. Architectural Grid Logic --- */
+  --grid-margin: clamp(2rem, 1rem + 5vw, 8rem);
+  --grid-gutter: clamp(1.5rem, 1rem + 2vw, 4rem);
+  --grid-max-width: 1800px;
 
-  /* --- 4. Subliminal Motion Primitives --- */
-  /* Longer durations, tighter translations for "whisper" effects */
-  --mint-ease: cubic-bezier(0.19, 1, 0.22, 1); /* Quicker start, long slow finish */
-  --mint-reveal-y: 15px; /* Subtle lift */
-  --mint-transition-slow: 1.6s var(--mint-ease);
-  --mint-transition-med: 1.0s var(--mint-ease);
-  --mint-transition-fast: 0.6s var(--mint-ease);
-
-  /* --- 5. Architectural Grid Logic --- */
-  --grid-columns: 12;
-  --grid-gutter: 48px;
-  --grid-max-width: 1600px;
-  --grid-margin: 64px;
-
-  /* Legacy Compatibility */
-  --background: var(--mint-obsidian);
-  --foreground: var(--mint-white);
-  --gray-mid: var(--mint-ash);
+  /* Transitions */
+  --mint-ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --transition-slow: 1.6s var(--mint-ease);
+  --transition-med: 0.8s var(--mint-ease);
+  --transition-fast: 0.4s var(--mint-ease);
 }
 
-/* --- Global Refinements --- */
+/* --- Global Foundation --- */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -73,15 +58,15 @@ html, body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: auto; /* Handled by Lenis */
+  overflow-x: hidden;
 }
 
 /* Typography Application */
-h1, h2, h3 {
+h1, h2, h3, .font-serif {
   font-family: var(--font-serif), serif;
   font-weight: 300;
-  line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
 }
 
 .label-metadata {
@@ -90,20 +75,26 @@ h1, h2, h3 {
   letter-spacing: var(--tracking-extra);
   text-transform: uppercase;
   color: var(--mint-ash);
+  display: block;
 }
 
 .body-editorial {
-  line-height: var(--leading-loose);
+  font-family: var(--font-sans), sans-serif;
   font-weight: 300;
+  line-height: var(--leading-base);
+  color: var(--mint-silver);
 }
 
-/* Selection */
-::selection {
-  background-color: var(--mint-white);
-  color: var(--mint-obsidian);
+/* Custom Scrollbar (Stealth) */
+::-webkit-scrollbar {
+  width: 4px;
 }
-
-/* Removed crosshair cursor for standard luxury interaction */
-button, a {
-  cursor: pointer;
+::-webkit-scrollbar-track {
+  background: var(--mint-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--mint-graphite);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mint-ash);
 }

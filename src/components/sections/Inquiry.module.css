@@ -1,12 +1,14 @@
 .inquiry {
   background-color: var(--mint-obsidian);
   position: relative;
+  border-top: 1px solid var(--mint-graphite);
 }
 
 .title {
-  font-size: var(--font-size-h1);
-  margin-top: var(--space-sm);
-  margin-bottom: var(--space-md);
+  font-size: var(--font-size-h2);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  color: var(--mint-white);
 }
 
 .description {
@@ -26,27 +28,28 @@
 .inputGroup {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xxs);
+  gap: var(--space-xs);
 }
 
 .label {
   font-family: var(--font-sans);
   font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  color: var(--mint-ash);
+  letter-spacing: var(--tracking-extra);
+  color: var(--mint-gold);
 }
 
 .input, .textarea {
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: var(--space-xxs) 0;
+  border-bottom: 1px solid var(--mint-graphite);
+  padding: var(--space-xs) 0;
   color: var(--mint-white);
   font-family: var(--font-serif);
-  font-size: 1.25rem;
-  transition: border-color var(--mint-transition-fast);
+  font-size: 1.5rem;
+  transition: border-color var(--transition-med);
   outline: none;
+  border-radius: 0;
 }
 
 .input:focus, .textarea:focus {
@@ -54,7 +57,7 @@
 }
 
 .textarea {
-  height: 100px;
+  height: 120px;
   resize: none;
 }
 
@@ -69,7 +72,7 @@
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
   cursor: pointer;
-  transition: all var(--mint-transition-med);
+  transition: all var(--transition-med);
   margin-top: var(--space-sm);
 }
 
@@ -79,7 +82,7 @@
 }
 
 @media (max-width: 1024px) {
-  .title {
-    font-size: var(--font-size-h2);
+  .input, .textarea {
+    font-size: 1.25rem;
   }
 }
