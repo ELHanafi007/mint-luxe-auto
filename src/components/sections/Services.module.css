@@ -47,6 +47,19 @@
   width: 100%;
 }
 
+.reversed .content {
+  grid-column: 2;
+}
+
+.reversed .imageContainer {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.reversed .overlay {
+  background: linear-gradient(to left, rgba(0,0,0,0.4) 0%, transparent 40%);
+}
+
 .content {
   display: flex;
   flex-direction: column;

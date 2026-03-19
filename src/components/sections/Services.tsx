@@ -79,7 +79,7 @@ function ServiceCard({ service, index }: { service: any; index: number }) {
       className={styles.card}
       style={{ opacity }}
     >
-      <div className={styles.cardGrid}>
+      <div className={`${styles.cardGrid} ${index % 2 !== 0 ? styles.reversed : ''}`}>
         <div className={styles.content}>
           <span className={styles.step}>0{index + 1}</span>
           <h3 className={styles.cardSubtitle}>{service.subtitle}</h3>
