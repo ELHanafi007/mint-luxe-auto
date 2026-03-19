@@ -1,5 +1,6 @@
 {
-  "trailingSlash": true,
-  "regions": ["cdg1"],
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "installCommand": "npm install",
+  "buildCommand": "next build",
+  "outputDirectory": ".next"
 }
