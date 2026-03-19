@@ -3,21 +3,23 @@
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 1000;
+  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navInner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-lg) var(--spacing-xl);
-  z-index: 1000;
-  mix-blend-mode: difference;
-  color: #ffffff; /* Contrast against background */
 }
 
 .logo {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
-  letter-spacing: 0.1em;
+  font-size: 1.25rem;
+  letter-spacing: 0.6em;
   text-transform: uppercase;
-  font-weight: 400;
+  color: #fff;
 }
 
 .navLinks {
@@ -27,16 +29,16 @@
 
 .navLink {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  font-weight: 500;
-  transition: opacity var(--transition-fast);
+  color: var(--gray-mid);
+  transition: color 0.3s ease;
   position: relative;
 }
 
 .navLink:hover {
-  opacity: 0.7;
+  color: #fff;
 }
 
 .navLink::after {
@@ -46,20 +48,34 @@
   left: 0;
   width: 0;
   height: 1px;
-  background-color: #ffffff;
-  transition: width var(--transition-fast);
+  background-color: #fff;
+  transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .navLink:hover::after {
   width: 100%;
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    padding: var(--spacing-md) var(--spacing-lg);
-  }
-  
+.ctaBtn {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 8px 20px;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.ctaBtn:hover {
+  background-color: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+@media (max-width: 1024px) {
   .navLinks {
-    display: none; /* Mobile menu would be a separate implementation for luxury: high-end overlay */
+    display: none;
   }
 }

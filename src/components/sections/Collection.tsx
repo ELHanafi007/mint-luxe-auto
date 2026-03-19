@@ -3,11 +3,12 @@
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { vehicles } from '@/data/vehicles';
+import { vehicles, Vehicle } from '@/data/vehicles';
 import styles from './Collection.module.css';
 
 export default function Collection() {
   const [activeBrand, setActiveBrand] = useState('All');
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
 
   const brands = useMemo(() => {
     const uniqueBrands = Array.from(new Set(vehicles.map(v => v.brand)));
@@ -75,8 +76,9 @@ export default function Collection() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-                className={styles.card}
+                transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+                className={`${styles.card} interactive`}
+                onClick={() => setSelectedVehicle(vehicle)}
               >
                 <div className={styles.imageContainer}>
                   <Image 
@@ -119,6 +121,75 @@ export default function Collection() {
           </AnimatePresence>
         </motion.div>
       </div>
+
+      {/* Quick View Modal */}
+      <AnimatePresence>
+        {selectedVehicle && (
+          <motion.div 
+            className={styles.modal}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedVehicle(null)}
+          >
+            <motion.div 
+              className={styles.modalContent}
+              initial={{ y: 50, opacity: 0, scale: 0.9 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 50, opacity: 0, scale: 0.9 }}
+              onClick={(e) => e.stopPropagation()}
+              transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+            >
+              <button className={styles.closeBtn} onClick={() => setSelectedVehicle(null)}>×</button>
+              
+              <div className={styles.modalGrid}>
+                <div className={styles.modalImageWrapper}>
+                  <Image 
+                    src={selectedVehicle.image} 
+                    alt={selectedVehicle.name}
+                    fill
+                    className={styles.modalImage}
+                    unoptimized
+                  />
+                </div>
+                
+                <div className={styles.modalInfo}>
+                  <div className={styles.modalHeader}>
+                    <p className={styles.modalBrand}>{selectedVehicle.brand}</p>
+                    <h2 className={styles.modalTitle}>{selectedVehicle.name}</h2>
+                    <p className={styles.modalYear}>{selectedVehicle.year} Edition</p>
+                  </div>
+                  
+                  <div className={styles.modalPriceSection}>
+                    <span className={styles.modalPriceLabel}>Valuation</span>
+                    <span className={styles.modalPrice}>{selectedVehicle.price}</span>
+                  </div>
+
+                  <div className={styles.modalSpecsDetailed}>
+                    {Object.entries(selectedVehicle.specs).map(([label, value]) => (
+                      <div key={label} className={styles.modalSpecItem}>
+                        <span className={styles.modalSpecLabel}>{label}</span>
+                        <span className={styles.modalSpecValue}>{value}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <p className={styles.modalDescription}>
+                    {selectedVehicle.description || "A masterpiece of automotive engineering, representing the pinnacle of performance and luxury in its class."}
+                  </p>
+
+                  <button className={styles.inquiryBtn} onClick={() => {
+                    setSelectedVehicle(null);
+                    window.location.href = '#inquiry';
+                  }}>
+                    Inquire About Acquisition
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

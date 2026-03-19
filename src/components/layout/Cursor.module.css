@@ -1,0 +1,28 @@
+.cursor {
+  position: fixed;
+  left: -12px;
+  top: -12px;
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: difference;
+}
+
+.dot {
+  width: 2px;
+  height: 2px;
+  background-color: #000;
+  border-radius: 50%;
+}
+
+@media (max-width: 1024px) {
+  .cursor {
+    display: none;
+  }
+}

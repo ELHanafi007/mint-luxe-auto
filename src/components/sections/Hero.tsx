@@ -35,7 +35,7 @@ export default function Hero() {
             className={styles.subtitle}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1], delay: 0.5 }}
+            transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1], delay: 4 }}
           >
             Curating the Exceptional
           </motion.p>
@@ -49,7 +49,7 @@ export default function Hero() {
                   transition={{ 
                     duration: 1.5, 
                     ease: [0.19, 1, 0.22, 1], 
-                    delay: 0.8 + (i * 0.1) 
+                    delay: 4.2 + (i * 0.1) 
                   }}
                 >
                   {word}
@@ -63,7 +63,7 @@ export default function Hero() {
           className={styles.ctaGroup}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 1.8 }}
+          transition={{ duration: 1.2, delay: 4.8 }}
         >
           <a href="#collection" className={styles.ctaPrimary}>
             Discover Inventory
