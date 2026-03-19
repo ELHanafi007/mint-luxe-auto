@@ -6,10 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { vehicles } from '@/data/vehicles';
 import styles from './Collection.module.css';
 
-const brands = ['All', 'Ferrari', 'Lamborghini', 'Porsche', 'McLaren'];
-
 export default function Collection() {
   const [activeBrand, setActiveBrand] = useState('All');
+
+  const brands = useMemo(() => {
+    const uniqueBrands = Array.from(new Set(vehicles.map(v => v.brand)));
+    return ['All', ...uniqueBrands.sort()];
+  }, []);
 
   const filteredVehicles = useMemo(() => {
     if (activeBrand === 'All') return vehicles;
@@ -81,7 +84,8 @@ export default function Collection() {
                     alt={vehicle.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className={styles.cardImage}
+                    className={vehicle.image.includes('carlogos.org') ? styles.cardLogo : styles.cardImage}
+                    unoptimized={!vehicle.image.includes('unsplash.com') && !vehicle.image.includes('ferrari.com')}
                   />
                   <div className={styles.cardOverlay}>
                     <div className={styles.cardHeader}>
