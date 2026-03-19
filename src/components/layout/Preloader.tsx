@@ -6,14 +6,25 @@ import styles from './Preloader.module.css';
 
 export default function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    // Standard loading time for cinematic entrance
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3500);
+    const duration = 2500; // Total loading time
+    const interval = 20; // Update every 20ms
+    const step = 100 / (duration / interval);
 
-    return () => clearTimeout(timer);
+    const timer = setInterval(() => {
+      setCounter((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          setTimeout(() => setIsLoading(false), 500);
+          return 100;
+        }
+        return Math.min(prev + step, 100);
+      });
+    }, interval);
+
+    return () => clearInterval(timer);
   }, []);
 
   const words = ["MINT.", "LUXE.", "AUTO."];
@@ -38,7 +49,7 @@ export default function Preloader() {
                     transition={{ 
                       duration: 1, 
                       ease: [0.19, 1, 0.22, 1], 
-                      delay: 0.5 + (i * 0.2) 
+                      delay: 0.2 + (i * 0.1) 
                     }}
                   >
                     {word}
@@ -47,18 +58,12 @@ export default function Preloader() {
               ))}
             </div>
             
-            <motion.div 
-              className={styles.lineWrapper}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
-            >
+            <div className={styles.counterWrapper}>
+              <span className={styles.percentage}>{Math.round(counter)}%</span>
               <div className={styles.line}>
                 <motion.div 
                   className={styles.progress}
-                  initial={{ width: 0 }}
-                  animate={{ width: '100%' }}
-                  transition={{ duration: 2.5, ease: [0.65, 0, 0.35, 1] }}
+                  style={{ width: `${counter}%` }}
                 />
               </div>
               <motion.span 
@@ -68,7 +73,7 @@ export default function Preloader() {
               >
                 Curating Excellence
               </motion.span>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
       )}

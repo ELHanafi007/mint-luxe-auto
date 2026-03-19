@@ -117,6 +117,29 @@
   margin-top: auto;
 }
 
+@media (max-width: 768px) {
+  .content {
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+  }
+  
+  .name {
+    font-size: 1rem;
+  }
+  
+  .specs {
+    padding: var(--spacing-sm) 0;
+  }
+  
+  .specValue {
+    font-size: 0.6rem;
+  }
+  
+  .price {
+    font-size: 1rem;
+  }
+}
+
 .price {
   font-family: var(--font-serif);
   font-size: 1.25rem;

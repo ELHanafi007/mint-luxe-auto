@@ -10,27 +10,43 @@ import { notFound } from 'next/navigation';
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const vehicle = vehicles.find((v) => v.id === id);
+  const vehicleIndex = vehicles.findIndex((v) => v.id === id);
+  const vehicle = vehicles[vehicleIndex];
 
   if (!vehicle) {
     notFound();
   }
 
+  const prevVehicle = vehicles[vehicleIndex - 1] || vehicles[vehicles.length - 1];
+  const nextVehicle = vehicles[vehicleIndex + 1] || vehicles[0];
+
   return (
     <div className={styles.productPage}>
-      <div className="container">
-        <Link href="/#collection" className={styles.backBtn}>
-          ← Back to Collection
-        </Link>
+      {/* SUB-NAV */}
+      <div className={styles.subArchiveNav}>
+        <div className="container">
+          <div className={styles.subArchiveInner}>
+            <Link href="/inventory" className={styles.backBtn}>
+              <span className={styles.backIcon}>←</span> Collection
+            </Link>
+            <div className={styles.productNav}>
+              <Link href={`/inventory/${prevVehicle.id}`} className={styles.navItem}>Previous</Link>
+              <span className={styles.navDivider}>/</span>
+              <Link href={`/inventory/${nextVehicle.id}`} className={styles.navItem}>Next</Link>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div className="container">
         <div className={styles.mainGrid}>
-          {/* IMAGE SECTION */}
+          {/* LEFT: IMAGE & GALLERY */}
           <div className={styles.imageSection}>
             <motion.div 
               className={styles.mainImageWrapper}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
             >
               <Image 
                 src={vehicle.image} 
@@ -40,6 +56,9 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 priority
                 unoptimized
               />
+              <div className={`${styles.statusBadge} ${styles[vehicle.status.toLowerCase()]}`}>
+                {vehicle.status}
+              </div>
             </motion.div>
             
             <div className={styles.gallery}>
@@ -49,7 +68,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     src={vehicle.image} 
                     alt={`${vehicle.name} detail ${i}`}
                     fill
-                    style={{ objectFit: 'cover', opacity: 0.5 }}
+                    style={{ objectFit: 'cover' }}
                     unoptimized
                   />
                 </div>
@@ -57,82 +76,46 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             </div>
           </div>
 
-          {/* INFO SECTION */}
+          {/* RIGHT: DATA & ACTIONS */}
           <div className={styles.infoSection}>
             <header className={styles.header}>
-              <motion.span 
-                className={styles.brand}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                {vehicle.brand}
-              </motion.span>
-              <motion.h1 
-                className={styles.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                {vehicle.name}
-              </motion.h1>
-              <motion.p 
-                className={styles.year}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                {vehicle.year} Edition
-              </motion.p>
+              <div className={styles.titleLine}>
+                <span className={styles.brand}>{vehicle.brand}</span>
+                <span className={styles.year}>{vehicle.year}</span>
+              </div>
+              <h1 className={styles.title}>{vehicle.name}</h1>
+              <div className={styles.priceSection}>
+                <span className={styles.priceLabel}>Valuation</span>
+                <span className={styles.price}>{vehicle.price}</span>
+              </div>
             </header>
 
-            <motion.div 
-              className={styles.priceCard}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-            >
-              <div className={styles.statusWrapper}>
-                <span className={styles.statusLabel}>Availability</span>
-                <span className={`${styles.statusValue} ${styles[vehicle.status.toLowerCase()]}`}>
-                  {vehicle.status}
-                </span>
-              </div>
-              
-              <div className={styles.priceWrapper}>
-                <span className={styles.priceLabel}>Current Valuation</span>
-                <span className={styles.priceValue}>{vehicle.price}</span>
-              </div>
-
-              <Link href="/#inquiry" className={styles.inquiryBtn}>
-                Request Private Consultation
+            <div className={styles.actionGrid}>
+              <Link href="/#inquiry" className={styles.primaryAction}>
+                Request Consultation
               </Link>
-            </motion.div>
-
-            <div className={styles.specsGrid}>
-              {Object.entries(vehicle.specs).map(([label, value], i) => (
-                <motion.div 
-                  key={label} 
-                  className={styles.specItem}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + i * 0.05 }}
-                >
-                  <span className={styles.specLabel}>{label}</span>
-                  <span className={styles.specValue}>{value}</span>
-                </motion.div>
-              ))}
+              <button className={styles.secondaryAction}>
+                Download Brochure
+              </button>
             </div>
 
-            <motion.div 
-              className={styles.descriptionSection}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-            >
-              <h3 className={styles.descTitle}>The Narrative</h3>
+            {/* SPECS GRID */}
+            <div className={styles.specsContainer}>
+              <h3 className={styles.sectionLabel}>Technical Specifications</h3>
+              <div className={styles.specsGrid}>
+                {Object.entries(vehicle.specs).map(([label, value], i) => (
+                  <div key={label} className={styles.specItem}>
+                    <span className={styles.specLabel}>{label.replace(/([A-Z])/g, ' $1').trim()}</span>
+                    <span className={styles.specValue}>{value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.narrativeSection}>
+              <h3 className={styles.sectionLabel}>The Narrative</h3>
               <p className={styles.description}>{vehicle.description}</p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

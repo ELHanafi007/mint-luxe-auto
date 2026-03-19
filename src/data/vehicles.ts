@@ -13,17 +13,18 @@ export interface Vehicle {
     power: string;
     acceleration: string;
     topSpeed: string;
-    transmission?: string;
-    mileage?: string;
-    exteriorColor?: string;
-    interiorColor?: string;
+    transmission: string;
+    mileage: string;
+    exteriorColor: string;
+    interiorColor: string;
+    driveTrain: string;
+    fuelType: string;
   };
   description: string;
   gallery?: string[];
 }
 
 export const vehicles: Vehicle[] = [
-  // FERRARI
   {
     id: "ferrari-sf90-stradale-2023",
     brand: "Ferrari",
@@ -35,16 +36,18 @@ export const vehicles: Vehicle[] = [
     isFeatured: true,
     isBestSeller: true,
     specs: {
-      engine: "4.0L V8 Hybrid",
-      power: "986 HP",
-      acceleration: "2.4s",
-      topSpeed: "211 mph",
-      transmission: "8-Speed DCT",
-      mileage: "450 miles",
+      engine: "4.0L V8 Twin-Turbo Hybrid",
+      power: "1000 PS",
+      acceleration: "2.5s 0-100 km/h",
+      topSpeed: "340 km/h",
+      transmission: "8-Speed Dual-Clutch",
+      mileage: "720 km",
       exteriorColor: "Rosso Corsa",
-      interiorColor: "Nero"
+      interiorColor: "Nero Alcantara",
+      driveTrain: "AWD",
+      fuelType: "Hybrid"
     },
-    description: "The SF90 Stradale is the first ever Ferrari to feature PHEV (Plug-in Hybrid Electric Vehicle) architecture which sees the internal combustion engine integrated with three electric motors. This masterpiece of engineering represents the ultimate expression of technology and performance."
+    description: "The SF90 Stradale is the first ever Ferrari to feature PHEV (Plug-in Hybrid Electric Vehicle) architecture. This masterpiece of engineering represents the ultimate expression of technology and performance, delivering unprecedented power for a series-production car."
   },
   {
     id: "lambo-aventador-svj-2023",
@@ -58,20 +61,22 @@ export const vehicles: Vehicle[] = [
     isBestSeller: true,
     specs: {
       engine: "6.5L V12",
-      power: "759 HP",
-      acceleration: "2.6s",
-      topSpeed: "217 mph",
+      power: "770 PS",
+      acceleration: "2.8s 0-100 km/h",
+      topSpeed: "350 km/h",
       transmission: "7-Speed ISR",
-      mileage: "120 miles",
+      mileage: "195 km",
       exteriorColor: "Giallo Orion",
-      interiorColor: "Alcantara Nero"
+      interiorColor: "Nero Ade",
+      driveTrain: "AWD",
+      fuelType: "Petrol"
     },
-    description: "Lamborghini created the Aventador SVJ to embrace challenges head-on, combining cutting-edge technology with extraordinary design. The SVJ stands for Superveloce Jota, a name that signifies speed and track performance dominance."
+    description: "The Aventador SVJ is the most iconic member of the Aventador family. The 'Superveloce Jota' designation signifies its track-focused performance, holding the Nürburgring Nordschleife record for production cars at launch."
   },
   {
     id: "porsche-911-turbo-s-2023",
     brand: "Porsche",
-    name: "911 Turbo S",
+    name: "911 Turbo S (992)",
     year: 2023,
     image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070",
     price: "$230,000",
@@ -79,16 +84,18 @@ export const vehicles: Vehicle[] = [
     isFeatured: false,
     isBestSeller: true,
     specs: {
-      engine: "3.7L Flat-6",
-      power: "640 HP",
-      acceleration: "2.6s",
-      topSpeed: "205 mph",
+      engine: "3.7L Flat-6 Twin-Turbo",
+      power: "650 PS",
+      acceleration: "2.7s 0-100 km/h",
+      topSpeed: "330 km/h",
       transmission: "8-Speed PDK",
-      mileage: "1,200 miles",
-      exteriorColor: "GT Silver",
-      interiorColor: "Bordeaux Red"
+      mileage: "1,930 km",
+      exteriorColor: "GT Silver Metallic",
+      interiorColor: "Bordeaux Red",
+      driveTrain: "AWD",
+      fuelType: "Petrol"
     },
-    description: "The Porsche 911 Turbo S is the benchmark for the everyday supercar. Exceptional performance meets daily usability in a package that has been refined over six decades."
+    description: "Unmatched performance combined with daily usability. The 911 Turbo S remains the benchmark for all-weather, all-purpose supercars, offering a level of refinement that few can match."
   },
   {
     id: "aston-valkyrie-2021",
@@ -101,21 +108,23 @@ export const vehicles: Vehicle[] = [
     isFeatured: true,
     isBestSeller: false,
     specs: {
-      engine: "6.5L V12 Hybrid",
-      power: "1146 HP",
-      acceleration: "2.3s",
-      topSpeed: "250 mph",
-      transmission: "7-Speed Single Clutch",
-      mileage: "0 miles",
-      exteriorColor: "Aston Martin Racing Green",
-      interiorColor: "Pure Black"
+      engine: "6.5L V12 Naturally Aspirated",
+      power: "1160 PS",
+      acceleration: "2.5s 0-100 km/h",
+      topSpeed: "402 km/h",
+      transmission: "7-Speed Single-Clutch",
+      mileage: "45 km",
+      exteriorColor: "British Racing Green",
+      interiorColor: "Pure Black Alcantara",
+      driveTrain: "RWD",
+      fuelType: "Hybrid"
     },
-    description: "Designed by Adrian Newey, the Valkyrie is an F1 car for the road. It uses an incredibly high-revving naturally aspirated V12 paired with a hybrid system for unparalleled performance."
+    description: "An F1 car for the road. The Valkyrie is the result of a partnership between Aston Martin and Red Bull Racing, designed by Adrian Newey to achieve aerodynamic performance previously thought impossible for a road car."
   },
   {
     id: "mercedes-amg-one-2023",
-    brand: "Mercedes",
-    name: "AMG ONE",
+    brand: "Mercedes-AMG",
+    name: "ONE",
     year: 2023,
     image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=2070",
     price: "$2,750,000",
@@ -123,20 +132,22 @@ export const vehicles: Vehicle[] = [
     isFeatured: true,
     isBestSeller: false,
     specs: {
-      engine: "1.6L V6 Hybrid",
-      power: "1063 HP",
-      acceleration: "2.6s",
-      topSpeed: "219 mph",
+      engine: "1.6L V6 Turbo Hybrid (F1)",
+      power: "1063 PS",
+      acceleration: "2.9s 0-100 km/h",
+      topSpeed: "352 km/h",
       transmission: "7-Speed Automated Manual",
-      mileage: "15 miles",
+      mileage: "24 km",
       exteriorColor: "High-Tech Silver",
-      interiorColor: "Dinamica Microfiber"
+      interiorColor: "Carbon Black",
+      driveTrain: "AWD",
+      fuelType: "Hybrid"
     },
-    description: "The Mercedes-AMG ONE brings current Formula 1 hybrid technology directly to the street. It features the actual engine from the championship-winning F1 car."
+    description: "The Mercedes-AMG ONE brings the world's most advanced racing technology to the street. With a genuine Formula 1 powertrain, it represents the most ambitious engineering project in AMG history."
   },
   {
     id: "rolls-royce-spectre-2025",
-    brand: "Rolls Royce",
+    brand: "Rolls-Royce",
     name: "Spectre",
     year: 2025,
     image: "https://images.unsplash.com/photo-1631214524020-5e1839765171?auto=format&fit=crop&q=80&w=2070",
@@ -145,15 +156,17 @@ export const vehicles: Vehicle[] = [
     isFeatured: true,
     isBestSeller: false,
     specs: {
-      engine: "Electric",
-      power: "584 HP",
-      acceleration: "4.4s",
-      topSpeed: "155 mph",
-      transmission: "Single Speed",
-      mileage: "10 miles",
+      engine: "Dual-Motor Electric",
+      power: "584 PS",
+      acceleration: "4.5s 0-100 km/h",
+      topSpeed: "250 km/h",
+      transmission: "Single-Speed",
+      mileage: "16 km",
       exteriorColor: "Twilight Purple",
-      interiorColor: "Grace White"
+      interiorColor: "Grace White",
+      driveTrain: "AWD",
+      fuelType: "Electric"
     },
-    description: "Spectre is the first fully electric Rolls-Royce ever produced. It marks the beginning of a new era of ultra-luxury, combining the silent operation of electric power with the brand's legendary magic carpet ride."
+    description: "The first ultra-luxury electric super coupé. Spectre is a Rolls-Royce first, and an electric car second. It offers the same legendary ride quality with the silent, instant torque of electric propulsion."
   }
 ];
