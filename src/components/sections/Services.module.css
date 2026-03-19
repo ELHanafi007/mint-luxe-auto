@@ -117,14 +117,13 @@
   transform: translateY(-4px);
 }
 
-/* Image Parallax */
 .imageContainer {
   position: relative;
   width: 100%;
   aspect-ratio: 4/5;
   background-color: #0a0a0a;
   overflow: hidden;
-  clip-path: inset(0 0 0 0); /* To contain the parallax */
+  clip-path: inset(0 0 0 0);
 }
 
 .parallaxWrapper {
@@ -146,17 +145,71 @@
   pointer-events: none;
 }
 
+/* MOBILE ENHANCEMENTS */
 @media (max-width: 1024px) {
-  .cardGrid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
+  .services {
+    padding: var(--spacing-xl) 0;
   }
-  
-  .imageContainer {
-    aspect-ratio: 16/9;
+
+  .mainTitle {
+    font-size: 3rem;
   }
-  
+
   .stack {
     gap: var(--spacing-xl);
+  }
+
+  .card {
+    min-height: auto;
+    padding: var(--spacing-xl) 0;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  /* Reset reversed layout on mobile for consistent stacking */
+  .reversed .content, 
+  .reversed .imageContainer {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .imageContainer {
+    aspect-ratio: 16/9;
+    order: -1; /* Always image first on mobile */
+  }
+
+  .cardTitle {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .step {
+    font-size: 3rem;
+  }
+
+  .overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+  }
+}
+
+@media (max-width: 480px) {
+  .mainTitle {
+    font-size: 2.25rem;
+  }
+  
+  .cardTitle {
+    font-size: 1.75rem;
+  }
+  
+  .cta {
+    width: 100%;
+    text-align: center;
   }
 }

@@ -21,7 +21,7 @@ export default function VehicleCard({ vehicle }: Props) {
           className={styles.image}
           unoptimized
         />
-        <div className={`${styles.badge} ${styles[vehicle.status.toLowerCase()]}`}>
+        <div className={`${styles.statusBadge} ${styles[vehicle.status.toLowerCase()]}`}>
           {vehicle.status}
         </div>
       </div>
@@ -32,24 +32,9 @@ export default function VehicleCard({ vehicle }: Props) {
           <h3 className={styles.name}>{vehicle.name}</h3>
         </div>
 
-        <div className={styles.specs}>
-          <div className={styles.spec}>
-            <span className={styles.specLabel}>Power</span>
-            <span className={styles.specValue}>{vehicle.specs.power}</span>
-          </div>
-          <div className={styles.spec}>
-            <span className={styles.specLabel}>Engine</span>
-            <span className={styles.specValue}>{vehicle.specs.engine}</span>
-          </div>
-          <div className={styles.spec}>
-            <span className={styles.specLabel}>0-60</span>
-            <span className={styles.specValue}>{vehicle.specs.acceleration}</span>
-          </div>
-        </div>
-
         <div className={styles.footer}>
+          <span className={styles.year}>{vehicle.year}</span>
           <span className={styles.price}>{vehicle.price}</span>
-          <span className={styles.viewDetails}>View Details</span>
         </div>
       </div>
     </Link>

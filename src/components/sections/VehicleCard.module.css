@@ -30,84 +30,46 @@
   transform: scale(1.08);
 }
 
-.badge {
+.statusBadge {
   position: absolute;
   top: 15px;
   left: 15px;
   padding: 4px 12px;
   font-family: var(--font-sans);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   z-index: 2;
   border-radius: 2px;
 }
 
-.available {
-  background-color: #2e7d32;
-  color: #fff;
-}
-
-.sold {
-  background-color: #d32f2f;
-  color: #fff;
-}
-
-.reserved {
-  background-color: #f9a825;
-  color: #000;
-}
+.available { background: #2e7d32; color: #fff; }
+.sold { background: #d32f2f; color: #fff; }
+.reserved { background: #f9a825; color: #000; }
 
 .content {
   padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
   flex-grow: 1;
 }
 
 .brand {
   font-family: var(--font-sans);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--gray-mid);
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .name {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #fff;
-}
-
-.specs {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--spacing-md) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.spec {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.specLabel {
-  font-family: var(--font-sans);
-  font-size: 0.55rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--gray-mid);
-}
-
-.specValue {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  color: #fff;
+  line-height: 1.2;
 }
 
 .footer {
@@ -115,49 +77,36 @@
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.year {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--gray-mid);
+}
+
+.price {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
   .content {
     padding: var(--spacing-md);
-    gap: var(--spacing-md);
   }
   
   .name {
     font-size: 1rem;
   }
   
-  .specs {
-    padding: var(--spacing-sm) 0;
-  }
-  
-  .specValue {
-    font-size: 0.6rem;
-  }
-  
   .price {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
-}
-
-.price {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  color: #fff;
-}
-
-.viewDetails {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #fff;
-  opacity: 0;
-  transition: all 0.4s ease;
-  transform: translateX(-10px);
-}
-
-.card:hover .viewDetails {
-  opacity: 1;
-  transform: translateX(0);
+  
+  .year {
+    font-size: 0.65rem;
+  }
 }
