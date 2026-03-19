@@ -20,8 +20,8 @@ export default function Preloader() {
       {isLoading && (
         <motion.div 
           className={styles.preloader}
-          exit={{ y: '-100%', pointerEvents: 'none' }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ y: '-100%' }}
+          transition={{ duration: 1.2, ease: [0.65, 0, 0.35, 1] }}
         >
           <div className={styles.content}>
             <motion.div 

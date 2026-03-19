@@ -20,7 +20,7 @@
   font-family: var(--font-serif);
   font-size: 1rem;
   letter-spacing: 0.3em;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--spacing-md);
 }
 
 .line {
