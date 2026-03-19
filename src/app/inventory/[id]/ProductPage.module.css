@@ -1,0 +1,229 @@
+.productPage {
+  background-color: #000;
+  min-height: 100vh;
+  padding-top: 120px;
+  padding-bottom: var(--spacing-2xl);
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gray-mid);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-xl);
+  transition: color 0.3s ease;
+}
+
+.backBtn:hover {
+  color: #fff;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--spacing-2xl);
+  align-items: start;
+}
+
+.imageSection {
+  position: sticky;
+  top: 120px;
+}
+
+.mainImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  background-color: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.mainImage {
+  object-fit: cover;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.galleryItem {
+  position: relative;
+  aspect-ratio: 1;
+  background-color: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+/* Info Section */
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+}
+
+.header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: var(--spacing-lg);
+}
+
+.brand {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.year {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--gray-mid);
+}
+
+.priceCard {
+  background-color: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.statusWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statusLabel {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gray-mid);
+}
+
+.statusValue {
+  padding: 4px 12px;
+  border-radius: 2px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.available { background: #2e7d32; color: #fff; }
+.sold { background: #d32f2f; color: #fff; }
+.reserved { background: #f9a825; color: #000; }
+
+.priceWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.priceLabel {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gray-mid);
+}
+
+.priceValue {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.inquiryBtn {
+  background-color: #fff;
+  color: #000;
+  width: 100%;
+  padding: 20px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.inquiryBtn:hover {
+  background-color: var(--gray-mid);
+  transform: translateY(-4px);
+}
+
+.specsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl);
+}
+
+.specItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.specLabel {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gray-mid);
+}
+
+.specValue {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.descriptionSection {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--spacing-xl);
+}
+
+.descTitle {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: var(--spacing-lg);
+}
+
+.description {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--gray-mid);
+}
+
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+  
+  .imageSection {
+    position: static;
+  }
+}

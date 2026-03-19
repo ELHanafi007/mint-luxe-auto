@@ -3,23 +3,21 @@
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
 const navLinks = [
-  { name: 'Collection', href: '#collection' },
-  { name: 'Services', href: '#services' },
-  { name: 'Philosophy', href: '#philosophy' },
-  { name: 'Inquiry', href: '#inquiry' },
+  { name: 'Collection', href: '/#collection' },
+  { name: 'Services', href: '/#services' },
+  { name: 'Philosophy', href: '/#philosophy' },
+  { name: 'Inquiry', href: '/#inquiry' },
 ];
 
 export default function Navbar() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
-
-  // Background opacity transitions from 0 to 0.8 as user scrolls
-  const backgroundOpacity = useTransform(scrollY, [0, 100], [0, 0.8]);
-  const backdropBlur = useTransform(scrollY, [0, 100], [0, 20]);
-  const yOffset = useTransform(scrollY, [0, 100], [20, 0]);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   useEffect(() => {
     const updateScrolled = () => {
@@ -33,20 +31,21 @@ export default function Navbar() {
     <motion.nav 
       className={styles.navbar}
       style={{ 
-        backgroundColor: `rgba(0, 0, 0, ${isScrolled ? 0.8 : 0})`,
-        backdropFilter: `blur(${isScrolled ? 20 : 0}px)`,
-        padding: isScrolled ? '15px 0' : '30px 0'
+        backgroundColor: `rgba(0, 0, 0, ${isScrolled || !isHome ? 0.9 : 0})`,
+        backdropFilter: `blur(${isScrolled || !isHome ? 20 : 0}px)`,
+        padding: isScrolled ? '15px 0' : '30px 0',
+        borderBottom: (isScrolled || !isHome) ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0)'
       }}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 3.5 }}
+      transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: isHome ? 3.5 : 0 }}
     >
       <div className="container">
         <div className={styles.navInner}>
           <div className={`${styles.logo} interactive`}>
             <Link href="/">
               <motion.span
-                animate={{ letterSpacing: isScrolled ? '0.4em' : '0.6em' }}
+                animate={{ letterSpacing: (isScrolled || !isHome) ? '0.4em' : '0.6em' }}
                 transition={{ duration: 0.8 }}
               >
                 MINT.LUXE
@@ -58,9 +57,9 @@ export default function Navbar() {
             {navLinks.map((link, i) => (
               <motion.div
                 key={link.name}
-                initial={{ opacity: 0, y: -20 }}
+                initial={isHome ? { opacity: 0, y: -20 } : { opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 3.8 + (i * 0.1), duration: 0.8 }}
+                transition={{ delay: isHome ? 3.8 + (i * 0.1) : 0, duration: 0.8 }}
               >
                 <Link 
                   href={link.href} 

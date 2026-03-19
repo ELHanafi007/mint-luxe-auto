@@ -4,7 +4,6 @@ import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import Navbar from "@/components/layout/Navbar";
 import Preloader from "@/components/layout/Preloader";
-import CustomCursor from "@/components/layout/CustomCursor";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -30,7 +29,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${playfair.variable}`}>
-        <CustomCursor />
         <Preloader />
         <SmoothScroll>
           <Navbar />

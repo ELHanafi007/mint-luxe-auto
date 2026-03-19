@@ -1,7 +1,10 @@
 .collection {
   padding: var(--spacing-2xl) 0;
   background-color: #000;
-  position: relative;
+}
+
+.sectionWrapper {
+  margin-bottom: var(--spacing-2xl);
 }
 
 .header {
@@ -9,338 +12,96 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: var(--spacing-lg);
+}
+
+.metadata {
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  font-size: 0.65rem;
+  color: var(--gray-mid);
+  display: block;
+  margin-bottom: var(--spacing-sm);
 }
 
 .title {
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 3.5rem);
-  margin-top: var(--spacing-sm);
   line-height: 1.1;
+  color: #fff;
 }
 
-.filters {
-  display: flex;
-  gap: var(--spacing-lg);
-  padding-bottom: 8px;
-}
-
-.filterBtn {
+.viewAllTop {
   font-family: var(--font-sans);
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gray-mid);
-  position: relative;
-  padding: 4px 0;
-  transition: color 0.3s ease;
-}
-
-.filterBtn:hover, .active {
   color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 4px;
+  transition: border-color 0.3s ease;
 }
 
-.underline {
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: #fff;
+.viewAllTop:hover {
+  border-color: #fff;
 }
 
-.grid {
+.bestSellersGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.latestGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-md);
 }
 
-.card {
-  position: relative;
-  background-color: #0a0a0a;
-  overflow: hidden;
-  aspect-ratio: 16/10;
-  cursor: none; /* Hide standard cursor, using custom one */
-}
-
-.imageContainer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.cardImage {
-  object-fit: cover;
-  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), filter 1.2s ease;
-  filter: brightness(0.6) grayscale(0.2);
-}
-
-.card:hover .cardImage {
-  transform: scale(1.05);
-  filter: brightness(0.9) grayscale(0);
-}
-
-.cardOverlay {
-  position: absolute;
-  inset: 0;
-  padding: var(--spacing-lg);
+.footerAction {
+  margin-top: var(--spacing-xl);
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
-  opacity: 0.8;
-  transition: opacity 0.6s ease;
+  justify-content: center;
 }
 
-.card:hover .cardOverlay {
-  opacity: 1;
-}
-
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
+.viewAllBtn {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 18px 48px;
   font-family: var(--font-sans);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  transform: translateY(-10px);
-  opacity: 0;
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.card:hover .cardHeader {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.year {
-  color: var(--gray-mid);
-}
-
-.price {
-  color: #fff;
-}
-
-.cardFooter {
-  transform: translateY(40px);
-  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.card:hover .cardFooter {
-  transform: translateY(0);
-}
-
-.brand {
-  font-family: var(--font-sans);
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--gray-mid);
-  margin-bottom: 4px;
-}
-
-.name {
-  font-family: var(--font-serif);
-  font-size: 1.75rem;
-  margin-bottom: var(--spacing-md);
-  color: #fff;
-}
-
-.specsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-md);
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: var(--spacing-md);
-}
-
-.card:hover .specsGrid {
-  opacity: 1;
-}
-
-.spec {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.specLabel {
-  font-family: var(--font-sans);
-  font-size: 0.5rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gray-mid);
-}
-
-.specValue {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  color: #fff;
-}
-
-/* Modal Styles */
-.modal {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.95);
-  z-index: 10001;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-lg);
-  backdrop-filter: blur(10px);
-}
-
-.modalContent {
-  background-color: #0a0a0a;
-  width: 100%;
-  max-width: 1200px;
-  max-height: 90vh;
-  position: relative;
-  overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.closeBtn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 2rem;
-  color: #fff;
-  z-index: 2;
-  line-height: 1;
-}
-
-.modalGrid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  min-height: 600px;
-}
-
-.modalImageWrapper {
-  position: relative;
-  background-color: #000;
-}
-
-.modalImage {
-  object-fit: contain;
-  padding: var(--spacing-lg);
-}
-
-.modalInfo {
-  padding: var(--spacing-xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
-.modalBrand {
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-  color: var(--gray-mid);
-  margin-bottom: 8px;
-}
-
-.modalTitle {
-  font-family: var(--font-serif);
-  font-size: 3rem;
-  line-height: 1.1;
-  color: #fff;
-}
-
-.modalYear {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  color: var(--gray-mid);
-}
-
-.modalPriceSection {
-  padding: var(--spacing-md) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modalPriceLabel {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--gray-mid);
-}
-
-.modalPrice {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  color: #fff;
-}
-
-.modalSpecsDetailed {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-lg);
-}
-
-.modalSpecItem {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.modalSpecLabel {
-  font-family: var(--font-sans);
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--gray-mid);
-}
-
-.modalSpecValue {
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  color: #fff;
-}
-
-.modalDescription {
-  font-size: 0.9rem;
-  line-height: 1.8;
-  color: var(--gray-mid);
-  max-width: 500px;
-}
-
-.inquiryBtn {
-  margin-top: auto;
+.viewAllBtn:hover {
   background-color: #fff;
   color: #000;
-  padding: var(--spacing-md) var(--spacing-xl);
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
+  border-color: #fff;
+  transform: translateY(-4px);
 }
 
-.inquiryBtn:hover {
-  background-color: var(--gray-mid);
+@media (max-width: 1200px) {
+  .latestGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 1024px) {
-  .modalGrid {
-    grid-template-columns: 1fr;
-  }
-  
-  .modalImageWrapper {
-    height: 300px;
+  .bestSellersGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .grid {
+  .bestSellersGrid, .latestGrid {
     grid-template-columns: 1fr;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
   }
 }
