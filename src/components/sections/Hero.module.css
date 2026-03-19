@@ -4,75 +4,106 @@
   width: 100%;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  justify-content: center;
   background-color: #000;
 }
 
 .background {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 0;
+  will-change: transform;
 }
 
-.background img {
-  width: 100%;
-  height: 100%;
+.image {
   object-fit: cover;
-  opacity: 0.6;
+  filter: brightness(0.7) contrast(1.1);
 }
 
-.background::after {
-  content: '';
+.overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%);
+  z-index: 1;
 }
 
 .content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  text-align: center;
+  max-width: 1000px;
   padding: 0 var(--spacing-lg);
-}
-
-.title {
-  font-size: clamp(3rem, 10vw, 8rem);
-  text-transform: uppercase;
-  line-height: 0.9;
-  margin-bottom: var(--spacing-lg);
 }
 
 .subtitle {
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  letter-spacing: 0.4em;
+  font-size: 0.75rem;
+  letter-spacing: 0.5em;
   text-transform: uppercase;
-  color: var(--gray-mid);
-  margin-bottom: var(--spacing-xl);
+  color: var(--accent);
+  margin-bottom: var(--spacing-lg);
+  display: block;
 }
 
-.cta {
-  display: inline-block;
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wordOverflow {
+  overflow: hidden;
+  height: clamp(4rem, 10vw, 8rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wordOverflow span {
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 1;
+  color: #fff;
+  display: block;
+}
+
+.ctaGroup {
+  margin-top: var(--spacing-2xl);
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+}
+
+.ctaPrimary, .ctaSecondary {
   padding: var(--spacing-md) var(--spacing-xl);
-  border: 1px solid var(--foreground);
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  transition: all var(--transition-fast);
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.cta:hover {
-  background-color: var(--foreground);
-  color: var(--background);
+.ctaPrimary {
+  background-color: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.ctaPrimary:hover {
+  background-color: transparent;
+  color: #fff;
+}
+
+.ctaSecondary {
+  color: #fff;
+}
+
+.ctaSecondary:hover {
+  background-color: #fff;
+  color: #000;
+  border-color: #fff;
 }
 
 .scrollIndicator {
@@ -80,38 +111,29 @@
   bottom: var(--spacing-xl);
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2;
+}
+
+.mouse {
+  width: 20px;
+  height: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-sm);
+  justify-content: center;
+  padding-top: 5px;
 }
 
-.scrollLine {
-  width: 1px;
-  height: 60px;
-  background-color: rgba(255,255,255,0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.scrollLineActive {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-  animation: scrollAnim 2s infinite var(--transition-smooth);
-}
-
-@keyframes scrollAnim {
-  0% { transform: translateY(-100%); }
-  50% { transform: translateY(0); }
-  100% { transform: translateY(100%); }
+.wheel {
+  width: 2px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 2px;
 }
 
 @media (max-width: 768px) {
-  .title {
-    font-size: 4rem;
+  .ctaGroup {
+    flex-direction: column;
+    gap: var(--spacing-md);
   }
 }

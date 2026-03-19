@@ -1,53 +1,98 @@
 .services {
   padding: var(--spacing-2xl) 0;
   background-color: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header {
+  margin-bottom: var(--spacing-2xl);
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-top: var(--spacing-md);
+  color: #fff;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-xl);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-2xl) var(--spacing-xl);
 }
 
-.serviceCard {
-  padding: var(--spacing-xl);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+.serviceItem {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  transition: border-color var(--transition-fast);
+  gap: var(--spacing-xl);
+  position: relative;
+  padding: var(--spacing-xl) 0;
 }
 
-.serviceCard:hover {
-  border-color: var(--foreground);
+.serviceNumber {
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  user-select: none;
 }
 
-.serviceIndex {
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  color: var(--gray-mid);
+.serviceItem:hover .serviceNumber {
+  color: rgba(255, 255, 255, 0.05);
+  -webkit-text-stroke: 1px var(--accent);
+  transform: translateY(-5px);
+}
+
+.serviceContent {
+  flex: 1;
+  position: relative;
 }
 
 .serviceTitle {
   font-family: var(--font-serif);
-  font-size: 2rem;
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-md);
+  color: #fff;
 }
 
 .serviceDescription {
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  color: var(--gray-mid);
+  font-size: 0.85rem;
   line-height: 1.8;
+  color: var(--gray-mid);
+  max-width: 400px;
+}
+
+.serviceLine {
+  position: absolute;
+  bottom: calc(-1 * var(--spacing-xl));
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--accent);
+  transition: width 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.serviceItem:hover .serviceLine {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
 }
 
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .serviceItem {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) 0;
   }
   
-  .serviceCard {
-    padding: var(--spacing-lg) 0;
-    border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  .serviceNumber {
+    font-size: 3rem;
   }
 }
