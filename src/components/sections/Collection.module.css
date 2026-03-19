@@ -1,65 +1,131 @@
 .collection {
   padding: var(--spacing-2xl) 0;
-  background-color: #0a0a0a;
+  background-color: #000;
+  position: relative;
 }
 
 .header {
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-xl);
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--spacing-lg);
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-top: var(--spacing-sm);
+  line-height: 1.1;
+}
+
+.filters {
+  display: flex;
+  gap: var(--spacing-lg);
+  padding-bottom: 8px;
+}
+
+.filterBtn {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s ease;
+}
+
+.filterBtn:hover, .active {
+  color: #fff;
+}
+
+.underline {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-xl);
+  gap: var(--spacing-md);
 }
 
 .card {
   position: relative;
+  background-color: #0a0a0a;
   overflow: hidden;
-  background-color: #111;
   aspect-ratio: 16/10;
-  cursor: pointer;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .cardImage {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-slow);
+  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), filter 1.2s ease;
+  filter: brightness(0.7) grayscale(0.2);
 }
 
 .card:hover .cardImage {
   transform: scale(1.05);
+  filter: brightness(0.9) grayscale(0);
 }
 
 .cardOverlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
+  opacity: 0.8;
+  transition: opacity 0.6s ease;
 }
 
 .card:hover .cardOverlay {
   opacity: 1;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 30%, rgba(0,0,0,0.9) 100%);
 }
 
-.cardContent {
-  transform: translateY(20px);
-  transition: transform var(--transition-fast);
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.card:hover .cardContent {
+.card:hover .cardHeader {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.year {
+  color: var(--gray-mid);
+}
+
+.price {
+  color: #fff;
+}
+
+.cardFooter {
+  transform: translateY(40px);
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card:hover .cardFooter {
   transform: translateY(0);
 }
 
@@ -74,27 +140,84 @@
 
 .name {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
-  margin-bottom: var(--spacing-sm);
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-md);
+  color: #fff;
 }
 
-.specs {
-  display: flex;
+.specsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  color: var(--gray-mid);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: var(--spacing-md);
 }
 
-.specItem {
+.card:hover .specsGrid {
+  opacity: 1;
+}
+
+.spec {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 4px;
 }
 
+.specLabel {
+  font-family: var(--font-sans);
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+}
+
+.specValue {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  color: #fff;
+}
+
 @media (max-width: 1024px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filters {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 16px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+  
+  .cardOverlay {
+    opacity: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 50%, rgba(0,0,0,0.9) 100%);
+  }
+  
+  .cardHeader, .specsGrid {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .cardFooter {
+    transform: none;
+  }
+  
+  .name {
+    font-size: 1.5rem;
   }
 }
