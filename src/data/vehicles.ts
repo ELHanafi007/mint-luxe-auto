@@ -26,7 +26,34 @@ export interface Vehicle {
 
 export const vehicles: Vehicle[] = [
   {
-    id: "ferrari-sf90-stradale-2023",
+    id: "ferrari-296-gtb-black-edition-2025",
+    brand: "Ferrari",
+    name: "296 GTB Black Edition",
+    year: 2025,
+    image: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070",
+    price: "$385,000",
+    status: "Available",
+    isFeatured: true,
+    isBestSeller: false,
+    specs: {
+      engine: "3.0L V6 Twin-Turbo Hybrid",
+      power: "830 PS",
+      acceleration: "2.9s 0-100 km/h",
+      topSpeed: "330 km/h",
+      transmission: "8-Speed Dual-Clutch",
+      mileage: "12 km",
+      exteriorColor: "Nero Daytona",
+      interiorColor: "Nero Alcantara",
+      driveTrain: "RWD",
+      fuelType: "Hybrid"
+    },
+    description: "The Ferrari 296 GTB Black Edition represents a paradigm shift in the world of high-performance supercars. This late 2025 model, imported as new, features the first-ever V6 engine in a production Ferrari, combined with a powerful electric motor to deliver a staggering 830 PS. This specific Black Edition is finished in the deep, metallic Nero Daytona with a full carbon fiber package, offering a stealthy and aggressive presence on the road.",
+    gallery: [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=2070"
+    ]
+  },
     brand: "Ferrari",
     name: "SF90 Stradale",
     year: 2023,
