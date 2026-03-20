@@ -54,6 +54,8 @@ export const vehicles: Vehicle[] = [
       "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=2070"
     ]
   },
+  {
+    id: "ferrari-sf90-stradale-2023",
     brand: "Ferrari",
     name: "SF90 Stradale",
     year: 2023,
