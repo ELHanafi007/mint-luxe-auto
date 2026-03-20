@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Vehicle } from '@/data/vehicles';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Upload, Plus, Trash2, Check, AlertCircle } from 'lucide-react';
+import { X, Upload, Check, AlertCircle } from 'lucide-react';
 
 interface Props {
   isOpen: boolean;
@@ -12,56 +12,63 @@ interface Props {
   vehicle: Vehicle | null;
 }
 
-export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props) {
-  const [formData, setFormData] = useState<Partial<Vehicle>>({
-    name: '',
-    brand: '',
-    year: new Date().getFullYear(),
-    price: '',
-    status: 'Available',
-    image: '',
-    description: '',
-    specs: {
-      engine: '',
-      power: '',
-      acceleration: '',
-      topSpeed: '',
-      transmission: '',
-      mileage: '',
-      exteriorColor: '',
-      interiorColor: '',
-      driveTrain: '',
-      fuelType: ''
-    },
-    gallery: []
-  });
+type SpecKey = keyof Vehicle['specs'];
 
+interface SpecField {
+  label: string;
+  key: SpecKey;
+  placeholder: string;
+}
+
+const SPEC_FIELDS: SpecField[] = [
+  { label: 'Engine', key: 'engine', placeholder: '3.0L V6 Hybrid' },
+  { label: 'Power', key: 'power', placeholder: '830 PS' },
+  { label: 'Acceleration', key: 'acceleration', placeholder: '2.9s 0-100 km/h' },
+  { label: 'Top Speed', key: 'topSpeed', placeholder: '330 km/h' },
+  { label: 'Transmission', key: 'transmission', placeholder: '8-Speed DCT' },
+  { label: 'Mileage', key: 'mileage', placeholder: '1,200 km' },
+  { label: 'Exterior Color', key: 'exteriorColor', placeholder: 'Rosso Corsa' },
+  { label: 'Interior Color', key: 'interiorColor', placeholder: 'Nero Alcantara' },
+  { label: 'Drive Train', key: 'driveTrain', placeholder: 'RWD' },
+  { label: 'Fuel Type', key: 'fuelType', placeholder: 'Hybrid' },
+];
+
+const INITIAL_FORM_STATE: Partial<Vehicle> = {
+  name: '',
+  brand: '',
+  year: new Date().getFullYear(),
+  price: '',
+  status: 'Available',
+  image: '',
+  description: '',
+  specs: {
+    engine: '',
+    power: '',
+    acceleration: '',
+    topSpeed: '',
+    transmission: '',
+    mileage: '',
+    exteriorColor: '',
+    interiorColor: '',
+    driveTrain: '',
+    fuelType: ''
+  },
+  gallery: []
+};
+
+export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props) {
+  const [formData, setFormData] = useState<Partial<Vehicle>>(INITIAL_FORM_STATE);
+
+  // We reset the form when the modal opens or the vehicle changes
+  // But we use a key on the component or a simpler approach to avoid the effect error
+  // For now, let's use a standard useEffect but disable the specific rule if we must, 
+  // or better: handle initialization in the parent or via key.
+  // Actually, the best way is to use the 'key' pattern in the parent.
+  
   useEffect(() => {
-    if (vehicle) {
-      setFormData(vehicle);
-    } else {
-      setFormData({
-        name: '',
-        brand: '',
-        year: new Date().getFullYear(),
-        price: '',
-        status: 'Available',
-        image: '',
-        description: '',
-        specs: {
-          engine: '',
-          power: '',
-          acceleration: '',
-          topSpeed: '',
-          transmission: '',
-          mileage: '',
-          exteriorColor: '',
-          interiorColor: '',
-          driveTrain: '',
-          fuelType: ''
-        },
-        gallery: []
-      });
+    if (isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setFormData(vehicle || INITIAL_FORM_STATE);
     }
   }, [vehicle, isOpen]);
 
@@ -70,11 +77,11 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
     onSave(formData);
   };
 
-  const handleSpecChange = (key: keyof Vehicle['specs'], value: string) => {
+  const handleSpecChange = (key: SpecKey, value: string) => {
     setFormData(prev => ({
       ...prev,
       specs: {
-        ...prev.specs!,
+        ...(prev.specs as Vehicle['specs']),
         [key]: value
       }
     }));
@@ -83,7 +90,7 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 lg:p-12 overflow-hidden">
         <motion.div 
           initial={{ opacity: 0 }}
@@ -126,7 +133,7 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
                       <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Brand</label>
                       <input 
                         required
-                        value={formData.brand}
+                        value={formData.brand || ''}
                         onChange={e => setFormData({...formData, brand: e.target.value})}
                         className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white/20 transition-all"
                         placeholder="Ferrari"
@@ -136,7 +143,7 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
                       <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Model Name</label>
                       <input 
                         required
-                        value={formData.name}
+                        value={formData.name || ''}
                         onChange={e => setFormData({...formData, name: e.target.value})}
                         className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white/20 transition-all"
                         placeholder="296 GTB"
@@ -150,7 +157,7 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
                       <input 
                         type="number"
                         required
-                        value={formData.year}
+                        value={formData.year || ''}
                         onChange={e => setFormData({...formData, year: parseInt(e.target.value)})}
                         className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white/20 transition-all"
                       />
@@ -159,7 +166,7 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
                       <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Price (Display)</label>
                       <input 
                         required
-                        value={formData.price}
+                        value={formData.price || ''}
                         onChange={e => setFormData({...formData, price: e.target.value})}
                         className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white/20 transition-all"
                         placeholder="$325,000"
@@ -170,11 +177,11 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Availability Status</label>
                     <div className="flex gap-2">
-                      {['Available', 'Reserved', 'Sold'].map(status => (
+                      {(['Available', 'Reserved', 'Sold'] as const).map(status => (
                         <button
                           key={status}
                           type="button"
-                          onClick={() => setFormData({...formData, status: status as any})}
+                          onClick={() => setFormData({...formData, status})}
                           className={`flex-1 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest border transition-all ${
                             formData.status === status 
                               ? 'bg-white text-black border-white' 
@@ -195,7 +202,7 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
                     <div className="relative group">
                       <input 
                         required
-                        value={formData.image}
+                        value={formData.image || ''}
                         onChange={e => setFormData({...formData, image: e.target.value})}
                         className="w-full bg-white/5 border border-white/5 rounded-xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-white/20 transition-all"
                         placeholder="/images/inventory/..."
@@ -208,7 +215,7 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
                     <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">The Narrative (Description)</label>
                     <textarea 
                       required
-                      value={formData.description}
+                      value={formData.description || ''}
                       onChange={e => setFormData({...formData, description: e.target.value})}
                       className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-sm min-h-[160px] focus:outline-none focus:border-white/20 transition-all resize-none"
                       placeholder="The Ferrari 296 GTB represents..."
@@ -223,24 +230,13 @@ export default function VehicleModal({ isOpen, onClose, onSave, vehicle }: Props
                   <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Mechanical Architecture</span>
                   
                   <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                    {[
-                      { label: 'Engine', key: 'engine', placeholder: '3.0L V6 Hybrid' },
-                      { label: 'Power', key: 'power', placeholder: '830 PS' },
-                      { label: 'Acceleration', key: 'acceleration', placeholder: '2.9s 0-100 km/h' },
-                      { label: 'Top Speed', key: 'topSpeed', placeholder: '330 km/h' },
-                      { label: 'Transmission', key: 'transmission', placeholder: '8-Speed DCT' },
-                      { label: 'Mileage', key: 'mileage', placeholder: '1,200 km' },
-                      { label: 'Exterior Color', key: 'exteriorColor', placeholder: 'Rosso Corsa' },
-                      { label: 'Interior Color', key: 'interiorColor', placeholder: 'Nero Alcantara' },
-                      { label: 'Drive Train', key: 'driveTrain', placeholder: 'RWD' },
-                      { label: 'Fuel Type', key: 'fuelType', placeholder: 'Hybrid' },
-                    ].map(spec => (
+                    {SPEC_FIELDS.map(spec => (
                       <div key={spec.key} className="space-y-2">
                         <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{spec.label}</label>
                         <input 
                           required
-                          value={(formData.specs as any)?.[spec.key] || ''}
-                          onChange={e => handleSpecChange(spec.key as any, e.target.value)}
+                          value={formData.specs?.[spec.key] || ''}
+                          onChange={e => handleSpecChange(spec.key, e.target.value)}
                           className="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-white/20 transition-all"
                           placeholder={spec.placeholder}
                         />

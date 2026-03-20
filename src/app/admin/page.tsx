@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Vehicle } from '@/data/vehicles';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, Lock, KeyRound, ChevronRight, Car, Settings, Plus, BarChart3 } from 'lucide-react';
-import AdminHeader from '@/components/admin/AdminHeader';
 import VehicleList from '@/components/admin/VehicleList';
 import VehicleModal from '@/components/admin/VehicleModal';
 
@@ -19,6 +18,24 @@ export default function AdminPage() {
   const [isVehicleModalOpen, setIsVehicleModalOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);
 
+  const fetchData = useCallback(async (currentPassword?: string) => {
+    const authPassword = currentPassword || password;
+    if (!authPassword) return;
+    
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/vehicles', {
+        headers: { 'x-admin-password': authPassword }
+      });
+      const data = await res.json();
+      setVehicles(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Fetch failed:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [password]);
+
   useEffect(() => {
     const auth = sessionStorage.getItem('admin_auth');
     const savedPassword = sessionStorage.getItem('admin_password');
@@ -27,7 +44,7 @@ export default function AdminPage() {
       setIsAuthenticated(true);
       fetchData(savedPassword);
     }
-  }, []);
+  }, [fetchData]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,22 +67,6 @@ export default function AdminPage() {
     } catch (error) {
       console.error("Login failed:", error);
       setError('Connection failure.');
-    }
-  };
-
-  const fetchData = async (currentPassword?: string) => {
-    const authPassword = currentPassword || password;
-    setLoading(true);
-    try {
-      const res = await fetch('/api/admin/vehicles', {
-        headers: { 'x-admin-password': authPassword }
-      });
-      const data = await res.json();
-      setVehicles(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error("Fetch failed:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
