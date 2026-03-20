@@ -47,7 +47,12 @@ export const vehicles: Vehicle[] = [
       driveTrain: "AWD",
       fuelType: "Hybrid"
     },
-    description: "The SF90 Stradale is the first ever Ferrari to feature PHEV (Plug-in Hybrid Electric Vehicle) architecture. This masterpiece of engineering represents the ultimate expression of technology and performance, delivering unprecedented power for a series-production car."
+    description: "The SF90 Stradale is the first ever Ferrari to feature PHEV (Plug-in Hybrid Electric Vehicle) architecture. This masterpiece of engineering represents the ultimate expression of technology and performance, delivering unprecedented power for a series-production car.",
+    gallery: [
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070"
+    ]
   },
   {
     id: "lambo-aventador-svj-2023",
@@ -71,7 +76,12 @@ export const vehicles: Vehicle[] = [
       driveTrain: "AWD",
       fuelType: "Petrol"
     },
-    description: "The Aventador SVJ is the most iconic member of the Aventador family. The 'Superveloce Jota' designation signifies its track-focused performance, holding the Nürburgring Nordschleife record for production cars at launch."
+    description: "The Aventador SVJ is the most iconic member of the Aventador family. The 'Superveloce Jota' designation signifies its track-focused performance, holding the Nürburgring Nordschleife record for production cars at launch.",
+    gallery: [
+      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?auto=format&fit=crop&q=80&w=2070"
+    ]
   },
   {
     id: "porsche-911-turbo-s-2023",
@@ -95,7 +105,12 @@ export const vehicles: Vehicle[] = [
       driveTrain: "AWD",
       fuelType: "Petrol"
     },
-    description: "Unmatched performance combined with daily usability. The 911 Turbo S remains the benchmark for all-weather, all-purpose supercars, offering a level of refinement that few can match."
+    description: "Unmatched performance combined with daily usability. The 911 Turbo S remains the benchmark for all-weather, all-purpose supercars, offering a level of refinement that few can match.",
+    gallery: [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?auto=format&fit=crop&q=80&w=2070"
+    ]
   },
   {
     id: "aston-valkyrie-2021",
@@ -119,7 +134,12 @@ export const vehicles: Vehicle[] = [
       driveTrain: "RWD",
       fuelType: "Hybrid"
     },
-    description: "An F1 car for the road. The Valkyrie is the result of a partnership between Aston Martin and Red Bull Racing, designed by Adrian Newey to achieve aerodynamic performance previously thought impossible for a road car."
+    description: "An F1 car for the road. The Valkyrie is the result of a partnership between Aston Martin and Red Bull Racing, designed by Adrian Newey to achieve aerodynamic performance previously thought impossible for a road car.",
+    gallery: [
+      "https://images.unsplash.com/photo-1600706432502-77a0e2e3277e?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1600706432502-77a0e2e3277e?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1600706432502-77a0e2e3277e?auto=format&fit=crop&q=80&w=2070"
+    ]
   },
   {
     id: "mercedes-amg-one-2023",
@@ -143,7 +163,12 @@ export const vehicles: Vehicle[] = [
       driveTrain: "AWD",
       fuelType: "Hybrid"
     },
-    description: "The Mercedes-AMG ONE brings the world's most advanced racing technology to the street. With a genuine Formula 1 powertrain, it represents the most ambitious engineering project in AMG history."
+    description: "The Mercedes-AMG ONE brings the world's most advanced racing technology to the street. With a genuine Formula 1 powertrain, it represents the most ambitious engineering project in AMG history.",
+    gallery: [
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=2070"
+    ]
   },
   {
     id: "rolls-royce-spectre-2025",
@@ -167,6 +192,96 @@ export const vehicles: Vehicle[] = [
       driveTrain: "AWD",
       fuelType: "Electric"
     },
-    description: "The first ultra-luxury electric super coupé. Spectre is a Rolls-Royce first, and an electric car second. It offers the same legendary ride quality with the silent, instant torque of electric propulsion."
+    description: "The first ultra-luxury electric super coupé. Spectre is a Rolls-Royce first, and an electric car second. It offers the same legendary ride quality with the silent, instant torque of electric propulsion.",
+    gallery: [
+      "https://images.unsplash.com/photo-1631214524020-5e1839765171?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1631214524020-5e1839765171?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1631214524020-5e1839765171?auto=format&fit=crop&q=80&w=2070"
+    ]
+  },
+  {
+    id: "bugatti-chiron-pur-sport-2022",
+    brand: "Bugatti",
+    name: "Chiron Pur Sport",
+    year: 2022,
+    image: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&q=80&w=2070",
+    price: "$3,600,000",
+    status: "Available",
+    isFeatured: true,
+    isBestSeller: false,
+    specs: {
+      engine: "8.0L W16 Quad-Turbo",
+      power: "1500 PS",
+      acceleration: "2.3s 0-100 km/h",
+      topSpeed: "350 km/h",
+      transmission: "7-Speed Dual-Clutch",
+      mileage: "312 km",
+      exteriorColor: "Atlantic Blue",
+      interiorColor: "Beluga Black",
+      driveTrain: "AWD",
+      fuelType: "Petrol"
+    },
+    description: "Designed for lateral acceleration. The Chiron Pur Sport is the most agile member of the Chiron family, featuring shorter gear ratios and significant weight savings for unparalleled performance on winding roads.",
+    gallery: [
+      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&q=80&w=2070"
+    ]
+  },
+  {
+    id: "mclaren-p1-2014",
+    brand: "McLaren",
+    name: "P1",
+    year: 2014,
+    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070",
+    price: "$1,850,000",
+    status: "Sold",
+    isFeatured: false,
+    isBestSeller: false,
+    specs: {
+      engine: "3.8L V8 Twin-Turbo Hybrid",
+      power: "916 PS",
+      acceleration: "2.8s 0-100 km/h",
+      topSpeed: "350 km/h",
+      transmission: "7-Speed SSG",
+      mileage: "2,450 km",
+      exteriorColor: "Volcano Orange",
+      interiorColor: "Carbon Black",
+      driveTrain: "RWD",
+      fuelType: "Hybrid"
+    },
+    description: "The McLaren P1 was designed to be the best driver's car in the world on both road and track. As one of the 'Holy Trinity' of hypercars, it redefined what was possible with hybrid technology.",
+    gallery: [
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070"
+    ]
+  },
+  {
+    id: "bentley-mulliner-bacalar-2021",
+    brand: "Bentley",
+    name: "Mulliner Bacalar",
+    year: 2021,
+    image: "https://images.unsplash.com/photo-1567818735868-e71b99932e29?auto=format&fit=crop&q=80&w=2070",
+    price: "$1,900,000",
+    status: "Available",
+    isFeatured: true,
+    isBestSeller: false,
+    specs: {
+      engine: "6.0L W12 TSI",
+      power: "659 PS",
+      acceleration: "3.5s 0-100 km/h",
+      topSpeed: "322 km/h",
+      transmission: "8-Speed Dual-Clutch",
+      mileage: "85 km",
+      exteriorColor: "Yellow Flame",
+      interiorColor: "Grey Tweed",
+      driveTrain: "AWD",
+      fuelType: "Petrol"
+    },
+    description: "The rarest two-door Bentley of the modern era. The Bacalar is a roofless Barchetta that marks a return to bespoke coachbuilding for Bentley Mulliner, with only 12 examples ever produced.",
+    gallery: [
+      "https://images.unsplash.com/photo-1567818735868-e71b99932e29?auto=format&fit=crop&q=80&w=2070",
+      "https://images.unsplash.com/photo-1567818735868-e71b99932e29?auto=format&fit=crop&q=80&w=2070"
+    ]
   }
+
 ];

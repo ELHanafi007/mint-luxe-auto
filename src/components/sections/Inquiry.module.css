@@ -56,13 +56,37 @@
   border-bottom-color: var(--mint-white);
 }
 
+.inputError {
+  border-bottom-color: #d32f2f !important;
+}
+
+.errorText {
+  color: #d32f2f;
+  font-size: 0.7rem;
+  font-family: var(--font-sans);
+  margin-top: 4px;
+}
+
+.formError {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  margin-bottom: 12px;
+}
+
 .textarea {
   height: 120px;
   resize: none;
 }
 
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: var(--space-sm);
+}
+
 .submit {
-  align-self: flex-start;
   background: var(--mint-white);
   color: var(--mint-obsidian);
   border: none;
@@ -73,12 +97,55 @@
   letter-spacing: var(--tracking-wide);
   cursor: pointer;
   transition: all var(--transition-med);
-  margin-top: var(--space-sm);
 }
 
-.submit:hover {
+.submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submit:hover:not(:disabled) {
   background: var(--mint-gold);
   color: var(--mint-white);
+}
+
+.successMessage {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.successTitle {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--mint-gold);
+  margin-bottom: 16px;
+}
+
+.successMessage p {
+  font-family: var(--font-sans);
+  color: var(--mint-ash);
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.resetBtn {
+  background: transparent;
+  border: 1px solid var(--mint-white);
+  color: var(--mint-white);
+  padding: 12px 30px;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.resetBtn:hover {
+  background: var(--mint-white);
+  color: var(--mint-obsidian);
 }
 
 @media (max-width: 1024px) {

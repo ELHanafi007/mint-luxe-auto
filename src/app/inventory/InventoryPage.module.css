@@ -7,9 +7,10 @@
 
 .header {
   margin-bottom: var(--spacing-2xl);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+}
+
+.titleWrapper {
+  margin-bottom: var(--spacing-xl);
 }
 
 .metadata {
@@ -28,13 +29,41 @@
   color: #fff;
 }
 
+.searchBar {
+  margin-bottom: var(--spacing-lg);
+  max-width: 600px;
+}
+
+.searchInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 0;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.searchInput:focus {
+  border-bottom-color: #fff;
+}
+
+.filterGroups {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+}
+
 .filters {
   display: flex;
   gap: var(--spacing-lg);
   padding-bottom: 8px;
   overflow-x: auto;
-  max-width: 600px;
-  -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
@@ -52,6 +81,9 @@
   padding: 4px 0;
   transition: color 0.3s ease;
   white-space: nowrap;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .filterBtn:hover, .active {
@@ -67,10 +99,58 @@
   background-color: #fff;
 }
 
+.selectFilters {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 6px 12px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  outline: none;
+  cursor: pointer;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-md);
+}
+
+.emptyState {
+  padding: 100px 0;
+  text-align: center;
+}
+
+.emptyState p {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--gray-mid);
+  margin-bottom: var(--spacing-lg);
+}
+
+.clearBtn {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 10px 24px;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clearBtn:hover {
+  background: #fff;
+  color: #000;
 }
 
 @media (max-width: 1400px) {
@@ -86,10 +166,9 @@
 }
 
 @media (max-width: 768px) {
-  .header {
+  .filterGroups {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-xl);
   }
   
   .filters {

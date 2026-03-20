@@ -63,7 +63,15 @@ export default function Services() {
   );
 }
 
-function ServiceCard({ service, index }: { service: any; index: number }) {
+interface Service {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+}
+
+function ServiceCard({ service, index }: { service: Service; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,

@@ -26,6 +26,30 @@ export default function Footer() {
           </Link>
         </div>
 
+        <div className={styles.middle}>
+          <div className={styles.navGroup}>
+            <span className={styles.navTitle}>Archive</span>
+            <Link href="/inventory" className={styles.navLink}>Full Collection</Link>
+            <Link href="/inventory?brand=Ferrari" className={styles.navLink}>Ferrari</Link>
+            <Link href="/inventory?brand=Lamborghini" className={styles.navLink}>Lamborghini</Link>
+            <Link href="/inventory?brand=Porsche" className={styles.navLink}>Porsche</Link>
+          </div>
+          <div className={styles.navGroup}>
+            <span className={styles.navTitle}>Expertise</span>
+            <Link href="/services" className={styles.navLink}>Acquisition</Link>
+            <Link href="/services" className={styles.navLink}>Logistics</Link>
+            <Link href="/services" className={styles.navLink}>Portfolio Management</Link>
+            <Link href="/services" className={styles.navLink}>Private Sales</Link>
+          </div>
+          <div className={styles.navGroup}>
+            <span className={styles.navTitle}>Heritage</span>
+            <Link href="/about" className={styles.navLink}>Philosophy</Link>
+            <Link href="/about" className={styles.navLink}>Our Story</Link>
+            <Link href="/contact" className={styles.navLink}>Contact Us</Link>
+            <Link href="/contact" className={styles.navLink}>Careers</Link>
+          </div>
+        </div>
+
         <div className={styles.bottom}>
           <div className={styles.copyright}>
             © {currentYear} Mint Luxe Auto. All rights reserved.

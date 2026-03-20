@@ -1,20 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
 const navLinks = [
-  { name: 'Collection', href: '/#collection' },
-  { name: 'Services', href: '/#services' },
-  { name: 'Philosophy', href: '/#philosophy' },
-  { name: 'Inquiry', href: '/#inquiry' },
+  { name: 'Collection', href: '/inventory' },
+  { name: 'Services', href: '/services' },
+  { name: 'Heritage', href: '/about' },
+  { name: 'Contact', href: '/contact' },
 ];
 
+
 export default function Navbar() {
-  const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
