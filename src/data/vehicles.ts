@@ -159,7 +159,7 @@ export const vehicles: Vehicle[] = [
     brand: "Aston Martin",
     name: "Valkyrie",
     year: 2021,
-    image: "https://images.unsplash.com/photo-1600706432502-77a0e2e3277e?auto=format&fit=crop&q=80&w=2070",
+    image: "/images/inventory/aston-valkyrie/valkyrie-1.webp",
     price: "$3,200,000",
     status: "Available",
     isFeatured: true,
@@ -178,9 +178,48 @@ export const vehicles: Vehicle[] = [
     },
     description: "An F1 car for the road. The Valkyrie is the result of a partnership between Aston Martin and Red Bull Racing, designed by Adrian Newey to achieve aerodynamic performance previously thought impossible for a road car.",
     gallery: [
-      "https://images.unsplash.com/photo-1600706432502-77a0e2e3277e?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1600706432502-77a0e2e3277e?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1600706432502-77a0e2e3277e?auto=format&fit=crop&q=80&w=2070"
+      "/images/inventory/aston-valkyrie/valkyrie-2.webp",
+      "/images/inventory/aston-valkyrie/valkyrie-3.webp",
+      "/images/inventory/aston-valkyrie/valkyrie-4.webp",
+      "/images/inventory/aston-valkyrie/valkyrie-5.webp",
+      "/images/inventory/aston-valkyrie/valkyrie-6.jpeg",
+      "/images/inventory/aston-valkyrie/valkyrie-7.jpeg",
+      "/images/inventory/aston-valkyrie/valkyrie-8.jpeg",
+      "/images/inventory/aston-valkyrie/valkyrie-9.jpeg"
+    ]
+  },
+  {
+    id: "mercedes-amg-g63-mansory-p850-2024",
+    brand: "Mercedes-AMG",
+    name: "G63 Mansory P850",
+    year: 2024,
+    image: "/images/inventory/g63-mansory/g63-1.jpeg",
+    price: "$480,000",
+    status: "Available",
+    isFeatured: true,
+    isBestSeller: false,
+    specs: {
+      engine: "4.0L V8 Twin-Turbo (Tuned)",
+      power: "850 PS",
+      acceleration: "3.5s 0-100 km/h",
+      topSpeed: "250 km/h",
+      transmission: "9-Speed Automatic",
+      mileage: "150 km",
+      exteriorColor: "Satin Black / Carbon",
+      interiorColor: "Mandarin Orange Leather",
+      driveTrain: "AWD",
+      fuelType: "Petrol"
+    },
+    description: "The Mansory P850 transformation turns the iconic G63 into an unparalleled statement of power and luxury. Featuring a full forged carbon fiber widebody kit, bespoke interior, and a performance upgrade to 850 horsepower, it is one of the most aggressive luxury SUVs in existence.",
+    gallery: [
+      "/images/inventory/g63-mansory/g63-2.jpeg",
+      "/images/inventory/g63-mansory/g63-3.jpeg",
+      "/images/inventory/g63-mansory/g63-4.jpeg",
+      "/images/inventory/g63-mansory/g63-5.jpeg",
+      "/images/inventory/g63-mansory/g63-6.jpeg",
+      "/images/inventory/g63-mansory/g63-7.jpeg",
+      "/images/inventory/g63-mansory/g63-8.jpeg",
+      "/images/inventory/g63-mansory/g63-9.jpeg"
     ]
   },
   {
@@ -272,7 +311,7 @@ export const vehicles: Vehicle[] = [
     brand: "McLaren",
     name: "P1",
     year: 2014,
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070",
+    image: "/images/inventory/mclaren-p1/p1-1.webp",
     price: "$1,850,000",
     status: "Sold",
     isFeatured: false,
@@ -291,8 +330,17 @@ export const vehicles: Vehicle[] = [
     },
     description: "The McLaren P1 was designed to be the best driver's car in the world on both road and track. As one of the 'Holy Trinity' of hypercars, it redefined what was possible with hybrid technology.",
     gallery: [
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070"
+      "/images/inventory/mclaren-p1/p1-2.webp",
+      "/images/inventory/mclaren-p1/p1-3.webp",
+      "/images/inventory/mclaren-p1/p1-4.jpeg",
+      "/images/inventory/mclaren-p1/p1-5.webp",
+      "/images/inventory/mclaren-p1/p1-6.webp",
+      "/images/inventory/mclaren-p1/p1-7.jpeg",
+      "/images/inventory/mclaren-p1/p1-8.webp",
+      "/images/inventory/mclaren-p1/p1-9.jpeg",
+      "/images/inventory/mclaren-p1/p1-10.jpeg",
+      "/images/inventory/mclaren-p1/p1-11.jpeg",
+      "/images/inventory/mclaren-p1/p1-12.webp"
     ]
   },
   {
