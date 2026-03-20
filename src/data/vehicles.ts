@@ -30,7 +30,7 @@ export const vehicles: Vehicle[] = [
     brand: "Ferrari",
     name: "296 GTB Black Edition",
     year: 2025,
-    image: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070",
+    image: "/images/inventory/ferrari-296-gtb/ferrari-296-1.jpg",
     price: "$385,000",
     status: "Available",
     isFeatured: true,
@@ -49,67 +49,81 @@ export const vehicles: Vehicle[] = [
     },
     description: "The Ferrari 296 GTB Black Edition represents a paradigm shift in the world of high-performance supercars. This late 2025 model, imported as new, features the first-ever V6 engine in a production Ferrari, combined with a powerful electric motor to deliver a staggering 830 PS. This specific Black Edition is finished in the deep, metallic Nero Daytona with a full carbon fiber package, offering a stealthy and aggressive presence on the road.",
     gallery: [
-      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=2070"
+      "/images/inventory/ferrari-296-gtb/ferrari-296-2.jpg",
+      "/images/inventory/ferrari-296-gtb/ferrari-296-3.jpg",
+      "/images/inventory/ferrari-296-gtb/ferrari-296-4.jpg",
+      "/images/inventory/ferrari-296-gtb/ferrari-296-5.jpg",
+      "/images/inventory/ferrari-296-gtb/ferrari-296-6.jpg",
+      "/images/inventory/ferrari-296-gtb/ferrari-296-7.jpg",
+      "/images/inventory/ferrari-296-gtb/ferrari-296-8.jpg",
+      "/images/inventory/ferrari-296-gtb/ferrari-296-9.jpg"
     ]
   },
   {
-    id: "ferrari-sf90-stradale-2023",
-    brand: "Ferrari",
-    name: "SF90 Stradale",
-    year: 2023,
-    image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=2070",
-    price: "$625,000",
+    id: "bentley-continental-gt-v8-hybrid-azure-2025",
+    brand: "Bentley",
+    name: "Continental GT V8 Hybrid Azure",
+    year: 2025,
+    image: "/images/inventory/bentley-continental/bentley-continental-1.jpg",
+    price: "$345,000",
     status: "Available",
     isFeatured: true,
     isBestSeller: true,
     specs: {
       engine: "4.0L V8 Twin-Turbo Hybrid",
-      power: "1000 PS",
-      acceleration: "2.5s 0-100 km/h",
-      topSpeed: "340 km/h",
+      power: "782 PS",
+      acceleration: "3.2s 0-100 km/h",
+      topSpeed: "335 km/h",
       transmission: "8-Speed Dual-Clutch",
-      mileage: "720 km",
-      exteriorColor: "Rosso Corsa",
-      interiorColor: "Nero Alcantara",
+      mileage: "5,000 km",
+      exteriorColor: "Azure Blue",
+      interiorColor: "Linen / Imperial Blue",
       driveTrain: "AWD",
       fuelType: "Hybrid"
     },
-    description: "The SF90 Stradale is the first ever Ferrari to feature PHEV (Plug-in Hybrid Electric Vehicle) architecture. This masterpiece of engineering represents the ultimate expression of technology and performance, delivering unprecedented power for a series-production car.",
+    description: "A masterpiece of luxury and performance. This 2025 Bentley Continental GT V8 Hybrid Azure combines the effortless power of a twin-turbo V8 with advanced hybrid technology. Imported as new and with only 5,000km, it represents the pinnacle of grand touring, finished in the exclusive Azure specification for ultimate comfort and elegance.",
     gallery: [
-      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070"
+      "/images/inventory/bentley-continental/bentley-continental-2.jpg",
+      "/images/inventory/bentley-continental/bentley-continental-3.jpg",
+      "/images/inventory/bentley-continental/bentley-continental-4.jpg",
+      "/images/inventory/bentley-continental/bentley-continental-5.jpg",
+      "/images/inventory/bentley-continental/bentley-continental-6.jpg",
+      "/images/inventory/bentley-continental/bentley-continental-7.jpg",
+      "/images/inventory/bentley-continental/bentley-continental-8.jpg",
+      "/images/inventory/bentley-continental/bentley-continental-9.jpg",
+      "/images/inventory/bentley-continental/bentley-continental-10.jpg",
+      "/images/inventory/bentley-continental/bentley-continental-11.jpg"
     ]
   },
   {
-    id: "lambo-aventador-svj-2023",
+    id: "lamborghini-urus-performante-2024",
     brand: "Lamborghini",
-    name: "Aventador SVJ",
-    year: 2023,
-    image: "https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?auto=format&fit=crop&q=80&w=2070",
-    price: "$520,000",
-    status: "Reserved",
+    name: "Urus Performante (Akrapovič Edition)",
+    year: 2024,
+    image: "/images/inventory/lamborghini-urus/urus-1.jpg",
+    price: "$310,000",
+    status: "Available",
     isFeatured: true,
-    isBestSeller: true,
+    isBestSeller: false,
     specs: {
-      engine: "6.5L V12",
-      power: "770 PS",
-      acceleration: "2.8s 0-100 km/h",
-      topSpeed: "350 km/h",
-      transmission: "7-Speed ISR",
-      mileage: "195 km",
-      exteriorColor: "Giallo Orion",
-      interiorColor: "Nero Ade",
+      engine: "4.0L V8 Twin-Turbo",
+      power: "666 PS",
+      acceleration: "3.3s 0-100 km/h",
+      topSpeed: "306 km/h",
+      transmission: "8-Speed Automatic",
+      mileage: "1,200 km",
+      exteriorColor: "Grigio Telesto",
+      interiorColor: "Nero Cosmus Alcantara",
       driveTrain: "AWD",
       fuelType: "Petrol"
     },
-    description: "The Aventador SVJ is the most iconic member of the Aventador family. The 'Superveloce Jota' designation signifies its track-focused performance, holding the Nürburgring Nordschleife record for production cars at launch.",
+    description: "The Urus Performante raises the bar for Super SUV performance. This specific unit features the full Akrapovič titanium exhaust system, delivering an unmatched acoustic experience and increased performance. With its aggressive carbon fiber aero and track-tuned suspension, it is the ultimate expression of the Lamborghini SUV.",
     gallery: [
-      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?auto=format&fit=crop&q=80&w=2070"
+      "/images/inventory/lamborghini-urus/urus-2.jpg",
+      "/images/inventory/lamborghini-urus/urus-3.jpg",
+      "/images/inventory/lamborghini-urus/urus-4.jpg",
+      "/images/inventory/lamborghini-urus/urus-5.jpg",
+      "/images/inventory/lamborghini-urus/urus-6.jpg"
     ]
   },
   {
@@ -117,7 +131,7 @@ export const vehicles: Vehicle[] = [
     brand: "Porsche",
     name: "911 Turbo S (992)",
     year: 2023,
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070",
+    image: "/images/inventory/porsche-911/porsche-911-1.jpg",
     price: "$230,000",
     status: "Available",
     isFeatured: false,
@@ -136,9 +150,8 @@ export const vehicles: Vehicle[] = [
     },
     description: "Unmatched performance combined with daily usability. The 911 Turbo S remains the benchmark for all-weather, all-purpose supercars, offering a level of refinement that few can match.",
     gallery: [
-      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?auto=format&fit=crop&q=80&w=2070"
+      "/images/inventory/porsche-911/porsche-911-2.jpg",
+      "/images/inventory/porsche-911/porsche-911-3.jpg"
     ]
   },
   {
@@ -204,7 +217,7 @@ export const vehicles: Vehicle[] = [
     brand: "Rolls-Royce",
     name: "Spectre",
     year: 2025,
-    image: "https://images.unsplash.com/photo-1631214524020-5e1839765171?auto=format&fit=crop&q=80&w=2070",
+    image: "/images/inventory/rolls-royce-spectre/spectre-1.jpg",
     price: "$420,000",
     status: "Available",
     isFeatured: true,
@@ -223,9 +236,7 @@ export const vehicles: Vehicle[] = [
     },
     description: "The first ultra-luxury electric super coupé. Spectre is a Rolls-Royce first, and an electric car second. It offers the same legendary ride quality with the silent, instant torque of electric propulsion.",
     gallery: [
-      "https://images.unsplash.com/photo-1631214524020-5e1839765171?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1631214524020-5e1839765171?auto=format&fit=crop&q=80&w=2070",
-      "https://images.unsplash.com/photo-1631214524020-5e1839765171?auto=format&fit=crop&q=80&w=2070"
+      "/images/inventory/rolls-royce-spectre/spectre-2.jpg"
     ]
   },
   {
