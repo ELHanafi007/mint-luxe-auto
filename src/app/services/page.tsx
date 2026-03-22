@@ -4,6 +4,7 @@ import { Section, Container } from '@/components/primitives/Layout';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './ServicesPage.module.css';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function ServicesPage() {
   const { language, t } = useLanguage();
@@ -51,8 +52,14 @@ export default function ServicesPage() {
     <main className={styles.servicesPage}>
       <Section className={styles.hero}>
         <Container>
-          <span className={styles.metadata}>{t.nav.services}</span>
-          <h1 className={styles.title}>{t.services.superiorStandard}</h1>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
+          >
+            <span className={styles.metadata}>{t.services.luxuryEcosystem}</span>
+            <h1 className={styles.title}>{t.services.superiorStandard}</h1>
+          </motion.div>
         </Container>
       </Section>
 
@@ -61,17 +68,39 @@ export default function ServicesPage() {
           <Section key={service.id} className={styles.serviceItem}>
             <Container>
               <div className={`${styles.grid} ${i % 2 !== 0 ? styles.reversed : ''}`}>
-                <div className={styles.content}>
+                <motion.div 
+                  className={styles.content}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
+                >
                   <span className={styles.step}>0{i + 1}</span>
                   <h2 className={styles.serviceTitle}>{service.title}</h2>
                   <p className={styles.description}>{service.description}</p>
                   <ul className={styles.details}>
-                    {service.details.map((detail) => (
-                      <li key={detail} className={styles.detailItem}>{detail}</li>
+                    {service.details.map((detail, idx) => (
+                      <motion.li 
+                        key={detail} 
+                        className={styles.detailItem}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 + (idx * 0.1) }}
+                      >
+                        {detail}
+                      </motion.li>
                     ))}
                   </ul>
-                </div>
-                <div className={styles.imageContainer}>
+                </motion.div>
+                
+                <motion.div 
+                  className={styles.imageContainer}
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
+                >
                   <Image 
                     src={service.image} 
                     alt={service.title} 
@@ -80,7 +109,7 @@ export default function ServicesPage() {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                   <div className={styles.overlay} />
-                </div>
+                </motion.div>
               </div>
             </Container>
           </Section>

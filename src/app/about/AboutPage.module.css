@@ -4,118 +4,253 @@
 }
 
 .hero {
-  padding: 200px 0 100px;
-  background-color: #000;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+}
+
+.heroBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.heroImage {
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
 }
 
 .metadata {
   display: block;
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.6em;
   color: var(--mint-gold);
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .title {
   font-family: var(--font-serif);
-  font-size: clamp(3rem, 8vw, 6rem);
-  line-height: 1;
+  font-size: clamp(3.5rem, 10vw, 7.5rem);
+  line-height: 0.95;
   color: #fff;
+  font-weight: 300;
 }
 
-.content {
-  background-color: var(--mint-obsidian);
-  padding: 100px 0;
+.philosophy {
+  background-color: #000;
+  padding: 180px 0;
 }
 
-.grid {
+.philosophyGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 100px;
-  align-items: center;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 120px;
+  align-items: flex-start;
 }
 
 .subTitle {
   font-family: var(--font-serif);
-  font-size: 2.5rem;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
   color: #fff;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
+  line-height: 1.1;
 }
 
 .paragraph {
   font-family: var(--font-sans);
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1.2rem;
+  line-height: 2;
   color: var(--mint-ash);
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .statGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
+  gap: 60px;
 }
 
 .statItem {
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  padding-left: 30px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  padding-left: 40px;
 }
 
 .statValue {
   display: block;
   font-family: var(--font-serif);
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--mint-gold);
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  font-weight: 300;
 }
 
 .statLabel {
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   color: var(--mint-ash);
 }
 
 .vision {
-  padding: 150px 0;
+  position: relative;
+  padding: 250px 0;
   text-align: center;
-  background-color: #000;
+  overflow: hidden;
+}
+
+.visionBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.visionImage {
+  object-fit: cover;
+  filter: brightness(0.4) grayscale(100%);
+}
+
+.visionOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 1;
+}
+
+.visionInner {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .visionTitle {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-style: italic;
   color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 48px;
   line-height: 1.2;
+  font-weight: 300;
 }
 
 .visionAuthor {
   font-family: var(--font-sans);
   font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.5em;
   color: var(--mint-gold);
 }
 
+.legacy {
+  padding: 180px 0;
+  background-color: #000;
+}
+
+.legacyHeader {
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+.legacyTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  color: #fff;
+  margin-top: 24px;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.timelineItem {
+  position: relative;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.timelineItem::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--mint-gold);
+}
+
+.timelineYear {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--mint-gold);
+  margin-bottom: 16px;
+}
+
+.timelineEvent {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--mint-ash);
+  line-height: 1.6;
+}
+
 @media (max-width: 1024px) {
-  .grid {
+  .philosophyGrid {
     grid-template-columns: 1fr;
+    gap: 80px;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr 1fr;
     gap: 60px;
   }
 }
 
 @media (max-width: 768px) {
   .hero {
-    padding: 150px 0 60px;
+    height: 80vh;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
   }
 
   .statGrid {
     grid-template-columns: 1fr 1fr;
+    gap: 40px;
   }
 }
