@@ -1,6 +1,5 @@
 'use client';
 
-import { Metadata } from 'next';
 import { Section, Container } from '@/components/primitives/Layout';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './AboutPage.module.css';

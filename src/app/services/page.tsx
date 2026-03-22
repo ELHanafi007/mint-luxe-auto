@@ -1,13 +1,12 @@
 'use client';
 
-import { Metadata } from 'next';
 import { Section, Container } from '@/components/primitives/Layout';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './ServicesPage.module.css';
 import Image from 'next/image';
 
 export default function ServicesPage() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   const services = [
     {
@@ -15,10 +14,10 @@ export default function ServicesPage() {
       title: t.services.acquisitionSubtitle,
       description: t.services.acquisitionDesc,
       details: [
-        t.language === 'fr' ? 'Sourcing Hors-Marché' : 'Off-Market Sourcing',
-        t.language === 'fr' ? 'Inspection Avant-Achat' : 'Pre-Purchase Inspection',
-        t.language === 'fr' ? 'Vérification de Titre & Provenance' : 'Title & Provenance Verification',
-        t.language === 'fr' ? 'Négociation & Règlement' : 'Negotiation & Settlement'
+        language === 'fr' ? 'Sourcing Hors-Marché' : 'Off-Market Sourcing',
+        language === 'fr' ? 'Inspection Avant-Achat' : 'Pre-Purchase Inspection',
+        language === 'fr' ? 'Vérification de Titre & Provenance' : 'Title & Provenance Verification',
+        language === 'fr' ? 'Négociation & Règlement' : 'Negotiation & Settlement'
       ],
       image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070'
     },
@@ -27,10 +26,10 @@ export default function ServicesPage() {
       title: t.services.logisticsSubtitle,
       description: t.services.logisticsDesc,
       details: [
-        t.language === 'fr' ? 'Transport Climatisé' : 'Climate-Controlled Transport',
-        t.language === 'fr' ? 'Gestion des Douanes' : 'Customs & Duty Management',
-        t.language === 'fr' ? 'Assurance Transit Complète' : 'Comprehensive Transit Insurance',
-        t.language === 'fr' ? 'Détail Final & Remise' : 'Final Detail & Handover'
+        language === 'fr' ? 'Transport Climatisé' : 'Climate-Controlled Transport',
+        language === 'fr' ? 'Gestion des Douanes' : 'Customs & Duty Management',
+        language === 'fr' ? 'Assurance Transit Complète' : 'Comprehensive Transit Insurance',
+        language === 'fr' ? 'Détail Final & Remise' : 'Final Detail & Handover'
       ],
       image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070'
     },
@@ -39,10 +38,10 @@ export default function ServicesPage() {
       title: t.services.portfolioSubtitle,
       description: t.services.portfolioDesc,
       details: [
-        t.language === 'fr' ? 'Estimation d\'Actifs & Tendances' : 'Asset Valuation & Trends',
-        t.language === 'fr' ? 'Planification de Collection' : 'Collection Planning',
-        t.language === 'fr' ? 'Stratégie de Disposition' : 'Disposition Strategy',
-        t.language === 'fr' ? 'Gestion de Conservation' : 'Conservation Management'
+        language === 'fr' ? 'Estimation d\'Actifs & Tendances' : 'Asset Valuation & Trends',
+        language === 'fr' ? 'Planification de Collection' : 'Collection Planning',
+        language === 'fr' ? 'Stratégie de Disposition' : 'Disposition Strategy',
+        language === 'fr' ? 'Gestion de Conservation' : 'Conservation Management'
       ],
       image: 'https://images.unsplash.com/photo-1493238555221-d2aa9f574678?auto=format&fit=crop&q=80&w=2070'
     }
