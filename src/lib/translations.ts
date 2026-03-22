@@ -5,7 +5,7 @@ export const translations = {
     nav: {
       collection: 'Collection',
       services: 'Services',
-      compare: 'Choose your car',
+      compare: 'Compare cars',
       heritage: 'Heritage',
       contact: 'Contact',
       privateAccess: 'Private Access'
@@ -96,7 +96,7 @@ export const translations = {
       }
     },
     compare: {
-      title: 'Choose your car',
+      title: 'Compare cars',
       selectVehicle: 'Select a vehicle',
       firstVehicle: 'First vehicle',
       secondVehicle: 'Second vehicle'
@@ -137,7 +137,7 @@ export const translations = {
     nav: {
       collection: 'Collection',
       services: 'Services',
-      compare: 'Sélectionner',
+      compare: 'Comparer',
       heritage: 'Héritage',
       contact: 'Contact',
       privateAccess: 'Accès Privé'
@@ -228,7 +228,7 @@ export const translations = {
       }
     },
     compare: {
-      title: 'Sélectionner',
+      title: 'Comparer',
       selectVehicle: 'Sélectionner un véhicule',
       firstVehicle: 'Premier véhicule',
       secondVehicle: 'Deuxième véhicule'
@@ -238,7 +238,7 @@ export const translations = {
       title: 'L\'Art de l\'Automobile.',
       subTitle: 'L\'Excellence comme Norme.',
       p1: 'Fondé sur les principes d\'une discrétion absolue et d\'une précision chirurgicale, Mint0lux est devenu la destination de référence pour les collectionneurs les plus exigeants au monde. Nous pensons qu\'un véhicule véritablement exceptionnel n\'est pas seulement une machine, mais un chef-d\'œuvre d\'ingénierie et un actif durable.',
-      p2: 'Notre processus de sélection est exhaustif. Chaque acquisition de notre portefeuille a été examinée selon un ensemble de critères rigoureux — provenance, état et rareté — garantissant que nous ne représentons que le sommet de l\'accomplissement automobile.',
+      p2: 'Our curation process is exhaustive. Every acquisition in our portfolio has been vetted against a rigorous set of criteria—provenance, condition, and rarity—ensuring that we only represent the pinnacle of automotive achievement.',
       assetsManaged: 'Actifs Gérés',
       globalPartners: 'Partenaires Mondiaux',
       yearsExcellence: 'Années d\'Excellence',

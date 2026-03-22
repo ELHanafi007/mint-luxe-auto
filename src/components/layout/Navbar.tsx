@@ -46,12 +46,14 @@ export default function Navbar() {
         <div className={styles.navInner}>
           <div className={`${styles.logo} interactive`}>
             <Link href="/">
-              <motion.span
+              <motion.div
+                className={styles.logoWrapper}
                 animate={{ letterSpacing: (isScrolled || !isHome) ? '0.4em' : '0.6em' }}
                 transition={{ duration: 0.8 }}
               >
-                MINT.LUXE
-              </motion.span>
+                <div className={styles.logoMain}>MINT.LUXE</div>
+                <div className={styles.logoSub}>AUTO</div>
+              </motion.div>
             </Link>
           </div>
           
@@ -75,6 +77,11 @@ export default function Navbar() {
 
           <div className={styles.rightActions}>
             <div className={styles.langToggle}>
+              <motion.div 
+                className={styles.langSlider}
+                animate={{ x: language === 'en' ? 0 : '100%' }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              />
               <button 
                 onClick={() => setLanguage('en')}
                 className={`${styles.langBtn} ${language === 'en' ? styles.langBtnActive : ''}`}

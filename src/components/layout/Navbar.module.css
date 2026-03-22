@@ -16,10 +16,30 @@
 
 .logo {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
-  letter-spacing: 0.6em;
   text-transform: uppercase;
   color: #fff;
+  line-height: 1;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logoMain {
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: inherit;
+}
+
+.logoSub {
+  font-size: 0.5rem;
+  letter-spacing: 0.75em;
+  margin-top: 4px;
+  color: var(--gray-mid);
+  width: 100%;
+  text-align: left;
 }
 
 .navLinks {
@@ -33,7 +53,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #cccccc; /* Lighter grey for visibility */
+  color: #cccccc;
   transition: color 0.3s ease;
   position: relative;
 }
@@ -65,24 +85,44 @@
 
 .langToggle {
   display: flex;
-  gap: 10px;
-  background-color: #1a1a1a; /* Dark grey as requested */
+  position: relative;
+  background-color: #1a1a1a;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 4px 8px;
+  padding: 2px;
   border-radius: 20px;
+  width: 76px;
+  height: 28px;
+  overflow: hidden;
+}
+
+.langSlider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 35px;
+  height: 22px;
+  background-color: #fff;
+  border-radius: 20px;
+  z-index: 0;
 }
 
 .langBtn {
+  position: relative;
+  flex: 1;
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.5);
   font-family: var(--font-sans);
   font-size: 0.6rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
   cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 2px 6px;
-  border-radius: 10px;
+  transition: color 0.3s ease;
+  padding: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .langBtn:hover {
@@ -91,11 +131,10 @@
 
 .langBtnActive {
   color: #000 !important;
-  background-color: #fff;
 }
 
 .ctaBtn {
-  background-color: #1a1a1a; /* Dark grey as requested */
+  background-color: #1a1a1a;
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
   padding: 8px 20px;
