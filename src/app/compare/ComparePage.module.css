@@ -6,57 +6,61 @@
 
 .title {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  margin-bottom: 3rem;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 4rem;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
+  color: #fff;
 }
 
-.compareGrid {
-  display: grid;
+.compareFlex {
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
-  margin-bottom: 4rem;
-  align-items: start;
+  justify-content: center;
+  align-items: stretch;
+  margin-bottom: 6rem;
 }
 
-.grid1 { grid-template-columns: 1fr; max-width: 800px; margin-inline: auto; }
-.grid2 { grid-template-columns: repeat(2, 1fr); }
-.grid3 { grid-template-columns: repeat(3, 1fr); }
-.grid4 { grid-template-columns: repeat(4, 1fr); }
-
-.vehicleColumn {
+.vehicleCard, .addCard {
+  flex: 1 1 320px;
+  max-width: calc(50% - 1rem);
+  min-width: 300px;
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  min-width: 0;
-  position: relative;
 }
 
-.columnHeader {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: -1rem;
+/* Adjust width when more items are present on large screens */
+@media (min-width: 1440px) {
+  .vehicleCard, .addCard {
+    max-width: calc(25% - 1.5rem);
+  }
 }
 
 .removeBtn {
-  background: rgba(255, 255, 255, 0.05);
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1a1a1a;
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  z-index: 10;
   transition: all 0.3s ease;
-  z-index: 2;
 }
 
 .removeBtn:hover {
-  background: #d32f2f;
-  border-color: #d32f2f;
+  background: #fff;
+  color: #000;
+  transform: rotate(90deg);
 }
 
 .imageWrapper {
@@ -64,38 +68,50 @@
   aspect-ratio: 16/10;
   width: 100%;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
   background-color: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .vehicleImage {
   object-fit: cover;
+  transition: transform 0.8s var(--transition-smooth);
+}
+
+.vehicleCard:hover .vehicleImage {
+  transform: scale(1.05);
 }
 
 .vehicleInfo {
-  padding: 1rem 0;
+  padding: 2rem 0 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .brand {
   display: block;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.4em;
   color: var(--gray-mid);
   margin-bottom: 0.5rem;
 }
 
 .name {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   margin-bottom: 0.5rem;
-  line-height: 1.2;
+  line-height: 1.1;
+  color: #fff;
 }
 
 .price {
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-family: var(--font-serif);
   color: #fff;
   opacity: 0.8;
+}
+
+.specs {
+  flex-grow: 1;
 }
 
 .specsTable {
@@ -104,42 +120,36 @@
 }
 
 .specRow {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .specLabel {
-  padding: 0.75rem 0;
+  padding: 1rem 0;
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.4);
-  width: 40%;
 }
 
 .specValue {
-  padding: 0.75rem 0;
-  font-size: 0.85rem;
+  padding: 1rem 0;
+  font-size: 0.9rem;
   text-align: right;
   color: #fff;
 }
 
-/* Add Slot Styles */
-.addSlot {
-  aspect-ratio: 16/10;
-  background: rgba(255, 255, 255, 0.02);
+/* Add Card Styles */
+.addCard {
+  background: rgba(255, 255, 255, 0.01);
   border: 1px dashed rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  transition: all 0.3s ease;
-  height: 100%;
   min-height: 400px;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease;
 }
 
-.addSlot:hover {
-  background: rgba(255, 255, 255, 0.04);
+.addCard:hover {
+  background: rgba(255, 255, 255, 0.03);
   border-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -147,37 +157,45 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
   width: 100%;
+  padding: 2rem;
 }
 
 .plusCircle {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   color: rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
 }
 
-.addContent h3 {
-  font-size: 0.7rem;
+.addCard:hover .plusCircle {
+  border-color: #fff;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.addTitle {
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   color: rgba(255, 255, 255, 0.4);
 }
 
 .selectorWrapper {
   width: 100%;
-  max-width: 240px;
+  max-width: 280px;
 }
 
 .selector {
   width: 100%;
-  padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  background: #1a1a1a;
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   font-family: var(--font-sans);
@@ -185,22 +203,27 @@
   appearance: none;
   cursor: pointer;
   text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
-@media (max-width: 1024px) {
-  .grid3, .grid4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.selector:hover {
+  border-color: #fff;
 }
 
-@media (max-width: 640px) {
-  .compareGrid {
-    grid-template-columns: 1fr !important;
-    gap: 3rem;
+@media (max-width: 768px) {
+  .vehicleCard, .addCard {
+    flex: 1 1 100%;
+    max-width: 100%;
   }
   
-  .addSlot {
-    min-height: 200px;
-    aspect-ratio: 16/9;
+  .compareFlex {
+    gap: 3rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
   }
 }

@@ -29,53 +29,35 @@ function CompareContent() {
     }).filter((v): v is Vehicle => !!v);
 
     setSelectedVehicles(newSelected);
-  }, [searchParams, vehicles]);
+  }, [searchParams]);
 
-  const updateVehicle = (index: number, id: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    const paramKey = `v${index + 1}`;
-    
-    if (id) {
-      params.set(paramKey, id);
-    } else {
-      // Shift other params up if one is removed
-      const currentIds = [
-        searchParams.get('v1'),
-        searchParams.get('v2'),
-        searchParams.get('v3'),
-        searchParams.get('v4')
-      ].filter(Boolean);
-      
-      const removedId = selectedVehicles[index]?.id;
-      const newIds = currentIds.filter(cid => cid !== removedId);
-      
-      // Clear all and re-set
-      params.delete('v1');
-      params.delete('v2');
-      params.delete('v3');
-      params.delete('v4');
-      
-      newIds.forEach((nid, i) => {
-        params.set(`v${i + 1}`, nid!);
-      });
-    }
-    
+  const updateURL = (newVehicles: Vehicle[]) => {
+    const params = new URLSearchParams();
+    newVehicles.forEach((v, i) => {
+      params.set(`v${i + 1}`, v.id);
+    });
     router.push(`/compare?${params.toString()}`, { scroll: false });
   };
 
-  const removeVehicle = (index: number) => {
-    updateVehicle(index, '');
-  };
-
-  const addVehicleSlot = () => {
-    if (selectedVehicles.length < 4) {
-      // Just a trigger to show the selector if we were to use a different UI, 
-      // but here we'll just ensure there's at least one empty slot shown if < 4
+  const addVehicle = (id: string) => {
+    if (!id) return;
+    const vehicle = vehicles.find(v => v.id === id);
+    if (vehicle && selectedVehicles.length < 4) {
+      const newList = [...selectedVehicles, vehicle];
+      setSelectedVehicles(newList);
+      updateURL(newList);
     }
   };
 
-  const activeCount = selectedVehicles.length;
-  const showAddSlot = activeCount < 4;
+  const removeVehicle = (id: string) => {
+    const newList = selectedVehicles.filter(v => v.id !== id);
+    setSelectedVehicles(newList);
+    updateURL(newList);
+  };
+
+  const availableVehicles = vehicles.filter(
+    v => !selectedVehicles.find(sv => sv.id === v.id)
+  );
 
   return (
     <div className="container">
@@ -88,25 +70,24 @@ function CompareContent() {
         {t.compare.title}
       </motion.h1>
 
-      <div className={`${styles.compareGrid} ${styles[`grid${activeCount + (showAddSlot ? 1 : 0)}`]}`}>
+      <motion.div layout className={styles.compareFlex}>
         <AnimatePresence mode="popLayout">
-          {selectedVehicles.map((vehicle, index) => (
+          {selectedVehicles.map((vehicle) => (
             <motion.div 
               key={vehicle.id} 
               layout
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className={styles.vehicleColumn}
+              className={styles.vehicleCard}
             >
-              <div className={styles.columnHeader}>
-                <button 
-                  onClick={() => removeVehicle(index)}
-                  className={styles.removeBtn}
-                >
-                  <X size={14} />
-                </button>
-              </div>
+              <button 
+                onClick={() => removeVehicle(vehicle.id)}
+                className={styles.removeBtn}
+                aria-label="Remove vehicle"
+              >
+                <X size={16} />
+              </button>
 
               <div className={styles.imageWrapper}>
                 <Image 
@@ -114,7 +95,7 @@ function CompareContent() {
                   alt={vehicle.name} 
                   fill 
                   className={styles.vehicleImage}
-                  sizes="(max-width: 640px) 100vw, 50vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               
@@ -141,37 +122,36 @@ function CompareContent() {
             </motion.div>
           ))}
 
-          {showAddSlot && (
+          {selectedVehicles.length < 4 && (
             <motion.div 
               key="add-slot"
               layout
-              className={styles.addSlot}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className={styles.addCard}
             >
               <div className={styles.addContent}>
                 <div className={styles.plusCircle}>
                   <Plus size={32} strokeWidth={1} />
                 </div>
-                <h3>{t.compare.selectVehicle}</h3>
+                <h3 className={styles.addTitle}>{t.compare.selectVehicle}</h3>
                 <div className={styles.selectorWrapper}>
                   <select 
                     className={styles.selector}
                     value=""
-                    onChange={(e) => updateVehicle(activeCount, e.target.value)}
+                    onChange={(e) => addVehicle(e.target.value)}
                   >
                     <option value="">{t.compare.selectVehicle}...</option>
-                    {vehicles
-                      .filter(v => !selectedVehicles.find(sv => sv.id === v.id))
-                      .map(v => (
-                        <option key={v.id} value={v.id}>{v.brand} {v.name}</option>
-                      ))
-                    }
+                    {availableVehicles.map(v => (
+                      <option key={v.id} value={v.id}>{v.brand} {v.name}</option>
+                    ))}
                   </select>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
   );
 }
