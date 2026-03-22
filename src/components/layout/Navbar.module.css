@@ -33,7 +33,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gray-mid);
+  color: #cccccc; /* Lighter grey for visibility */
   transition: color 0.3s ease;
   position: relative;
 }
@@ -66,7 +66,8 @@
 .langToggle {
   display: flex;
   gap: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #1a1a1a; /* Dark grey as requested */
+  border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 4px 8px;
   border-radius: 20px;
 }
@@ -74,7 +75,7 @@
 .langBtn {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.5);
   font-family: var(--font-sans);
   font-size: 0.6rem;
   letter-spacing: 0.1em;
@@ -94,8 +95,8 @@
 }
 
 .ctaBtn {
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #1a1a1a; /* Dark grey as requested */
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
   padding: 8px 20px;
   font-family: var(--font-sans);

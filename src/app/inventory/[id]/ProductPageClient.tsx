@@ -71,8 +71,8 @@ export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }:
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
-                  className={styles.mainImageWrapper}
-                  style={{ border: 'none', position: 'absolute', top: 0, left: 0 }}
+                  className={styles.animatedImageContainer}
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                 >
                   <Image 
                     src={activeImage} 

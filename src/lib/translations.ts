@@ -5,7 +5,7 @@ export const translations = {
     nav: {
       collection: 'Collection',
       services: 'Services',
-      compare: 'Compare',
+      compare: 'Choose your car',
       heritage: 'Heritage',
       contact: 'Contact',
       privateAccess: 'Private Access'
@@ -96,7 +96,7 @@ export const translations = {
       }
     },
     compare: {
-      title: 'Comparison',
+      title: 'Choose your car',
       selectVehicle: 'Select a vehicle',
       firstVehicle: 'First vehicle',
       secondVehicle: 'Second vehicle'
@@ -137,7 +137,7 @@ export const translations = {
     nav: {
       collection: 'Collection',
       services: 'Services',
-      compare: 'Comparer',
+      compare: 'Sélectionner',
       heritage: 'Héritage',
       contact: 'Contact',
       privateAccess: 'Accès Privé'
@@ -228,7 +228,7 @@ export const translations = {
       }
     },
     compare: {
-      title: 'Comparaison',
+      title: 'Sélectionner',
       selectVehicle: 'Sélectionner un véhicule',
       firstVehicle: 'Premier véhicule',
       secondVehicle: 'Deuxième véhicule'
