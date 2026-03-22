@@ -32,9 +32,31 @@ export async function submitInquiry(prevState: ActionState, formData: FormData):
   }
 
   // Simulate API delay
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  console.log('Inquiry Received:', validatedFields.data);
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const INQUIRIES_PATH = path.join(process.cwd(), 'src/data/admin/inquiries.json');
+    
+    let inquiries = [];
+    try {
+      inquiries = JSON.parse(fs.readFileSync(INQUIRIES_PATH, 'utf8'));
+    } catch (err) {}
+    
+    inquiries.unshift({
+      id: Date.now().toString(),
+      timestamp: new Date().toISOString(),
+      ...validatedFields.data,
+      status: 'New'
+    });
+    
+    fs.writeFileSync(INQUIRIES_PATH, JSON.stringify(inquiries.slice(0, 500), null, 2));
+    
+    console.log('Inquiry Saved:', validatedFields.data);
+  } catch (err) {
+    console.error('Failed to save inquiry:', err);
+  }
 
   return {
     message: 'Success! Your inquiry has been received. Our advisors will contact you shortly.',

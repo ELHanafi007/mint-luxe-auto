@@ -15,9 +15,27 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
 });
 
+import fs from 'fs';
+import path from 'path';
+
+function getSettings() {
+  try {
+    const settingsPath = path.join(process.cwd(), 'src/data/admin/settings.json');
+    const data = fs.readFileSync(settingsPath, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    return {
+      siteTitle: "MINT. LUXE. AUTO.",
+      metaDescription: "Curating the Exceptional"
+    };
+  }
+}
+
+const settings = getSettings();
+
 export const metadata: Metadata = {
-  title: "MINT. LUXE. AUTO. | Curating the Exceptional",
-  description: "Bespoke automotive concierge and boutique showroom for the world's most exclusive vehicles.",
+  title: settings.siteTitle || "MINT. LUXE. AUTO. | Curating the Exceptional",
+  description: settings.metaDescription || "Bespoke automotive concierge and boutique showroom for the world's most exclusive vehicles.",
   keywords: ["luxury cars", "automotive concierge", "bespoke vehicles", "premium cars"],
 };
 

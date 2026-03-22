@@ -1,0 +1,46 @@
+[
+  {
+    "id": "ferrari-296-gtb-2025",
+    "brand": "Ferrari",
+    "name": "296 GTB Black Edition",
+    "year": 2025,
+    "image": "/images/inventory/ferrari-296-gtb/ferrari-296-1.jpg",
+    "price": "$385,000",
+    "status": "Available",
+    "description": "The Ferrari 296 GTB Black Edition represents a paradigm shift in the world of high-performance supercars.",
+    "specs": {
+      "engine": "3.0L V6 Twin-Turbo Hybrid",
+      "power": "830 PS",
+      "acceleration": "2.9s 0-100 km/h",
+      "topSpeed": "330 km/h",
+      "transmission": "8-Speed Dual-Clutch",
+      "mileage": "12 km",
+      "exteriorColor": "Nero Daytona",
+      "interiorColor": "Nero Alcantara",
+      "driveTrain": "RWD",
+      "fuelType": "Hybrid"
+    }
+  },
+  {
+    "id": "lamborghini-urus-2024",
+    "brand": "Lamborghini",
+    "name": "Urus Performante",
+    "year": 2024,
+    "image": "/images/inventory/lamborghini-urus/urus-1.jpg",
+    "price": "$310,000",
+    "status": "Available",
+    "description": "The Urus Performante raises the bar for Super SUV performance.",
+    "specs": {
+      "engine": "4.0L V8 Twin-Turbo",
+      "power": "666 PS",
+      "acceleration": "3.3s 0-100 km/h",
+      "topSpeed": "306 km/h",
+      "transmission": "8-Speed Automatic",
+      "mileage": "1,200 km",
+      "exteriorColor": "Grigio Telesto",
+      "interiorColor": "Nero Cosmus Alcantara",
+      "driveTrain": "AWD",
+      "fuelType": "Petrol"
+    }
+  }
+]
