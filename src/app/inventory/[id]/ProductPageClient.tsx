@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Vehicle, vehicles } from '@/data/vehicles';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './ProductPage.module.css';
@@ -16,6 +17,8 @@ interface ProductPageClientProps {
 
 export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }: ProductPageClientProps) {
   const { t } = useLanguage();
+  const [activeImage, setActiveImage] = useState(vehicle.image);
+
   const relatedVehicles = vehicles
     .filter(v => (v.brand === vehicle.brand || v.id !== vehicle.id) && v.id !== vehicle.id)
     .slice(0, 3);
@@ -28,6 +31,10 @@ export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }:
       default: return status;
     }
   };
+
+  const galleryImages = vehicle.gallery && vehicle.gallery.length > 0 
+    ? [vehicle.image, ...vehicle.gallery] 
+    : [vehicle.image];
 
   return (
     <div className={styles.productPage}>
@@ -57,22 +64,38 @@ export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }:
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
             >
-              <Image 
-                src={vehicle.image} 
-                alt={vehicle.name}
-                fill
-                className={styles.mainImage}
-                priority
-                sizes="(max-width: 768px) 100vw, 60vw"
-              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeImage}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className={styles.mainImageWrapper}
+                  style={{ border: 'none', position: 'absolute', top: 0, left: 0 }}
+                >
+                  <Image 
+                    src={activeImage} 
+                    alt={vehicle.name}
+                    fill
+                    className={styles.mainImage}
+                    priority
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                  />
+                </motion.div>
+              </AnimatePresence>
               <div className={`${styles.statusBadge} ${styles[vehicle.status.toLowerCase()]}`}>
                 {getStatusLabel(vehicle.status)}
               </div>
             </motion.div>
             
             <div className={styles.gallery}>
-              {(vehicle.gallery || [vehicle.image, vehicle.image, vehicle.image, vehicle.image]).map((img, i) => (
-                <div key={i} className={styles.galleryItem}>
+              {galleryImages.map((img, i) => (
+                <div 
+                  key={i} 
+                  className={`${styles.galleryItem} ${activeImage === img ? styles.activeGalleryItem : ''}`}
+                  onClick={() => setActiveImage(img)}
+                >
                   <Image 
                     src={img} 
                     alt={`${vehicle.name} detail ${i}`}

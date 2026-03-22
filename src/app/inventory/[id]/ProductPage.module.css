@@ -111,11 +111,16 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   cursor: pointer;
   opacity: 0.6;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .galleryItem:hover {
   opacity: 1;
+}
+
+.activeGalleryItem {
+  opacity: 1;
+  border: 1px solid #fff;
 }
 
 /* Info Section */
