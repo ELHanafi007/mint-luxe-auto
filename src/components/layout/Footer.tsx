@@ -60,10 +60,10 @@ export default function Footer() {
           </div>
           
           <div className={styles.links}>
-            <Link href="/privacy">{t.footer.privacy}</Link>
-            <Link href="/terms">{t.footer.terms}</Link>
-            <Link href="/instagram">Instagram</Link>
-            <Link href="/linkedin">LinkedIn</Link>
+            <Link href="#">{t.footer.privacy}</Link>
+            <Link href="#">{t.footer.terms}</Link>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
         </div>
       </div>
