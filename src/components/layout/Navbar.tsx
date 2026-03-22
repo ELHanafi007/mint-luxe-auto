@@ -4,20 +4,22 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './Navbar.module.css';
-
-const navLinks = [
-  { name: 'Collection', href: '/inventory' },
-  { name: 'Services', href: '/services' },
-  { name: 'Heritage', href: '/about' },
-  { name: 'Contact', href: '/contact' },
-];
-
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const { language, setLanguage, t } = useLanguage();
+
+  const navLinks = [
+    { name: t.nav.collection, href: '/inventory' },
+    { name: t.nav.services, href: '/services' },
+    { name: t.nav.compare, href: '/compare' },
+    { name: t.nav.heritage, href: '/about' },
+    { name: t.nav.contact, href: '/contact' },
+  ];
 
   useEffect(() => {
     const updateScrolled = () => {
@@ -71,9 +73,25 @@ export default function Navbar() {
             ))}
           </div>
 
-          <button className={`${styles.ctaBtn} interactive`}>
-            Private Access
-          </button>
+          <div className={styles.rightActions}>
+            <div className={styles.langToggle}>
+              <button 
+                onClick={() => setLanguage('en')}
+                className={`${styles.langBtn} ${language === 'en' ? styles.langBtnActive : ''}`}
+              >
+                EN
+              </button>
+              <button 
+                onClick={() => setLanguage('fr')}
+                className={`${styles.langBtn} ${language === 'fr' ? styles.langBtnActive : ''}`}
+              >
+                FR
+              </button>
+            </div>
+            <button className={`${styles.ctaBtn} interactive`}>
+              {t.nav.privateAccess}
+            </button>
+          </div>
         </div>
       </div>
     </motion.nav>

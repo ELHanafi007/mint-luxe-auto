@@ -5,8 +5,10 @@ import { vehicles } from '@/data/vehicles';
 import VehicleCard from './VehicleCard';
 import styles from './Collection.module.css';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Collection() {
+  const { t } = useLanguage();
   const bestSellers = vehicles.filter(v => v.isBestSeller).slice(0, 3);
   const latestInventory = vehicles.filter(v => !v.isBestSeller).slice(0, 4);
 
@@ -17,8 +19,8 @@ export default function Collection() {
         <div className={styles.sectionWrapper}>
           <header className={styles.header}>
             <div className={styles.titleWrapper}>
-              <span className={styles.metadata}>Curated Classics</span>
-              <h2 className={styles.title}>Best Sellers</h2>
+              <span className={styles.metadata}>{t.collection.exceptionalClassics}</span>
+              <h2 className={styles.title}>{t.collection.mustHaves}</h2>
             </div>
           </header>
 
@@ -41,11 +43,11 @@ export default function Collection() {
         <div className={styles.sectionWrapper}>
           <header className={styles.header}>
             <div className={styles.titleWrapper}>
-              <span className={styles.metadata}>Recent Acquisitions</span>
-              <h2 className={styles.title}>Latest Inventory</h2>
+              <span className={styles.metadata}>{t.collection.recentAcquisitions}</span>
+              <h2 className={styles.title}>{t.collection.latestNews}</h2>
             </div>
             <Link href="/inventory" className={styles.viewAllTop}>
-              Explore Full Collection
+              {t.collection.exploreFull}
             </Link>
           </header>
 
@@ -65,7 +67,7 @@ export default function Collection() {
 
           <div className={styles.footerAction}>
             <Link href="/inventory" className={styles.viewAllBtn}>
-              View All 150+ Masterpieces
+              {t.collection.viewAll}
             </Link>
           </div>
         </div>

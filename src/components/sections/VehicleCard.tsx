@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Vehicle } from '@/data/vehicles';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './VehicleCard.module.css';
 
 interface Props {
@@ -10,6 +11,17 @@ interface Props {
 }
 
 export default function VehicleCard({ vehicle }: Props) {
+  const { t } = useLanguage();
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'Available': return t.product.available;
+      case 'Sold': return t.product.sold;
+      case 'Reserved': return t.product.reserved;
+      default: return status;
+    }
+  };
+
   return (
     <Link href={`/inventory/${vehicle.id}`} className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -21,7 +33,7 @@ export default function VehicleCard({ vehicle }: Props) {
           unoptimized
         />
         <div className={`${styles.statusBadge} ${styles[vehicle.status.toLowerCase()]}`}>
-          {vehicle.status}
+          {getStatusLabel(vehicle.status)}
         </div>
       </div>
       

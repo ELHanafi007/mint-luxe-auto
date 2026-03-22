@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { vehicles } from '@/data/vehicles';
+import { useLanguage } from '@/context/LanguageContext';
 import VehicleCard from '@/components/sections/VehicleCard';
 import styles from './InventoryPage.module.css';
 
@@ -11,6 +12,7 @@ function InventoryContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { t } = useLanguage();
 
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [activeBrand, setActiveBrand] = useState(searchParams.get('brand') || 'All');
@@ -56,14 +58,14 @@ function InventoryContent() {
     <div className="container">
       <header className={styles.header}>
         <div className={styles.titleWrapper}>
-          <span className={styles.metadata}>Total Inventory: {vehicles.length} Units</span>
-          <h1 className={styles.title}>Full Collection</h1>
+          <span className={styles.metadata}>{t.inventory.totalInventory} : {vehicles.length} {t.inventory.units}</span>
+          <h1 className={styles.title}>{t.inventory.completeCollection}</h1>
         </div>
 
         <div className={styles.searchBar}>
           <input 
             type="text" 
-            placeholder="Search by model or brand..." 
+            placeholder={t.inventory.searchPlaceholder} 
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className={styles.searchInput}
@@ -78,7 +80,7 @@ function InventoryContent() {
                 className={`${styles.filterBtn} ${activeBrand === brand ? styles.active : ''}`}
                 onClick={() => setActiveBrand(brand)}
               >
-                {brand}
+                {brand === 'All' ? (t.inventory.allBrands === 'Toutes les Marques' ? 'Tout' : 'All') : brand}
                 {activeBrand === brand && (
                   <motion.div 
                     layoutId="inventoryFilterUnderline" 
@@ -95,7 +97,7 @@ function InventoryContent() {
               onChange={(e) => setYearFilter(e.target.value)}
               className={styles.select}
             >
-              <option value="All">All Years</option>
+              <option value="All">{t.inventory.allYears}</option>
               {years.filter(y => y !== 'All').map(year => (
                 <option key={year} value={year}>{year}</option>
               ))}
@@ -123,8 +125,8 @@ function InventoryContent() {
         </motion.div>
       ) : (
         <div className={styles.emptyState}>
-          <p>No acquisitions matching your criteria were found.</p>
-          <button onClick={clearFilters} className={styles.clearBtn}>Clear All Filters</button>
+          <p>{t.inventory.noResults}</p>
+          <button onClick={clearFilters} className={styles.clearBtn}>{t.inventory.clearFilters}</button>
         </div>
       )}
     </div>
@@ -140,4 +142,3 @@ export default function InventoryPage() {
     </main>
   );
 }
-

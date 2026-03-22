@@ -3,10 +3,12 @@
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './Hero.module.css';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
@@ -37,7 +39,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1], delay: 4 }}
           >
-            Curating the Exceptional
+            {t.hero.subtitle}
           </motion.p>
           
           <div className={styles.titleWrapper}>
@@ -66,10 +68,10 @@ export default function Hero() {
           transition={{ duration: 1.2, delay: 4.8 }}
         >
           <a href="#collection" className={styles.ctaPrimary}>
-            Discover Inventory
+            {t.hero.discover}
           </a>
           <a href="#services" className={styles.ctaSecondary}>
-            Our Services
+            {t.hero.services}
           </a>
         </motion.div>
       </motion.div>

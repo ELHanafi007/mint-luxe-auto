@@ -3,33 +3,36 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './Services.module.css';
 
-const services = [
-  {
-    id: 'acquisition',
-    title: 'The Unobtainable, Obtained.',
-    subtitle: 'Bespoke Acquisition',
-    description: 'We specialize in sourcing what others cannot. From off-market hypercars to private collections, our global network ensures your vision becomes your reality with surgical precision and absolute discretion.',
-    image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070'
-  },
-  {
-    id: 'logistics',
-    title: 'Precision in Motion.',
-    subtitle: 'Global White-Glove Logistics',
-    description: 'Climate-controlled transport by air, sea, or land. We manage the entire lifecycle of delivery, ensuring your masterpiece arrives in showroom condition, no matter the coordinate.',
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070'
-  },
-  {
-    id: 'portfolio',
-    title: 'Legacy Managed.',
-    subtitle: 'Private Portfolio Strategy',
-    description: 'Automotive assets are more than just machines—they are investments. We provide strategic valuation, conservation advice, and curated disposition services to maximize your collection’s value and heritage.',
-    image: 'https://images.unsplash.com/photo-1493238555221-d2aa9f574678?auto=format&fit=crop&q=80&w=2070'
-  }
-];
-
 export default function Services() {
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      id: 'acquisition',
+      title: t.services.acquisitionTitle,
+      subtitle: t.services.acquisitionSubtitle,
+      description: t.services.acquisitionDesc,
+      image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2070'
+    },
+    {
+      id: 'logistics',
+      title: t.services.logisticsTitle,
+      subtitle: t.services.logisticsSubtitle,
+      description: t.services.logisticsDesc,
+      image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070'
+    },
+    {
+      id: 'portfolio',
+      title: t.services.portfolioTitle,
+      subtitle: t.services.portfolioSubtitle,
+      description: t.services.portfolioDesc,
+      image: 'https://images.unsplash.com/photo-1493238555221-d2aa9f574678?auto=format&fit=crop&q=80&w=2070'
+    }
+  ];
+
   return (
     <section id="services" className={styles.services}>
       <div className="container">
@@ -40,7 +43,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            The Ecosystem of Luxury
+            {t.services.luxuryEcosystem}
           </motion.span>
           <motion.h2 
             className={styles.mainTitle}
@@ -49,7 +52,7 @@ export default function Services() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            A Higher Standard of Service.
+            {t.services.superiorStandard}
           </motion.h2>
         </header>
 
@@ -73,6 +76,7 @@ interface Service {
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ['start end', 'end start']
@@ -93,7 +97,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           <h3 className={styles.cardSubtitle}>{service.subtitle}</h3>
           <h4 className={styles.cardTitle}>{service.title}</h4>
           <p className={styles.description}>{service.description}</p>
-          <button className={styles.cta}>Explore Capability</button>
+          <button className={styles.cta}>{t.services.exploreCapabilities}</button>
         </div>
         
         <div className={styles.imageContainer}>

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Section, Container, Grid } from '@/components/primitives/Layout';
 import { revealSubtle, MINT_EASE } from '@/lib/motion-primitives';
 import { submitInquiry } from '@/app/actions/inquiry';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './Inquiry.module.css';
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
 export default function Inquiry() {
   const [state, formAction, isPending] = useActionState(submitInquiry, initialState);
   const formRef = useRef<HTMLFormElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (state.success && formRef.current) {
@@ -35,7 +37,7 @@ export default function Inquiry() {
               viewport={{ once: true }}
               variants={revealSubtle}
             >
-              Consultation
+              {t.inquiry.consultation}
             </motion.span>
             <motion.h2 
               className={styles.title}
@@ -45,7 +47,7 @@ export default function Inquiry() {
               variants={revealSubtle}
               custom={2}
             >
-              Begin Your<br />Acquisition.
+              {t.inquiry.startAcquisition}
             </motion.h2>
             <motion.p 
               className={styles.description}
@@ -55,7 +57,7 @@ export default function Inquiry() {
               variants={revealSubtle}
               custom={4}
             >
-              Whether you are seeking a specific rarity or require discreet disposition of a significant collection, our advisors are at your service.
+              {t.inquiry.description}
             </motion.p>
           </div>
 
@@ -75,13 +77,13 @@ export default function Inquiry() {
                     exit={{ opacity: 0, scale: 0.95 }}
                     className={styles.successMessage}
                   >
-                    <h3 className={styles.successTitle}>Inquiry Sent</h3>
+                    <h3 className={styles.successTitle}>{t.inquiry.successTitle}</h3>
                     <p>{state.message}</p>
                     <button 
                       onClick={() => window.location.reload()} 
                       className={styles.resetBtn}
                     >
-                      New Inquiry
+                      {t.inquiry.newInquiry}
                     </button>
                   </motion.div>
                 ) : (
@@ -91,42 +93,42 @@ export default function Inquiry() {
                     className={styles.form}
                   >
                     <div className={styles.inputGroup}>
-                      <label className={styles.label}>Name</label>
+                      <label className={styles.label}>{t.inquiry.name}</label>
                       <input 
                         name="name" 
                         type="text" 
                         className={`${styles.input} ${state.errors?.name ? styles.inputError : ''}`} 
-                        placeholder="Your Full Name" 
+                        placeholder={t.inquiry.namePlaceholder} 
                         required 
                       />
                       {state.errors?.name && <span className={styles.errorText}>{state.errors.name[0]}</span>}
                     </div>
                     <div className={styles.inputGroup}>
-                      <label className={styles.label}>Email</label>
+                      <label className={styles.label}>{t.inquiry.email}</label>
                       <input 
                         name="email" 
                         type="email" 
                         className={`${styles.input} ${state.errors?.email ? styles.inputError : ''}`} 
-                        placeholder="email@address.com" 
+                        placeholder={t.inquiry.emailPlaceholder} 
                         required 
                       />
                       {state.errors?.email && <span className={styles.errorText}>{state.errors.email[0]}</span>}
                     </div>
                     <div className={styles.inputGroup}>
-                      <label className={styles.label}>Interest</label>
+                      <label className={styles.label}>{t.inquiry.interest}</label>
                       <select name="interest" className={styles.input} required>
-                        <option value="Acquisition">Acquisition</option>
-                        <option value="Consignment">Consignment</option>
-                        <option value="Restoration">Restoration</option>
-                        <option value="General Inquiry">General Inquiry</option>
+                        <option value="Acquisition">{t.inquiry.acquisition}</option>
+                        <option value="Consignment">{t.inquiry.consignment}</option>
+                        <option value="Restoration">{t.inquiry.restoration}</option>
+                        <option value="General Inquiry">{t.inquiry.generalInquiry}</option>
                       </select>
                     </div>
                     <div className={styles.inputGroup}>
-                      <label className={styles.label}>Message</label>
+                      <label className={styles.label}>{t.inquiry.message}</label>
                       <textarea 
                         name="message" 
                         className={`${styles.input} ${styles.textarea} ${state.errors?.message ? styles.inputError : ''}`} 
-                        placeholder="How may we assist you?" 
+                        placeholder={t.inquiry.messagePlaceholder} 
                         required
                       ></textarea>
                       {state.errors?.message && <span className={styles.errorText}>{state.errors.message[0]}</span>}
@@ -139,7 +141,7 @@ export default function Inquiry() {
                         className={styles.submit}
                         disabled={isPending}
                       >
-                        {isPending ? 'Transmitting...' : 'Submit Inquiry'}
+                        {isPending ? t.inquiry.transmitting : t.inquiry.sendInquiry}
                       </button>
                     </div>
                   </form>
@@ -152,4 +154,3 @@ export default function Inquiry() {
     </Section>
   );
 }
-

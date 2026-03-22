@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Vehicle, vehicles } from '@/data/vehicles';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './ProductPage.module.css';
 import VehicleCard from '@/components/sections/VehicleCard';
 
@@ -14,9 +15,19 @@ interface ProductPageClientProps {
 }
 
 export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }: ProductPageClientProps) {
+  const { t } = useLanguage();
   const relatedVehicles = vehicles
     .filter(v => (v.brand === vehicle.brand || v.id !== vehicle.id) && v.id !== vehicle.id)
     .slice(0, 3);
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'Available': return t.product.available;
+      case 'Sold': return t.product.sold;
+      case 'Reserved': return t.product.reserved;
+      default: return status;
+    }
+  };
 
   return (
     <div className={styles.productPage}>
@@ -25,12 +36,12 @@ export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }:
         <div className="container">
           <div className={styles.subArchiveInner}>
             <Link href="/inventory" className={styles.backBtn}>
-              <span className={styles.backIcon}>←</span> Collection
+              <span className={styles.backIcon}>←</span> {t.product.back}
             </Link>
             <div className={styles.productNav}>
-              <Link href={`/inventory/${prevVehicle.id}`} className={styles.navItem}>Previous</Link>
+              <Link href={`/inventory/${prevVehicle.id}`} className={styles.navItem}>{t.product.prev}</Link>
               <span className={styles.navDivider}>/</span>
-              <Link href={`/inventory/${nextVehicle.id}`} className={styles.navItem}>Next</Link>
+              <Link href={`/inventory/${nextVehicle.id}`} className={styles.navItem}>{t.product.next}</Link>
             </div>
           </div>
         </div>
@@ -55,7 +66,7 @@ export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }:
                 sizes="(max-width: 768px) 100vw, 60vw"
               />
               <div className={`${styles.statusBadge} ${styles[vehicle.status.toLowerCase()]}`}>
-                {vehicle.status}
+                {getStatusLabel(vehicle.status)}
               </div>
             </motion.div>
             
@@ -83,27 +94,32 @@ export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }:
               </div>
               <h1 className={styles.title}>{vehicle.name}</h1>
               <div className={styles.priceSection}>
-                <span className={styles.priceLabel}>Valuation</span>
+                <span className={styles.priceLabel}>{t.product.valuation}</span>
                 <span className={styles.price}>{vehicle.price}</span>
               </div>
             </header>
 
             <div className={styles.actionGrid}>
               <Link href="/#inquiry" className={styles.primaryAction}>
-                Request Consultation
+                {t.product.requestConsultation}
+              </Link>
+              <Link href={`/compare?v1=${vehicle.id}`} className={styles.secondaryAction} style={{ textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {t.product.compareModel}
               </Link>
               <button className={styles.secondaryAction}>
-                Download Brochure
+                {t.product.downloadBrochure}
               </button>
             </div>
 
             {/* SPECS GRID */}
             <div className={styles.specsContainer}>
-              <h3 className={styles.sectionLabel}>Technical Specifications</h3>
+              <h3 className={styles.sectionLabel}>{t.product.specs}</h3>
               <div className={styles.specsGrid}>
                 {Object.entries(vehicle.specs).map(([label, value]) => (
                   <div key={label} className={styles.specItem}>
-                    <span className={styles.specLabel}>{label.replace(/([A-Z])/g, ' $1').trim()}</span>
+                    <span className={styles.specLabel}>
+                      {(t.product.specsLabels as any)[label] || label.replace(/([A-Z])/g, ' $1').trim()}
+                    </span>
                     <span className={styles.specValue}>{value}</span>
                   </div>
                 ))}
@@ -111,7 +127,7 @@ export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }:
             </div>
 
             <div className={styles.narrativeSection}>
-              <h3 className={styles.sectionLabel}>The Narrative</h3>
+              <h3 className={styles.sectionLabel}>{t.product.narrative}</h3>
               <p className={styles.description}>{vehicle.description}</p>
             </div>
           </div>
@@ -120,8 +136,8 @@ export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }:
         {/* RELATED VEHICLES */}
         <section className={styles.relatedSection}>
           <div className={styles.relatedHeader}>
-            <span className={styles.labelMetadata}>Curation</span>
-            <h2 className={styles.relatedTitle}>Similar Acquisitions</h2>
+            <span className={styles.labelMetadata}>{t.product.curation}</span>
+            <h2 className={styles.relatedTitle}>{t.product.relatedTitle}</h2>
           </div>
           <div className={styles.relatedGrid}>
             {relatedVehicles.map((v) => (
@@ -133,4 +149,3 @@ export default function ProductPageClient({ vehicle, prevVehicle, nextVehicle }:
     </div>
   );
 }
-

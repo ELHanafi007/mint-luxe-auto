@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   keywords: ["luxury cars", "automotive concierge", "bespoke vehicles", "premium cars"],
 };
 
+import { LanguageProvider } from "@/context/LanguageContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,11 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${playfair.variable}`}>
-        <Preloader />
-        <SmoothScroll>
-          <Navbar />
-          {children}
-        </SmoothScroll>
+        <LanguageProvider>
+          <Preloader />
+          <SmoothScroll>
+            <Navbar />
+            {children}
+          </SmoothScroll>
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -19,7 +19,7 @@ export default function Brands() {
     <section className={styles.brands}>
       <div className="container">
         <header className={styles.header}>
-          <span className="text-muted" style={{ letterSpacing: '0.4em', fontSize: '0.7rem', textTransform: 'uppercase' }}>Partners of Excellence</span>
+          <span className="text-muted" style={{ letterSpacing: '0.4em', fontSize: '0.7rem', textTransform: 'uppercase' }}>Partenaires d&apos;Excellence</span>
         </header>
         
         <div className={styles.grid}>
