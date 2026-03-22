@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { X, Plus, Upload, Save, ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { Resolver } from 'react-hook-form';
 
 const vehicleSchema = z.object({
   brand: z.string().min(1, 'Brand is required'),
@@ -13,6 +14,8 @@ const vehicleSchema = z.object({
   year: z.coerce.number().min(1900).max(new Date().getFullYear() + 1),
   price: z.string().min(1, 'Price is required'),
   status: z.enum(['Available', 'Sold', 'Reserved']),
+  isFeatured: z.boolean().default(false),
+  isBestSeller: z.boolean().default(false),
   description: z.string().min(10, 'Description must be at least 10 characters'),
   image: z.string().optional(),
   gallery: z.array(z.string()).optional(),
@@ -33,7 +36,7 @@ const vehicleSchema = z.object({
 type VehicleFormValues = z.infer<typeof vehicleSchema>;
 
 interface VehicleFormProps {
-  initialData?: any;
+  initialData?: Partial<VehicleFormValues> & { id?: string };
   isEditing?: boolean;
 }
 
@@ -43,22 +46,30 @@ export default function VehicleForm({ initialData, isEditing = false }: VehicleF
   const [galleryInput, setGalleryInput] = useState('');
 
   const { register, handleSubmit, formState: { errors }, watch, setValue, control } = useForm<VehicleFormValues>({
-    resolver: zodResolver(vehicleSchema),
-    defaultValues: initialData || {
-      status: 'Available',
+    resolver: zodResolver(vehicleSchema) as Resolver<VehicleFormValues>,
+    defaultValues: {
+      brand: initialData?.brand || '',
+      name: initialData?.name || '',
+      year: initialData?.year || new Date().getFullYear(),
+      price: initialData?.price || '',
+      status: initialData?.status || 'Available',
+      isFeatured: initialData?.isFeatured || false,
+      isBestSeller: initialData?.isBestSeller || false,
+      description: initialData?.description || '',
+      image: initialData?.image || '',
+      gallery: initialData?.gallery || [],
       specs: {
-        engine: '',
-        power: '',
-        acceleration: '',
-        topSpeed: '',
-        transmission: '',
-        mileage: '',
-        exteriorColor: '',
-        interiorColor: '',
-        driveTrain: '',
-        fuelType: '',
+        engine: initialData?.specs?.engine || '',
+        power: initialData?.specs?.power || '',
+        acceleration: initialData?.specs?.acceleration || '',
+        topSpeed: initialData?.specs?.topSpeed || '',
+        transmission: initialData?.specs?.transmission || '',
+        mileage: initialData?.specs?.mileage || '',
+        exteriorColor: initialData?.specs?.exteriorColor || '',
+        interiorColor: initialData?.specs?.interiorColor || '',
+        driveTrain: initialData?.specs?.driveTrain || '',
+        fuelType: initialData?.specs?.fuelType || '',
       },
-      gallery: []
     }
   });
 
@@ -69,7 +80,7 @@ export default function VehicleForm({ initialData, isEditing = false }: VehicleF
     try {
       const url = '/api/admin/vehicles';
       const method = isEditing ? 'PUT' : 'POST';
-      const body = isEditing ? { ...data, id: initialData.id } : data;
+      const body = isEditing ? { ...data, id: initialData?.id } : data;
 
       const res = await fetch(url, {
         method,
@@ -273,8 +284,8 @@ export default function VehicleForm({ initialData, isEditing = false }: VehicleF
             borderRadius: '12px',
             padding: '24px'
           }}>
-            <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '15px' }}>Status</h3>
-            <div style={{ marginBottom: '30px' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '15px' }}>Status & Visibility</h3>
+            <div style={{ marginBottom: '20px' }}>
               <select 
                 {...register('status')}
                 style={{ width: '100%', padding: '12px', backgroundColor: '#111', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', borderRadius: '6px' }}
@@ -283,6 +294,17 @@ export default function VehicleForm({ initialData, isEditing = false }: VehicleF
                 <option value="Sold">Sold</option>
                 <option value="Reserved">Reserved</option>
               </select>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '30px' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '14px' }}>
+                <input type="checkbox" {...register('isFeatured')} style={{ width: '18px', height: '18px', accentColor: '#fff' }} />
+                <span>Featured on Homepage</span>
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '14px' }}>
+                <input type="checkbox" {...register('isBestSeller')} style={{ width: '18px', height: '18px', accentColor: '#fff' }} />
+                <span>Best Seller Badge</span>
+              </label>
             </div>
 
             <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '15px' }}>Main Image</h3>

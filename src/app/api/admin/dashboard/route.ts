@@ -99,9 +99,13 @@ export async function GET(request: Request) {
     user: log.user,
     action: log.action,
     timestamp: log.timestamp,
-    // Add some metadata for display
     type: log.action.includes('Created') ? 'create' : log.action.includes('Deleted') ? 'delete' : 'update'
   }));
+
+  // Get recent inquiries
+  const recentInquiries = inquiries
+    .sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+    .slice(0, 4);
 
   // Mock system health
   const systemHealth = {
@@ -113,6 +117,7 @@ export async function GET(request: Request) {
   return NextResponse.json({
     stats,
     recentActivity,
+    recentInquiries,
     systemHealth
   });
 }

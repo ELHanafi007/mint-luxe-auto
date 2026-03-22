@@ -183,7 +183,19 @@ export default function VehicleListPage() {
                         backgroundPosition: 'center'
                       }} />
                       <div>
-                        <div style={{ fontSize: '14px', fontWeight: '600' }}>{v.brand}</div>
+                        <div style={{ fontSize: '14px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          {v.brand}
+                          {v.isFeatured && (
+                            <span style={{ 
+                              fontSize: '9px', 
+                              backgroundColor: 'rgba(255,255,255,0.1)', 
+                              padding: '2px 5px', 
+                              borderRadius: '3px',
+                              color: 'rgba(255,255,255,0.6)',
+                              fontWeight: 'bold'
+                            }}>FEATURED</span>
+                          )}
+                        </div>
                         <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>{v.name}</div>
                       </div>
                     </div>

@@ -1,5 +1,4 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/request';
+import { NextResponse, NextRequest } from 'next/server';
 import * as jose from 'jose';
 
 const JWT_SECRET = process.env.ADMIN_JWT_SECRET || 'mint0lux-fallback-secret-for-development';

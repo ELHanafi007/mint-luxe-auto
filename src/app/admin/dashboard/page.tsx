@@ -116,7 +116,7 @@ export default function DashboardPage() {
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '2fr 1fr',
+        gridTemplateColumns: '1.5fr 1fr 1fr',
         gap: '20px'
       }}>
         <div style={{
@@ -126,7 +126,7 @@ export default function DashboardPage() {
           padding: '24px'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: '600' }}>Recent Administrative Activity</h2>
+            <h2 style={{ fontSize: '18px', fontWeight: '600' }}>Recent Activity</h2>
             <button 
               onClick={() => window.location.href = '/admin/logs'}
               style={{
@@ -154,23 +154,70 @@ export default function DashboardPage() {
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                   <div style={{ 
-                    width: '40px', 
-                    height: '40px', 
+                    width: '32px', 
+                    height: '32px', 
                     backgroundColor: activity.type === 'create' ? 'rgba(16, 185, 129, 0.1)' : activity.type === 'delete' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(59, 130, 246, 0.1)', 
-                    borderRadius: '8px',
+                    borderRadius: '6px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: activity.type === 'create' ? '#10b981' : activity.type === 'delete' ? '#ef4444' : '#3b82f6'
                   }}>
-                    <TrendingUp size={18} />
+                    <TrendingUp size={14} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: '500' }}>{activity.action}</div>
-                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>
+                    <div style={{ fontSize: '13px', fontWeight: '500' }}>{activity.action}</div>
+                    <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)' }}>
                       by {activity.user} • {new Date(activity.timestamp).toLocaleString([], { hour: '2-digit', minute: '2-digit' })}
                     </div>
                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{
+          backgroundColor: '#0a0a0a',
+          border: '1px solid rgba(255,255,255,0.05)',
+          borderRadius: '12px',
+          padding: '24px'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: '600' }}>Recent Inquiries</h2>
+            <button 
+              onClick={() => window.location.href = '/admin/inquiries'}
+              style={{
+                fontSize: '12px',
+                color: 'rgba(255,255,255,0.4)',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+            >View All</button>
+          </div>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {(data?.recentInquiries || []).length === 0 ? (
+              <div style={{ padding: '20px', textAlign: 'center', color: 'rgba(255,255,255,0.3)', fontSize: '14px' }}>No new inquiries</div>
+            ) : data.recentInquiries.map((inquiry: any) => (
+              <div key={inquiry.id} style={{
+                padding: '12px',
+                borderRadius: '8px',
+                backgroundColor: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.03)'
+              }}>
+                <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '2px' }}>{inquiry.name}</div>
+                <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '4px' }}>{inquiry.interest}</div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)' }}>{new Date(inquiry.timestamp).toLocaleDateString()}</span>
+                  <span style={{ 
+                    fontSize: '9px', 
+                    padding: '2px 6px', 
+                    borderRadius: '4px', 
+                    backgroundColor: inquiry.status === 'New' ? 'rgba(255,255,255,0.1)' : 'rgba(16, 185, 129, 0.1)',
+                    color: inquiry.status === 'New' ? '#fff' : '#10b981'
+                  }}>{inquiry.status}</span>
                 </div>
               </div>
             ))}
