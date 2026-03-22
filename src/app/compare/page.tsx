@@ -14,7 +14,7 @@ function CompareContent() {
   const router = useRouter();
   const { t } = useLanguage();
   
-  const [selectedVehicles, setSelectedVehicles] = useState<(Vehicle | null)[]>([]);
+  const [selectedVehicles, setSelectedVehicles] = useState<Vehicle[]>([]);
 
   useEffect(() => {
     const vIds = [
@@ -25,11 +25,11 @@ function CompareContent() {
     ].filter(Boolean);
 
     const newSelected = vIds.map(id => {
-      return vehicles.find(v => v.id === id) || null;
-    }).filter(Boolean) as Vehicle[];
+      return vehicles.find(v => v.id === id);
+    }).filter((v): v is Vehicle => !!v);
 
     setSelectedVehicles(newSelected);
-  }, [searchParams]);
+  }, [searchParams, vehicles]);
 
   const updateVehicle = (index: number, id: string) => {
     const params = new URLSearchParams(searchParams.toString());
