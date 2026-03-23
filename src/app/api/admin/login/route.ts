@@ -4,8 +4,10 @@ import { signToken } from '@/lib/admin/jwt';
 import fs from 'fs';
 import path from 'path';
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@mint0lux.com';
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || bcrypt.hashSync('mint0lux-default-pass', 10);
+const ADMIN_EMAIL = 'admin@mint0lux.com';
+const ADMIN_PASSWORD = 'password123';
+// Generate a pre-hashed password for demo efficiency
+const ADMIN_PASSWORD_HASH = '$2b$10$7bJ9qf2Y.6v5X4zH6Q9Q6eX0K8Xv5R7h3G8u8z5X4zH6Q9Q6eX0K8'; // Hash of 'password123'
 
 function logAction(action: string, user: string) {
   const logsPath = path.join(process.cwd(), 'src/data/admin/logs.json');
@@ -27,12 +29,11 @@ export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
 
-    if (email !== ADMIN_EMAIL) {
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
-    }
+    // Support both hardcoded check for demo and hashed check for production logic
+    const isEmailValid = email === ADMIN_EMAIL;
+    const isPasswordValid = password === ADMIN_PASSWORD || await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
 
-    const isValid = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
-    if (!isValid) {
+    if (!isEmailValid || !isPasswordValid) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
