@@ -159,10 +159,14 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
-            <div className={styles.hamburger}>
-              <div className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerLineActive : ''}`} />
-              <div className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerLineActive : ''}`} />
-              <div className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerLineActive : ''}`} />
+            <div className={styles.hamburgerContainer}>
+              <span className={styles.hamburgerLabel} style={{ opacity: isMenuOpen ? 0 : 0.6 }}>
+                MENU
+              </span>
+              <div className={styles.hamburgerLines}>
+                <div className={`${styles.line} ${isMenuOpen ? styles.line1Active : ''}`} />
+                <div className={`${styles.line} ${isMenuOpen ? styles.line2Active : ''}`} />
+              </div>
             </div>
           </button>
         </div>
@@ -172,39 +176,44 @@ export default function Navbar() {
         {isMenuOpen && (
           <motion.div 
             className={styles.mobileOverlay}
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'tween', duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+            initial={{ clipPath: 'circle(0% at 90% 5%)' }}
+            animate={{ clipPath: 'circle(150% at 90% 5%)' }}
+            exit={{ clipPath: 'circle(0% at 90% 5%)' }}
+            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
           >
+            <div className={styles.overlayBackground} />
+            
             <div className={styles.mobileNavLinks}>
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + (i * 0.1) }}
-                >
-                  <Link href={link.href} className={styles.mobileNavLink}>
-                    {link.name}
-                  </Link>
-                </motion.div>
+              {[...navLinks, { name: t.nav.contact, href: '/contact' }].map((link, i) => (
+                <div key={link.name} className={styles.linkWrapper}>
+                  <motion.div
+                    initial={{ y: '100%' }}
+                    animate={{ y: 0 }}
+                    transition={{ 
+                      delay: 0.3 + (i * 0.1), 
+                      duration: 0.8, 
+                      ease: [0.19, 1, 0.22, 1] 
+                    }}
+                  >
+                    <Link href={link.href} className={styles.mobileNavLink}>
+                      <span className={styles.linkIndex}>0{i + 1}</span>
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                </div>
               ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + (navLinks.length * 0.1) }}
-              >
-                <Link href="/contact" className={styles.mobileNavLink}>
-                  {t.nav.contact}
-                </Link>
-              </motion.div>
             </div>
 
-            <div className={styles.mobileNavFooter}>
-              <div className={styles.mobileActions}>
-                <div className={styles.mobileLangToggle}>
-                  <Globe size={18} color="rgba(255,255,255,0.4)" />
+            <motion.div 
+              className={styles.mobileNavFooter}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+            >
+              <div className={styles.footerDivider} />
+              <div className={styles.footerActions}>
+                <div className={styles.mobileLang}>
+                  <Globe size={14} color="var(--mint-gold)" />
                   <button 
                     onClick={() => setLanguage('en')}
                     className={`${styles.mobileLangBtn} ${language === 'en' ? styles.mobileLangBtnActive : ''}`}
@@ -218,11 +227,11 @@ export default function Navbar() {
                     FR
                   </button>
                 </div>
+                <button className={styles.mobilePrivateAccess}>
+                  {t.nav.privateAccess}
+                </button>
               </div>
-              <button className={styles.mobileCta}>
-                {t.nav.privateAccess}
-              </button>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
