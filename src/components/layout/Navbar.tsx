@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './Navbar.module.css';
-import { Globe } from 'lucide-react';
+import { Globe, ArrowRight } from 'lucide-react';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,8 +33,10 @@ export default function Navbar() {
 
   // Close menu when route changes
   useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [pathname, isMenuOpen]);
 
   // Prevent scroll when menu is open
   useEffect(() => {
@@ -45,11 +47,85 @@ export default function Navbar() {
     }
   }, [isMenuOpen]);
 
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen(prev => !prev);
+  }, []);
+
+  // --- Animation Variants ---
+
+  const menuVariants = {
+    closed: {
+      y: '-100%',
+      transition: {
+        duration: 0.8,
+        ease: [0.76, 0, 0.24, 1],
+        delay: 0.2
+      }
+    },
+    open: {
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    }
+  };
+
+  const linkWrapperVariants = {
+    closed: {
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1
+      }
+    },
+    open: {
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.4
+      }
+    }
+  };
+
+  const linkItemVariants = {
+    closed: {
+      y: 80,
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    },
+    open: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    }
+  };
+
+  const footerVariants = {
+    closed: {
+      opacity: 0,
+      y: 20
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        delay: 0.8,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    }
+  };
+
   return (
     <motion.nav 
       className={styles.navbar}
       style={{ 
-        backgroundColor: isMenuOpen ? '#000' : `rgba(0, 0, 0, ${isScrolled || !isHome ? 0.95 : 0.4})`,
+        backgroundColor: isMenuOpen ? 'transparent' : `rgba(0, 0, 0, ${isScrolled || !isHome ? 0.95 : 0.4})`,
         backdropFilter: isMenuOpen ? 'none' : `blur(${isScrolled || !isHome ? 20 : 0}px)`,
         padding: isScrolled ? '15px 0' : '30px 0',
         borderBottom: (isMenuOpen || isScrolled || !isHome) ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.05)'
@@ -73,6 +149,7 @@ export default function Navbar() {
             </Link>
           </div>
           
+          {/* Desktop Navigation */}
           <div className={styles.navLinks}>
             {navLinks.map((link, i) => (
               <motion.div
@@ -154,84 +231,98 @@ export default function Navbar() {
             </button>
           </div>
 
+          {/* Mobile Menu Toggle */}
           <button 
             className={styles.mobileMenuToggle}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={toggleMenu}
             aria-label="Toggle menu"
           >
             <div className={styles.hamburgerContainer}>
               <span className={styles.hamburgerLabel} style={{ opacity: isMenuOpen ? 0 : 0.6 }}>
-                MENU
+                {isMenuOpen ? '' : 'MENU'}
               </span>
               <div className={styles.hamburgerLines}>
-                <div className={`${styles.line} ${isMenuOpen ? styles.line1Active : ''}`} />
-                <div className={`${styles.line} ${isMenuOpen ? styles.line2Active : ''}`} />
+                <motion.div 
+                  className={styles.line} 
+                  animate={{ 
+                    rotate: isMenuOpen ? 45 : 0,
+                    y: isMenuOpen ? 1 : 0,
+                    width: isMenuOpen ? '24px' : '20px'
+                  }}
+                  transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                />
+                <motion.div 
+                  className={styles.line} 
+                  animate={{ 
+                    rotate: isMenuOpen ? -45 : 0,
+                    y: isMenuOpen ? -1 : 0,
+                    width: isMenuOpen ? '24px' : '24px'
+                  }}
+                  transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                />
               </div>
             </div>
           </button>
         </div>
       </div>
 
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
             className={styles.mobileOverlay}
-            initial={{ clipPath: 'circle(0% at 90% 5%)' }}
-            animate={{ clipPath: 'circle(150% at 90% 5%)' }}
-            exit={{ clipPath: 'circle(0% at 90% 5%)' }}
-            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+            variants={menuVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
           >
             <div className={styles.overlayBackground} />
             
-            <div className={styles.mobileNavLinks}>
-              {[...navLinks, { name: t.nav.contact, href: '/contact' }].map((link, i) => (
-                <div key={link.name} className={styles.linkWrapper}>
-                  <motion.div
-                    initial={{ y: '100%' }}
-                    animate={{ y: 0 }}
-                    transition={{ 
-                      delay: 0.3 + (i * 0.1), 
-                      duration: 0.8, 
-                      ease: [0.19, 1, 0.22, 1] 
-                    }}
-                  >
-                    <Link href={link.href} className={styles.mobileNavLink}>
-                      <span className={styles.linkIndex}>0{i + 1}</span>
-                      {link.name}
-                    </Link>
-                  </motion.div>
-                </div>
-              ))}
-            </div>
+            <div className={styles.mobileMenuContent}>
+              <motion.div 
+                className={styles.mobileNavLinks}
+                variants={linkWrapperVariants}
+              >
+                {[...navLinks, { name: t.nav.contact, href: '/contact' }].map((link, i) => (
+                  <div key={link.name} className={styles.linkWrapper}>
+                    <motion.div variants={linkItemVariants}>
+                      <Link href={link.href} className={styles.mobileNavLink}>
+                        <span className={styles.linkIndex}>0{i + 1}</span>
+                        <span className={styles.linkText}>{link.name}</span>
+                        <ArrowRight className={styles.linkArrow} size={32} />
+                      </Link>
+                    </motion.div>
+                  </div>
+                ))}
+              </motion.div>
 
-            <motion.div 
-              className={styles.mobileNavFooter}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-            >
-              <div className={styles.footerDivider} />
-              <div className={styles.footerActions}>
-                <div className={styles.mobileLang}>
-                  <Globe size={14} color="var(--mint-gold)" />
-                  <button 
-                    onClick={() => setLanguage('en')}
-                    className={`${styles.mobileLangBtn} ${language === 'en' ? styles.mobileLangBtnActive : ''}`}
-                  >
-                    EN
-                  </button>
-                  <button 
-                    onClick={() => setLanguage('fr')}
-                    className={`${styles.mobileLangBtn} ${language === 'fr' ? styles.mobileLangBtnActive : ''}`}
-                  >
-                    FR
+              <motion.div 
+                className={styles.mobileNavFooter}
+                variants={footerVariants}
+              >
+                <div className={styles.footerDivider} />
+                <div className={styles.footerActions}>
+                  <div className={styles.mobileLang}>
+                    <Globe size={14} color="var(--mint-gold)" />
+                    <button 
+                      onClick={() => setLanguage('en')}
+                      className={`${styles.mobileLangBtn} ${language === 'en' ? styles.mobileLangBtnActive : ''}`}
+                    >
+                      EN
+                    </button>
+                    <button 
+                      onClick={() => setLanguage('fr')}
+                      className={`${styles.mobileLangBtn} ${language === 'fr' ? styles.mobileLangBtnActive : ''}`}
+                    >
+                      FR
+                    </button>
+                  </div>
+                  <button className={styles.mobilePrivateAccess}>
+                    {t.nav.privateAccess}
                   </button>
                 </div>
-                <button className={styles.mobilePrivateAccess}>
-                  {t.nav.privateAccess}
-                </button>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

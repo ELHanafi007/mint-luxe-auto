@@ -1,0 +1,137 @@
+.container {
+  padding: 120px 0;
+  background-color: #000;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  color: #fff;
+  letter-spacing: 0.1em;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.4;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.fadeLeft, .fadeRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fadeLeft {
+  left: 0;
+  background: linear-gradient(to right, #000 0%, transparent 100%);
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(to left, #000 0%, transparent 100%);
+}
+
+.embla {
+  overflow: hidden;
+  cursor: grab;
+}
+
+.embla:active {
+  cursor: grabbing;
+}
+
+.emblaContainer {
+  display: flex;
+  user-select: none;
+  align-items: center;
+}
+
+.emblaSlide {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding-left: 120px;
+}
+
+.brandLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  filter: grayscale(1);
+  opacity: 0.2;
+}
+
+.brandLogo:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: translateY(-5px);
+  color: var(--mint-gold);
+}
+
+.svgLogo {
+  height: 45px;
+  width: auto;
+  color: #fff;
+  transition: color 0.6s ease;
+}
+
+.brandLogo:hover .svgLogo {
+  color: var(--mint-gold);
+}
+
+.logoTextInside {
+  fill: currentColor;
+  font-family: var(--font-sans);
+  letter-spacing: 0.1em;
+}
+
+.logoName {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: #fff;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.brandLogo:hover .logoName {
+  opacity: 0.6;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 80px 0;
+  }
+  
+  .header {
+    margin-bottom: 50px;
+  }
+
+  .emblaSlide {
+    padding-left: 80px;
+  }
+
+  .svgLogo {
+    height: 35px;
+  }
+}
