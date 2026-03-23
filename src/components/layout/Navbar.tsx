@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
@@ -53,7 +53,7 @@ export default function Navbar() {
 
   // --- Animation Variants ---
 
-  const menuVariants = {
+  const menuVariants: Variants = {
     closed: {
       y: '-100%',
       transition: {
@@ -71,7 +71,7 @@ export default function Navbar() {
     }
   };
 
-  const linkWrapperVariants = {
+  const linkWrapperVariants: Variants = {
     closed: {
       transition: {
         staggerChildren: 0.05,
@@ -86,7 +86,7 @@ export default function Navbar() {
     }
   };
 
-  const linkItemVariants = {
+  const linkItemVariants: Variants = {
     closed: {
       y: 80,
       opacity: 0,
@@ -105,7 +105,7 @@ export default function Navbar() {
     }
   };
 
-  const footerVariants = {
+  const footerVariants: Variants = {
     closed: {
       opacity: 0,
       y: 20
