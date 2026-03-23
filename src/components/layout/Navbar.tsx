@@ -6,10 +6,12 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './Navbar.module.css';
+import { Globe } from 'lucide-react';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showConcierge, setShowConcierge] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
   const { language, setLanguage, t } = useLanguage();
@@ -29,14 +31,28 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', updateScrolled);
   }, []);
 
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  // Prevent scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isMenuOpen]);
+
   return (
     <motion.nav 
       className={styles.navbar}
       style={{ 
-        backgroundColor: `rgba(0, 0, 0, ${isScrolled || !isHome ? 0.95 : 0.4})`,
-        backdropFilter: `blur(${isScrolled || !isHome ? 20 : 0}px)`,
+        backgroundColor: isMenuOpen ? '#000' : `rgba(0, 0, 0, ${isScrolled || !isHome ? 0.95 : 0.4})`,
+        backdropFilter: isMenuOpen ? 'none' : `blur(${isScrolled || !isHome ? 20 : 0}px)`,
         padding: isScrolled ? '15px 0' : '30px 0',
-        borderBottom: (isScrolled || !isHome) ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.05)'
+        borderBottom: (isMenuOpen || isScrolled || !isHome) ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.05)'
       }}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -137,8 +153,79 @@ export default function Navbar() {
               {t.nav.privateAccess}
             </button>
           </div>
+
+          <button 
+            className={styles.mobileMenuToggle}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <div className={styles.hamburger}>
+              <div className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerLineActive : ''}`} />
+              <div className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerLineActive : ''}`} />
+              <div className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerLineActive : ''}`} />
+            </div>
+          </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            className={styles.mobileOverlay}
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'tween', duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+          >
+            <div className={styles.mobileNavLinks}>
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + (i * 0.1) }}
+                >
+                  <Link href={link.href} className={styles.mobileNavLink}>
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + (navLinks.length * 0.1) }}
+              >
+                <Link href="/contact" className={styles.mobileNavLink}>
+                  {t.nav.contact}
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className={styles.mobileNavFooter}>
+              <div className={styles.mobileActions}>
+                <div className={styles.mobileLangToggle}>
+                  <Globe size={18} color="rgba(255,255,255,0.4)" />
+                  <button 
+                    onClick={() => setLanguage('en')}
+                    className={`${styles.mobileLangBtn} ${language === 'en' ? styles.mobileLangBtnActive : ''}`}
+                  >
+                    EN
+                  </button>
+                  <button 
+                    onClick={() => setLanguage('fr')}
+                    className={`${styles.mobileLangBtn} ${language === 'fr' ? styles.mobileLangBtnActive : ''}`}
+                  >
+                    FR
+                  </button>
+                </div>
+              </div>
+              <button className={styles.mobileCta}>
+                {t.nav.privateAccess}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }

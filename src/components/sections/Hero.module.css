@@ -136,4 +136,8 @@
     flex-direction: column;
     gap: var(--spacing-md);
   }
+
+  .scrollIndicator {
+    display: none;
+  }
 }
