@@ -14,7 +14,8 @@ import {
   ExternalLink,
   Phone,
   Clock,
-  Filter
+  Filter,
+  ChevronRight
 } from 'lucide-react';
 import useSWR, { useSWRConfig } from 'swr';
 
