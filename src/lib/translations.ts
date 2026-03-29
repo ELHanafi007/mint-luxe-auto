@@ -238,7 +238,7 @@ export const translations = {
       title: 'L\'Art de l\'Automobile.',
       subTitle: 'L\'Excellence comme Norme.',
       p1: 'Fondé sur les principes d\'une discrétion absolue et d\'une précision chirurgicale, Mint0lux est devenu la destination de référence pour les collectionneurs les plus exigeants au monde. Nous pensons qu\'un véhicule véritablement exceptionnel n\'est pas seulement une machine, mais un chef-d\'œuvre d\'ingénierie et un actif durable.',
-      p2: 'Our curation process is exhaustive. Every acquisition in our portfolio has been vetted against a rigorous set of criteria—provenance, condition, and rarity—ensuring that we only represent the pinnacle of automotive achievement.',
+      p2: 'Notre processus de sélection est exhaustif. Chaque acquisition de notre portefeuille a été examinée selon un ensemble de critères rigoureux — provenance, état et rareté — garantissant que nous ne représentons que le summum de la réussite automobile.',
       assetsManaged: 'Actifs Gérés',
       globalPartners: 'Partenaires Mondiaux',
       yearsExcellence: 'Années d\'Excellence',

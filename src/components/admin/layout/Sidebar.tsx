@@ -9,7 +9,8 @@ import {
   Settings, 
   History,
   LogOut,
-  MessageSquare
+  MessageSquare,
+  X
 } from 'lucide-react';
 
 const navItems = [
@@ -21,7 +22,11 @@ const navItems = [
   { name: 'Logs', href: '/admin/logs', icon: History },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  onClose?: () => void;
+}
+
+export default function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
 
   const handleLogout = async () => {
@@ -43,18 +48,38 @@ export default function Sidebar() {
     }}>
       <div style={{
         padding: '30px',
-        borderBottom: '1px solid rgba(255,255,255,0.05)'
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
       }}>
-        <div style={{
-          fontSize: '18px',
-          fontWeight: 'bold',
-          letterSpacing: '0.2em'
-        }}>MINT.LUXE</div>
-        <div style={{
-          fontSize: '10px',
-          color: 'rgba(255,255,255,0.4)',
-          letterSpacing: '0.1em'
-        }}>ADMIN DASHBOARD</div>
+        <div>
+          <div style={{
+            fontSize: '18px',
+            fontWeight: 'bold',
+            letterSpacing: '0.2em'
+          }}>MINT.LUXE</div>
+          <div style={{
+            fontSize: '10px',
+            color: 'rgba(255,255,255,0.4)',
+            letterSpacing: '0.1em'
+          }}>ADMIN DASHBOARD</div>
+        </div>
+        {onClose && (
+          <button 
+            onClick={onClose}
+            style={{
+              display: 'none', // Hidden by default, show in CSS or media query if I had one for Sidebar
+              backgroundColor: 'transparent',
+              border: 'none',
+              color: '#fff',
+              cursor: 'pointer'
+            }}
+            className="mobile-close-btn"
+          >
+            <X size={20} />
+          </button>
+        )}
       </div>
       
       <nav style={{ flex: 1, padding: '20px 0' }}>

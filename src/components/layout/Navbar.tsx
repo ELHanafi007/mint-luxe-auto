@@ -128,7 +128,8 @@ export default function Navbar() {
         backgroundColor: isMenuOpen ? 'transparent' : `rgba(0, 0, 0, ${isScrolled || !isHome ? 0.95 : 0.4})`,
         backdropFilter: isMenuOpen ? 'none' : `blur(${isScrolled || !isHome ? 20 : 0}px)`,
         padding: isScrolled ? '15px 0' : '30px 0',
-        borderBottom: (isMenuOpen || isScrolled || !isHome) ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.05)'
+        borderBottom: (isMenuOpen || isScrolled || !isHome) ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.05)',
+        zIndex: isMenuOpen ? 2100 : 1000
       }}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -265,67 +266,68 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+    </motion.nav>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div 
-            className={styles.mobileOverlay}
-            variants={menuVariants}
-            initial="closed"
-            animate="open"
-            exit="closed"
-          >
-            <div className={styles.overlayBackground} />
-            
-            <div className={styles.mobileMenuContent}>
-              <motion.div 
-                className={styles.mobileNavLinks}
-                variants={linkWrapperVariants}
-              >
-                {[...navLinks, { name: t.nav.contact, href: '/contact' }].map((link, i) => (
-                  <div key={link.name} className={styles.linkWrapper}>
-                    <motion.div variants={linkItemVariants}>
-                      <Link href={link.href} className={styles.mobileNavLink}>
-                        <span className={styles.linkIndex}>0{i + 1}</span>
-                        <span className={styles.linkText}>{link.name}</span>
-                        <ArrowRight className={styles.linkArrow} size={32} />
-                      </Link>
-                    </motion.div>
-                  </div>
-                ))}
-              </motion.div>
+    {/* Mobile Menu Overlay */}
+    <AnimatePresence>
+      {isMenuOpen && (
+        <motion.div 
+          className={styles.mobileOverlay}
+          variants={menuVariants}
+          initial="closed"
+          animate="open"
+          exit="closed"
+        >
+          <div className={styles.overlayBackground} />
+          
+          <div className={styles.mobileMenuContent}>
+            <motion.div 
+              className={styles.mobileNavLinks}
+              variants={linkWrapperVariants}
+            >
+              {[...navLinks, { name: t.nav.contact, href: '/contact' }].map((link, i) => (
+                <div key={link.name} className={styles.linkWrapper}>
+                  <motion.div variants={linkItemVariants}>
+                    <Link href={link.href} className={styles.mobileNavLink}>
+                      <span className={styles.linkIndex}>0{i + 1}</span>
+                      <span className={styles.linkText}>{link.name}</span>
+                      <ArrowRight className={styles.linkArrow} size={32} />
+                    </Link>
+                  </motion.div>
+                </div>
+              ))}
+            </motion.div>
 
-              <motion.div 
-                className={styles.mobileNavFooter}
-                variants={footerVariants}
-              >
-                <div className={styles.footerDivider} />
-                <div className={styles.footerActions}>
-                  <div className={styles.mobileLang}>
-                    <Globe size={14} color="var(--mint-gold)" />
-                    <button 
-                      onClick={() => setLanguage('en')}
-                      className={`${styles.mobileLangBtn} ${language === 'en' ? styles.mobileLangBtnActive : ''}`}
-                    >
-                      EN
-                    </button>
-                    <button 
-                      onClick={() => setLanguage('fr')}
-                      className={`${styles.mobileLangBtn} ${language === 'fr' ? styles.mobileLangBtnActive : ''}`}
-                    >
-                      FR
-                    </button>
-                  </div>
-                  <button className={styles.mobilePrivateAccess}>
-                    {t.nav.privateAccess}
+            <motion.div 
+              className={styles.mobileNavFooter}
+              variants={footerVariants}
+            >
+              <div className={styles.footerDivider} />
+              <div className={styles.footerActions}>
+                <div className={styles.mobileLang}>
+                  <Globe size={14} color="var(--mint-gold)" />
+                  <button 
+                    onClick={() => setLanguage('en')}
+                    className={`${styles.mobileLangBtn} ${language === 'en' ? styles.mobileLangBtnActive : ''}`}
+                  >
+                    EN
+                  </button>
+                  <button 
+                    onClick={() => setLanguage('fr')}
+                    className={`${styles.mobileLangBtn} ${language === 'fr' ? styles.mobileLangBtnActive : ''}`}
+                  >
+                    FR
                   </button>
                 </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
-  );
+                <button className={styles.mobilePrivateAccess}>
+                  {t.nav.privateAccess}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </>
+);
 }

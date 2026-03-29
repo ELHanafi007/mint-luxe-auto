@@ -1,8 +1,24 @@
 'use client';
 
-import { Bell, Search, User } from 'lucide-react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Bell, Search, User, Menu } from 'lucide-react';
 
-export default function TopBar() {
+interface TopBarProps {
+  onMenuClick?: () => void;
+}
+
+export default function TopBar({ onMenuClick }: TopBarProps) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/admin/vehicles?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
     <header style={{
       height: '70px',
@@ -16,29 +32,48 @@ export default function TopBar() {
       top: 0,
       zIndex: 10
     }}>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        backgroundColor: '#111',
-        borderRadius: '6px',
-        padding: '8px 15px',
-        width: '300px',
-        border: '1px solid rgba(255,255,255,0.05)'
-      }}>
-        <Search size={16} color="rgba(255,255,255,0.3)" />
-        <input 
-          type="text" 
-          placeholder="Global search..." 
-          style={{
-            backgroundColor: 'transparent',
-            border: 'none',
-            color: '#fff',
-            marginLeft: '10px',
-            fontSize: '13px',
-            outline: 'none',
-            width: '100%'
-          }}
-        />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        {onMenuClick && (
+          <button 
+            onClick={onMenuClick}
+            style={{
+              backgroundColor: 'transparent',
+              border: 'none',
+              color: '#fff',
+              cursor: 'pointer',
+              display: 'none' // Show only on mobile
+            }}
+            className="mobile-menu-btn"
+          >
+            <Menu size={24} />
+          </button>
+        )}
+        <form onSubmit={handleSearch} className="search-wrapper" style={{
+          display: 'flex',
+          alignItems: 'center',
+          backgroundColor: '#111',
+          borderRadius: '6px',
+          padding: '8px 15px',
+          width: '300px',
+          border: '1px solid rgba(255,255,255,0.05)'
+        }}>
+          <Search size={16} color="rgba(255,255,255,0.3)" />
+          <input 
+            type="text" 
+            placeholder="Global search..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              backgroundColor: 'transparent',
+              border: 'none',
+              color: '#fff',
+              marginLeft: '10px',
+              fontSize: '13px',
+              outline: 'none',
+              width: '100%'
+            }}
+          />
+        </form>
       </div>
       
       <div style={{
