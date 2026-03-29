@@ -122,6 +122,7 @@ export default function Navbar() {
   };
 
   return (
+    <>
     <motion.nav 
       className={styles.navbar}
       style={{ 
