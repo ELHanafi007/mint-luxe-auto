@@ -2,16 +2,16 @@
 
 import React from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import DesktopDashboard from '@/components/admin/DesktopDashboard';
+import DesktopInventory from '@/components/admin/inventory/DesktopInventory';
 import MobileDashboard from '@/components/admin/MobileDashboard';
 
 export default function DashboardPage() {
   const isMobile = useMediaQuery('(max-width: 1024px)');
 
-  // The switch happens here - Two completely separate component structures
+  // Two completely separate designs for the two types of users
   return isMobile ? (
     <MobileDashboard />
   ) : (
-    <DesktopDashboard />
+    <DesktopInventory />
   );
 }
