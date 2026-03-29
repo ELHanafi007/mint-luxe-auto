@@ -1,281 +1,263 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   LayoutDashboard, 
   Car, 
   MessageSquare, 
-  TrendingUp, 
   Settings, 
-  History, 
-  LogOut,
-  ArrowUpRight,
-  ArrowDownRight,
-  ShieldCheck,
-  Server,
-  Bell,
-  Search
+  Plus, 
+  Search, 
+  Trash2, 
+  Edit3, 
+  ExternalLink,
+  Save,
+  X
 } from 'lucide-react';
-import { 
-  LineChart, 
-  Line, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  Cell
-} from 'recharts';
+import useSWR, { useSWRConfig } from 'swr';
 
-interface DesktopDashboardProps {
-  data: any;
-}
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-const navItems = [
-  { name: 'Dashboard', icon: LayoutDashboard, active: true },
-  { name: 'Inventory', icon: Car, active: false },
-  { name: 'Inquiries', icon: MessageSquare, active: false },
-  { name: 'Sales Performance', icon: TrendingUp, active: false },
-  { name: 'System Logs', icon: History, active: false },
-  { name: 'Settings', icon: Settings, active: false },
-];
+export default function DesktopDashboard() {
+  const { data: vehicles, error, isLoading } = useSWR('/api/admin/vehicles', fetcher);
+  const { mutate } = useSWRConfig();
+  
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingVehicle, setEditingVehicle] = useState<any>(null);
+  const [search, setSearch] = useState('');
 
-export default function DesktopDashboard({ data }: DesktopDashboardProps) {
-  const [ticker, setTicker] = useState(data?.globalValuationTicker || "$47,200,000");
+  const handleDelete = async (id: string) => {
+    if (!confirm('Permanently remove this asset?')) return;
+    await fetch(`/api/admin/vehicles?id=${id}`, { method: 'DELETE' });
+    mutate('/api/admin/vehicles');
+  };
 
-  // Simulate real-time ticker
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const val = parseInt(ticker.replace(/[^0-9]/g, ''));
-      const newVal = val + Math.floor(Math.random() * 500);
-      setTicker(`$${newVal.toLocaleString()}`);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [ticker]);
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+    
+    const vehicleData = {
+      ...payload,
+      year: parseInt(payload.year as string),
+      specs: {
+        engine: payload.engine,
+        power: payload.power,
+        acceleration: payload.acceleration,
+        topSpeed: payload.topSpeed,
+        transmission: payload.transmission,
+        mileage: payload.mileage,
+        exteriorColor: payload.exteriorColor,
+        interiorColor: payload.interiorColor,
+        driveTrain: payload.driveTrain,
+        fuelType: payload.fuelType
+      }
+    };
+
+    const method = editingVehicle ? 'PUT' : 'POST';
+    const body = editingVehicle ? { ...vehicleData, id: editingVehicle.id } : vehicleData;
+
+    await fetch('/api/admin/vehicles', {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+
+    mutate('/api/admin/vehicles');
+    setIsFormOpen(false);
+    setEditingVehicle(null);
+  };
+
+  const filtered = vehicles?.filter((v: any) => 
+    v.name.toLowerCase().includes(search.toLowerCase()) || 
+    v.brand.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div className="flex min-h-screen bg-[#050505] text-[#F9F9F9] font-sans">
-      {/* Sidebar */}
-      <aside className="w-[260px] border-r border-white/5 bg-[#0A0A0A] flex flex-col fixed h-screen z-20">
-        <div className="p-8 border-b border-white/5">
-          <div className="font-serif text-xl tracking-[0.2em] font-bold">MINT.LUXE</div>
-          <div className="text-[10px] text-white/40 tracking-[0.1em] mt-1 uppercase">Admin Command Center</div>
+    <div className="flex min-h-screen bg-[#050505] text-[#F9F9F9] font-sans selection:bg-[#C5A165]/30">
+      {/* Fixed Sidebar */}
+      <aside className="w-[280px] border-r border-white/5 bg-[#0A0A0A] flex flex-col fixed h-screen z-20">
+        <div className="p-10 border-b border-white/5">
+          <div className="font-serif text-2xl tracking-[0.2em] font-bold italic">MINT.LUXE</div>
+          <div className="text-[10px] text-white/40 tracking-[0.2em] mt-2 uppercase font-black">Command Center</div>
         </div>
 
-        <nav className="flex-1 py-8 px-4 space-y-2">
-          {navItems.map((item) => (
+        <nav className="flex-1 py-10 px-6 space-y-3">
+          {[
+            { name: 'Dashboard', icon: LayoutDashboard, active: true },
+            { name: 'Inventory', icon: Car, active: false },
+            { name: 'Inquiries', icon: MessageSquare, active: false },
+            { name: 'Settings', icon: Settings, active: false },
+          ].map((item) => (
             <button
               key={item.name}
-              className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-300 group ${
-                item.active ? 'bg-white/5 text-[#C5A165]' : 'text-white/40 hover:text-white/80 hover:bg-white/5'
+              className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-500 group ${
+                item.active ? 'bg-white/5 text-[#C5A165]' : 'text-white/20 hover:text-white/80 hover:bg-white/5'
               }`}
             >
               <item.icon size={20} className={item.active ? 'text-[#C5A165]' : 'text-inherit'} />
-              <span className="text-sm font-medium tracking-wide">{item.name}</span>
-              {item.active && (
-                <motion.div 
-                  layoutId="activeNav" 
-                  className="ml-auto w-1 h-4 bg-[#C5A165] rounded-full shadow-[0_0_8px_#C5A165]" 
-                />
-              )}
+              <span className="text-sm font-bold tracking-widest uppercase">{item.name}</span>
             </button>
           ))}
         </nav>
-
-        <div className="p-6 border-t border-white/5">
-          <button className="flex items-center gap-4 px-4 py-3 text-white/40 hover:text-red-400 transition-colors w-full">
-            <LogOut size={20} />
-            <span className="text-sm font-medium">Terminate Session</span>
-          </button>
-        </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 ml-[260px] p-10 relative">
-        {/* Header */}
-        <header className="flex justify-between items-center mb-10">
+      {/* Main Content Area */}
+      <main className="flex-1 ml-[280px] p-12 relative">
+        <header className="flex justify-between items-end mb-12">
           <div>
-            <h1 className="text-3xl font-serif font-bold tracking-tight mb-2">Portfolio Overview</h1>
-            <p className="text-white/40 text-sm">Welcome back, Director Julian Vance.</p>
+            <h1 className="text-4xl font-serif font-bold tracking-tight italic">Asset Management</h1>
+            <p className="text-white/30 text-sm mt-2 font-medium tracking-wide">Curating the exceptional at scale.</p>
           </div>
-
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/5 rounded-full">
-              <div className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-              <span className="text-xs font-mono uppercase tracking-widest text-white/60">Live Valuation:</span>
-              <span className="text-sm font-bold font-mono text-[#C5A165] tabular-nums">{ticker}</span>
+          
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20" size={18} />
+              <input 
+                type="text" 
+                placeholder="Global Search..." 
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="bg-white/5 border border-white/5 rounded-2xl py-3 pl-12 pr-6 text-sm focus:outline-none focus:border-[#C5A165]/30 transition-all w-80"
+              />
             </div>
-            
-            <div className="flex gap-2">
-              <button className="p-2.5 rounded-full bg-white/5 border border-white/5 hover:border-white/10 transition-colors text-white/60 hover:text-white">
-                <Search size={18} />
-              </button>
-              <button className="p-2.5 rounded-full bg-white/5 border border-white/5 hover:border-white/10 transition-colors text-white/60 hover:text-white relative">
-                <Bell size={18} />
-                <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#C5A165] rounded-full" />
-              </button>
-            </div>
+            <button 
+              onClick={() => { setEditingVehicle(null); setIsFormOpen(true); }}
+              className="flex items-center gap-3 px-6 py-3 bg-[#C5A165] text-black rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-[1.02] transition-transform active:scale-95 shadow-[0_10px_20px_rgba(197,161,101,0.2)]"
+            >
+              <Plus size={18} strokeWidth={3} />
+              Inject Asset
+            </button>
           </div>
         </header>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-4 gap-6 mb-10">
-          {data?.stats?.map((stat: any, i: number) => (
-            <motion.div
-              key={stat.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -4 }}
-              className="relative p-6 rounded-xl bg-[#0A0A0A] border border-white/5 overflow-hidden group transition-all duration-500 hover:border-white/10"
-            >
-              {/* Radial Glow */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(197,161,101,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <div className="relative z-10">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-xs font-medium text-white/40 uppercase tracking-widest">{stat.name}</span>
-                  <div className={`flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded ${
-                    stat.trend === 'up' ? 'text-[#10b981] bg-[#10b981]/10' : 'text-white/40 bg-white/10'
-                  }`}>
-                    {stat.trend === 'up' ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
-                    {stat.change}
+        {/* Inventory Grid */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-8">
+          <AnimatePresence>
+            {isLoading ? (
+              [1,2,3,4,5,6].map(i => <div key={i} className="h-80 bg-white/5 rounded-[2.5rem] animate-pulse" />)
+            ) : filtered?.map((vehicle: any) => (
+              <motion.div 
+                key={vehicle.id}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] overflow-hidden group hover:border-[#C5A165]/20 transition-all duration-500 relative"
+              >
+                <div className="h-56 relative overflow-hidden">
+                  <img src={vehicle.image} alt={vehicle.name} className="w-full h-full object-cover opacity-50 group-hover:scale-105 group-hover:opacity-80 transition-all duration-1000" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
+                  <div className="absolute bottom-6 left-8">
+                     <span className="text-[10px] uppercase tracking-[0.3em] text-[#C5A165] font-black">{vehicle.brand}</span>
+                     <h2 className="text-2xl font-serif font-bold italic">{vehicle.name}</h2>
                   </div>
                 </div>
-                <div className="text-3xl font-serif font-bold tracking-tight text-[#C5A165]">{stat.value}</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Middle Section */}
-        <div className="grid grid-cols-3 gap-6 mb-10">
-          {/* Main Chart */}
-          <div className="col-span-2 p-8 rounded-xl bg-[#0A0A0A] border border-white/5">
-            <h3 className="text-lg font-serif mb-6 flex items-center gap-2">
-              <TrendingUp size={20} className="text-[#C5A165]" />
-              Weekly Acquisition Velocity
-            </h3>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data?.weeklySales}>
-                  <defs>
-                    <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#C5A165" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#C5A165" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
-                  <XAxis 
-                    dataKey="day" 
-                    axisLine={false} 
-                    tickLine={false} 
-                    tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 12 }} 
-                  />
-                  <YAxis 
-                    hide 
-                  />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#0A0A0A', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }}
-                    itemStyle={{ color: '#C5A165' }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="sales" 
-                    stroke="#C5A165" 
-                    strokeWidth={3} 
-                    dot={false}
-                    activeDot={{ r: 6, stroke: '#C5A165', strokeWidth: 0, fill: '#fff' }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          {/* Brand Distribution */}
-          <div className="p-8 rounded-xl bg-[#0A0A0A] border border-white/5">
-            <h3 className="text-lg font-serif mb-6">Inventory by Brand</h3>
-            <div className="space-y-4">
-              {data?.inventoryByBrand?.map((item: any) => (
-                <div key={item.brand} className="group">
-                  <div className="flex justify-between items-end mb-1.5">
-                    <span className="text-sm text-white/60 group-hover:text-white transition-colors">{item.brand}</span>
-                    <span className="text-xs font-mono text-[#C5A165]">{item.count}</span>
-                  </div>
-                  <div className="h-1 bg-white/5 rounded-full overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: `${(item.count / 10) * 100}%` }}
-                      transition={{ duration: 1, ease: "circOut" }}
-                      className="h-full bg-gradient-to-r from-[#C5A165]/40 to-[#C5A165]"
-                    />
+                
+                <div className="p-8 flex justify-between items-center border-t border-white/5">
+                  <div className="text-xl font-mono text-[#C5A165] font-bold">{vehicle.price}</div>
+                  <div className="flex gap-3">
+                    <button 
+                      onClick={() => { setEditingVehicle(vehicle); setIsFormOpen(true); }}
+                      className="p-3 bg-white/5 rounded-xl hover:bg-[#C5A165] hover:text-black transition-all"
+                    >
+                      <Edit3 size={18} />
+                    </button>
+                    <button 
+                      onClick={() => handleDelete(vehicle.id)}
+                      className="p-3 bg-white/5 rounded-xl hover:bg-red-500 transition-all"
+                    >
+                      <Trash2 size={18} />
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className="grid grid-cols-2 gap-6">
-          {/* Active Inquiries */}
-          <div className="p-8 rounded-xl bg-[#0A0A0A] border border-white/5">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-serif">High-Net-Worth Inquiries</h3>
-              <button className="text-[10px] uppercase tracking-widest text-[#C5A165] hover:opacity-60 transition-opacity">View Portfolio</button>
-            </div>
-            <div className="space-y-4">
-              {data?.recentInquiries?.map((inquiry: any) => (
-                <div key={inquiry.id} className="p-4 rounded-lg bg-white/5 border border-white/5 flex justify-between items-center hover:bg-white/[0.07] transition-all cursor-pointer">
-                  <div>
-                    <div className="text-sm font-semibold mb-0.5">{inquiry.name}</div>
-                    <div className="text-[10px] text-white/30 uppercase tracking-tighter">Interest: <span className="text-white/60">{inquiry.interest}</span></div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-[10px] text-white/30 font-mono italic">{inquiry.status}</div>
-                    <ArrowUpRight size={14} className="text-white/20" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* System Health */}
-          <div className="p-8 rounded-xl bg-[#0A0A0A] border border-white/5">
-            <h3 className="text-lg font-serif mb-6 flex items-center gap-2">
-              <ShieldCheck size={20} className="text-[#C5A165]" />
-              Infrastructure Integrity
-            </h3>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="p-4 rounded-lg bg-white/5 border border-white/5">
-                <div className="flex items-center gap-2 mb-2 text-white/40">
-                  <Server size={14} />
-                  <span className="text-[10px] uppercase tracking-widest">Global Latency</span>
-                </div>
-                <div className="text-xl font-mono text-[#10b981]">{data?.systemHealth?.latency}ms</div>
-              </div>
-              <div className="p-4 rounded-lg bg-white/5 border border-white/5">
-                <div className="flex items-center gap-2 mb-2 text-white/40">
-                  <ShieldCheck size={14} />
-                  <span className="text-[10px] uppercase tracking-widest">Storage Efficiency</span>
-                </div>
-                <div className="text-xl font-mono">{data?.systemHealth?.storage}%</div>
-              </div>
-            </div>
-            
-            <div className="p-4 rounded-lg bg-[#10b981]/5 border border-[#10b981]/20 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-[#10b981]" />
-                <span className="text-xs font-medium text-[#10b981]/80">Discretion System Fully Operational</span>
-              </div>
-              <span className="text-[10px] text-[#10b981]/40 uppercase font-bold">Encrypted</span>
-            </div>
-          </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </main>
+
+      {/* Slide-over Form Panel (Desktop) */}
+      <AnimatePresence>
+        {isFormOpen && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[50]"
+              onClick={() => setIsFormOpen(false)}
+            />
+            <motion.div 
+              initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+              className="fixed right-0 top-0 bottom-0 w-[600px] bg-[#0A0A0A] border-l border-white/5 z-[60] shadow-2xl p-12 flex flex-col"
+            >
+              <div className="flex justify-between items-center mb-12">
+                <h2 className="text-3xl font-serif font-bold italic">{editingVehicle ? 'Edit Masterpiece' : 'Inject New Asset'}</h2>
+                <button onClick={() => setIsFormOpen(false)} className="p-2 hover:bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              </div>
+
+              <form onSubmit={handleFormSubmit} className="flex-1 overflow-y-auto pr-4 space-y-10 custom-scrollbar">
+                <div className="space-y-6">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-widest text-[#C5A165] font-black">Brand</label>
+                      <input name="brand" placeholder="Ferrari" defaultValue={editingVehicle?.brand} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-[#C5A165]" required />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-widest text-[#C5A165] font-black">Model Name</label>
+                      <input name="name" placeholder="LaFerrari" defaultValue={editingVehicle?.name} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-[#C5A165]" required />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-widest text-white/30 font-black">Year</label>
+                      <input name="year" type="number" defaultValue={editingVehicle?.year} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-[#C5A165]" required />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-widest text-white/30 font-black">Valuation</label>
+                      <input name="price" defaultValue={editingVehicle?.price} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-[#C5A165]" required />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-white/30 font-black">Curation Narrative</label>
+                    <textarea name="description" rows={5} defaultValue={editingVehicle?.description} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-[#C5A165]" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-white/30 font-black">Showcase Image URL</label>
+                    <input name="image" defaultValue={editingVehicle?.image} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-[#C5A165]" />
+                  </div>
+
+                  <div className="bg-white/5 rounded-3xl p-8 border border-white/5 space-y-6">
+                    <h3 className="text-xs uppercase tracking-[0.2em] text-[#C5A165] font-black">Technical Specifications</h3>
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                       {['engine', 'power', 'acceleration', 'topSpeed', 'transmission', 'mileage', 'exteriorColor', 'interiorColor', 'driveTrain', 'fuelType'].map((spec) => (
+                         <div key={spec} className="space-y-1">
+                           <label className="text-[8px] uppercase tracking-widest text-white/20 font-bold capitalize">{spec.replace(/([A-Z])/g, ' $1')}</label>
+                           <input 
+                            name={spec} 
+                            defaultValue={editingVehicle?.specs?.[spec]} 
+                            className="w-full bg-transparent border-b border-white/10 py-1 text-sm focus:outline-none focus:border-[#C5A165] transition-colors" 
+                           />
+                         </div>
+                       ))}
+                    </div>
+                  </div>
+                </div>
+
+                <button 
+                  type="submit" 
+                  className="w-full py-5 bg-[#C5A165] text-black rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:scale-[0.99] transition-transform"
+                >
+                  <Save size={18} />
+                  Confirm and Authorize
+                </button>
+              </form>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
