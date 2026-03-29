@@ -3,7 +3,7 @@ import * as jose from 'jose';
 
 const JWT_SECRET = process.env.ADMIN_JWT_SECRET || 'mint0lux-fallback-secret-for-development';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
