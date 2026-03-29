@@ -1,8 +1,17 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { verifyToken } from '@/lib/admin/jwt';
 
 const DATA_PATH = path.join(process.cwd(), 'src/data/admin/vehicles.json');
+
+async function checkAuth(request: Request) {
+  const token = request.headers.get('cookie')?.split('admin_token=')[1]?.split(';')[0];
+  if (!token || !(await verifyToken(token))) {
+    return false;
+  }
+  return true;
+}
 
 function getVehicles() {
   const data = fs.readFileSync(DATA_PATH, 'utf8');
@@ -14,7 +23,9 @@ function saveVehicles(vehicles: any[]) {
 }
 
 // GET: List all vehicles
-export async function GET() {
+export async function GET(request: Request) {
+  if (!(await checkAuth(request))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  
   try {
     const vehicles = getVehicles();
     return NextResponse.json(vehicles);
@@ -25,6 +36,8 @@ export async function GET() {
 
 // POST: Create new vehicle
 export async function POST(request: Request) {
+  if (!(await checkAuth(request))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
   try {
     const body = await request.json();
     const vehicles = getVehicles();
@@ -46,6 +59,8 @@ export async function POST(request: Request) {
 
 // PUT: Update existing vehicle
 export async function PUT(request: Request) {
+  if (!(await checkAuth(request))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
   try {
     const body = await request.json();
     const vehicles = getVehicles();
@@ -64,6 +79,8 @@ export async function PUT(request: Request) {
 
 // DELETE: Remove vehicle
 export async function DELETE(request: Request) {
+  if (!(await checkAuth(request))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
   const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');
   

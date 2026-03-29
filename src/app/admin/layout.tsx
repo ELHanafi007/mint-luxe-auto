@@ -20,8 +20,15 @@ export default function AdminLayout({
     setIsSidebarOpen(false);
   }, [pathname]);
 
+  const isFullAppPage = ['/admin/dashboard', '/admin/inquiries', '/admin/vehicles'].includes(pathname);
+
   if (isLoginPage) {
     return <>{children}</>;
+  }
+
+  // Dashboard and Inquiries have their own internal layout management (Separate Mobile/Desktop)
+  if (isFullAppPage) {
+    return <div className="bg-[#050505] min-h-screen">{children}</div>;
   }
 
   return (
